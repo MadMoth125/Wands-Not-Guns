@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf5842a1954ed5345914fad96509a69d, type: 3}
-  m_Name: scriptable_variable_EnemyMaxHealth
+  m_Name: EnemyMaxHealthVariable
   m_EditorClassIdentifier: 
   CategoryIndex: 1
   Description: The max health an enemy should have on a given round. Round number
