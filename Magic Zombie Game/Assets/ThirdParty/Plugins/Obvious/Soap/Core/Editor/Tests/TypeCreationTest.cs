@@ -8,7 +8,8 @@ namespace Obvious.Soap.Editor.Tests
 {
     public class TypeCreationTest
     {
-        private readonly string _path = "Assets/SoapGenerated/";
+        // small change to path so it is localized to the plugin rather than the project root
+        private readonly string _path = "Assets/ThirdParty/Plugins/Obvious/Soap/SoapGenerated/";
 
         [UnityTest]
         public IEnumerator CreateCustomType()
