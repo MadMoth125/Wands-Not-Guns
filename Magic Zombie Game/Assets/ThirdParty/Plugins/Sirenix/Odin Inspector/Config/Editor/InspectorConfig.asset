@@ -16,4 +16,78 @@ MonoBehaviour:
   defaultEditorBehaviour: 11
   processMouseMoveInInspector: 1
   drawingConfig:
-    configs: []
+    configs:
+    - DrawnTypeName: Obvious.Soap.BindFillingImage, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.BindGraphicColor, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.BindInputField, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.BindRendererColor, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.BindSlider, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.BindToggle, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.CacheComponent`1, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.EventListenerBool, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.EventListenerColor, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.EventListenerFloat, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.EventListenerGameObject, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.EventListenerInt, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.EventListenerNoParam, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.EventListenerString, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.EventListenerVector2, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.EventListenerVector2Int, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.EventListenerVector3, Obvious.Soap
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Editor.ExampleClass, Obvious.Soap.Editor
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.AutoDisabler, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.AutoRotator, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.Enemy, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.EnemyMovement, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.FadeOut, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.GameManager, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.Health, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.HealVignette, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.HyperlinkButton, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.ListCount, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.Player, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.PlayerInput, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.PlayerMovement, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.PlayerNotifier, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.PlayersNotifier, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.PlayerSpawner, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.PositionSaver, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.SceneDocumentationButton, Obious.Soap.Example
+      EditorTypeName: 
+    - DrawnTypeName: Obvious.Soap.Example.VfxSpawner, Obious.Soap.Example
+      EditorTypeName: 
