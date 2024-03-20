@@ -68,6 +68,14 @@ namespace ObjectPool
 
 		#region Public Methods
 
+		/// <summary>
+		/// Gets an element from the pool.
+		/// Allows you to optionally set the element's new position, rotation, and scale.
+		/// </summary>
+		/// <param name="position">The element's new position.</param>
+		/// <param name="rotation">The element's new rotation.</param>
+		/// <param name="scale">The element's new scale.</param>
+		/// <returns>The element retrieved from the pool.</returns>
 		public virtual T GetElement(Vector3? position = null, Quaternion? rotation = null, Vector3? scale = null)
 		{
 			T obj = _pool.Get();
@@ -93,6 +101,10 @@ namespace ObjectPool
 			return obj;
 		}
 
+		/// <summary>
+		/// Return a specified object to the pool.
+		/// </summary>
+		/// <param name="element">The element to return to the pool.</param>
 		public virtual void ReleaseElement(T element) => _pool.Release(element);
 
 		public virtual void ReleaseElement(T element, bool resetState)
@@ -119,14 +131,30 @@ namespace ObjectPool
 			resetStateAction.Invoke();
 		}
 
+		/// <summary>
+		/// Gets a collection of all active objects in the pool.
+		/// </summary>
 		public virtual IEnumerable<T> GetAllActiveObjects() => from obj in _poolCollection where (obj.Value == true) select obj.Key;
 
+		/// <summary>
+		/// Gets a collection of all inactive objects in the pool.
+		/// </summary>
 		public virtual IEnumerable<T> GetAllInactiveObjects() => (from obj in _poolCollection where (obj.Value == false) select obj.Key);
 
+		/// <summary>
+		/// Gets the number of active objects in the pool.
+		/// </summary>
 		public int GetActiveObjectCount() => _pool.CountActive;
 
+		/// <summary>
+		/// Gets the number of inactive objects in the pool.
+		/// </summary>
 		public int GetInactiveObjectCount() => _pool.CountInactive;
 
+		/// <summary>
+		/// Returns all objects back to the pool.
+		/// </summary>
+		/// <param name="resetState">Whether or not to reset the state of the elements when returned to the pool.</param>
 		public virtual void ReturnAllObjects(bool resetState)
 		{
 			foreach (var obj in _poolCollection)
