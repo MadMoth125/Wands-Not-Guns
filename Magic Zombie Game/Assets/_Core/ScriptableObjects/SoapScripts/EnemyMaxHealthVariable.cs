@@ -3,8 +3,8 @@ using Obvious.Soap;
 
 namespace Core.Data
 {
-	[CreateAssetMenu(fileName = "EnemyMaxHealthVariable", menuName = "Soap/CustomScriptableVariables/" + nameof(EnemyMaxHealthVariable))]
-	public class EnemyMaxHealthVariable : ScriptableVariable<EnemyMaxHealth>
+	[CreateAssetMenu(fileName = nameof(EnemyMaxHealthVariable), menuName = "Game/Data/" + nameof(EnemyMaxHealthVariable))]
+	public class EnemyMaxHealthVariable : ScriptableVariable<EnemyMaxHealthParameters>
 	{
 		/// <summary>
 		/// Gets the max health for the enemy.

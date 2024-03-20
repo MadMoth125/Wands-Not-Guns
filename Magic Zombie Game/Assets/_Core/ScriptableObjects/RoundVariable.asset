@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56cdb8ad39a5bdd4f8ed3d18fae14a63, type: 3}
   m_Name: RoundVariable
   m_EditorClassIdentifier: 
-  CategoryIndex: 0
+  CategoryIndex: 1
   Description: 
   _guid: afffdace64b1752419dcaa984a62bb2f
   _saveGuid: 0

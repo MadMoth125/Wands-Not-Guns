@@ -4,7 +4,7 @@ using Obvious.Soap;
 namespace Core.Data
 {
 	[System.Serializable]
-	public class EnemyMaxHealth
+	public class EnemyMaxHealthParameters
 	{
 		public double StartingHealth => startingHealth;
 	
