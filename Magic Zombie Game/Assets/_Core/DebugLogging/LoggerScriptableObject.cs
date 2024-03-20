@@ -1,9 +1,11 @@
+using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Core.CustomDebugger
 {
 	[CreateAssetMenu(fileName = "Logger", menuName = "Debug/Logger")]
-	public class Logger : ScriptableObject
+	public class LoggerScriptableObject : ScriptableObject
 	{
 		public enum LogType
 		{
@@ -18,14 +20,25 @@ namespace Core.CustomDebugger
 		
 		#region Serialized Fields
 
+		[TitleGroup("Logger Parameters", Order = -1)]
+		[ValidateInput("@!String.IsNullOrEmpty(identifier) || !String.IsNullOrWhiteSpace(identifier)", "Identifier cannot be empty.")]
 		[SerializeField]
 		private string identifier = "Logger Instance";
 
+		[TitleGroup("Logger Parameters", Order = -1)]
 		[SerializeField]
 		private bool enabled = true;
 
 		#endregion
 
+		/// <summary>
+		/// Logs a message to the console if the object reference is null.
+		/// Formats the message to include the identifier of the logger.
+		/// </summary>
+		/// <param name="objRef">The object reference to check.</param>
+		/// <param name="message">The message to log.</param>
+		/// <param name="caller">The object that is calling the method.</param>
+		/// <param name="logType">The type of log to output. (Info, Warning, etc.)</param>
 		public void LogIfNull(object objRef, string message, UnityEngine.Object caller, LogType logType = LogType.Warning)
 		{
 			// only log if in editor
@@ -43,6 +56,14 @@ namespace Core.CustomDebugger
 			#endif
 		}
 	
+		/// <summary>
+		/// Logs a message to the console if the condition is true.
+		/// Formats the message to include the identifier of the logger.
+		/// </summary>
+		/// <param name="condition">The condition to check.</param>
+		/// <param name="message">The message to log.</param>
+		/// <param name="caller">The object that is calling the method.</param>
+		/// <param name="logType">The type of log to output. (Info, Warning, etc.)</param>
 		public void LogConditional(bool condition, string message, UnityEngine.Object caller, LogType logType = LogType.Info)
 		{
 			// only log if in editor
@@ -61,6 +82,13 @@ namespace Core.CustomDebugger
 			#endif
 		}
 	
+		/// <summary>
+		/// Logs a message to the console.
+		/// Formats the message to include the identifier of the logger.
+		/// </summary>
+		/// <param name="message">The message to log.</param>
+		/// <param name="caller">The object that is calling the method.</param>
+		/// <param name="logType">The type of log to output. (Info, Warning, etc.)</param>
 		public void Log(string message, UnityEngine.Object caller, LogType logType = LogType.Info)
 		{
 			// only log if in editor
@@ -94,7 +122,7 @@ namespace Core.CustomDebugger
 	
 		private string FormatMessage(string message)
 		{
-			return $"{typeof(Logger)} - {identifier}: {message}";
+			return $"{typeof(LoggerScriptableObject)} - {identifier}: {message}";
 		}
 	}
 }
