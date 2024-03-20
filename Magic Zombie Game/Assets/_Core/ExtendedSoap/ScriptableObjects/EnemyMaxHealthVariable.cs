@@ -6,10 +6,6 @@ namespace Core.Data
 	[CreateAssetMenu(fileName = "EnemyMaxHealthVariable", menuName = "Soap/CustomScriptableVariables/" + nameof(EnemyMaxHealthVariable))]
 	public class EnemyMaxHealthVariable : ScriptableVariable<EnemyMaxHealth>
 	{
-		[Header("Round Value Reference")]
-		[SerializeField]
-		private IntVariable roundValue;
-		
 		/// <summary>
 		/// Gets the max health for the enemy.
 		/// </summary>
@@ -27,7 +23,7 @@ namespace Core.Data
 		/// <returns>The max health for the given round.</returns>
 		public double GetMaxHealth()
 		{
-			return GetMaxHealth(roundValue.Value);
+			return GetMaxHealth(_value.RoundValue);
 		}
 	}
 }
