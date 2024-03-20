@@ -1,4 +1,5 @@
 using UnityEngine;
+using Obvious.Soap;
 
 namespace Core.Data
 {
@@ -11,6 +12,8 @@ namespace Core.Data
 	
 		public double PercentageIncreaseAmount => percentageIncreaseAmount;
 	
+		public int RoundValue => roundValue != null ? roundValue.Value : 1;
+		
 		[SerializeField]
 		private double startingHealth = 150d;
 	
@@ -19,5 +22,8 @@ namespace Core.Data
 	
 		[SerializeField]
 		private double percentageIncreaseAmount = 0.1d;
+		
+		[SerializeField]
+		private IntVariable roundValue;
 	}
 }
