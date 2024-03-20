@@ -122,7 +122,7 @@ namespace Core.CustomDebugger
 	
 		private string FormatMessage(string message)
 		{
-			return $"{typeof(LoggerScriptableObject)} - {identifier}: {message}";
+			return $"{Time.time} {typeof(LoggerScriptableObject)} - {identifier}: {message}";
 		}
 	}
 }
