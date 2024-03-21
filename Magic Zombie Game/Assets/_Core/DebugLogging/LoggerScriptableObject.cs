@@ -1,4 +1,5 @@
 using System;
+using ScriptExtensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -122,7 +123,7 @@ namespace Core.CustomDebugger
 	
 		private string FormatMessage(string message)
 		{
-			return $"{Time.time} {typeof(LoggerScriptableObject)} - {identifier}: {message}";
+			return $"{identifier.Color(ColorExtensions.ClassColor)}: " + message;
 		}
 	}
 }
