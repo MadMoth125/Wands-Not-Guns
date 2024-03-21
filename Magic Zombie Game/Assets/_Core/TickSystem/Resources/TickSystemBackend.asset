@@ -12,20 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9ede8758d562346bd9217e6af18b51, type: 3}
   m_Name: TickSystemBackend
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
   enableUpdateTick: 1
   enableFixedUpdateTick: 0
   enableLateUpdateTick: 0
   tickRate: 30
-  ticks:
+  tickGroups:
   - name: UI
     enabled: 1
     tickRate: 5

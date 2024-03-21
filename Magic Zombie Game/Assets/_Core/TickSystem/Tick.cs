@@ -7,7 +7,7 @@ namespace Core.TickSystem
 	{
 		private static Tick instance;
 	
-		private static TickSystemBackendScriptableObject backendAsset;
+		private static TickSystemScriptableObject asset;
 
 		#region Static Methods
 
@@ -28,14 +28,14 @@ namespace Core.TickSystem
 		}
 
 		/// <summary>
-		/// Wrapper for <see cref="TickSystemBackendScriptableObject"/>.<see cref="TickSystemBackendScriptableObject.AddListener"/>
+		/// Wrapper for <see cref="TickSystemScriptableObject"/>.<see cref="TickSystemScriptableObject.AddListener"/>
 		/// </summary>
-		public static void AddListener(string layerName, Action listener) => backendAsset.AddListener(layerName, listener);
+		public static void AddListener(string layerName, Action listener) => asset.AddListener(layerName, listener);
 
 		/// <summary>
-		/// Wrapper for <see cref="TickSystemBackendScriptableObject"/>.<see cref="TickSystemBackendScriptableObject.RemoveListener"/>
+		/// Wrapper for <see cref="TickSystemScriptableObject"/>.<see cref="TickSystemScriptableObject.RemoveListener"/>
 		/// </summary>
-		public static void RemoveListener(string layerName, Action listener) => backendAsset.RemoveListener(layerName, listener);
+		public static void RemoveListener(string layerName, Action listener) => asset.RemoveListener(layerName, listener);
 
 		#endregion
 
@@ -43,16 +43,16 @@ namespace Core.TickSystem
 
 		private void Awake()
 		{
-			backendAsset = Resources.Load<TickSystemBackendScriptableObject>("TickSystemBackend");
-			backendAsset.Initialize();
+			asset = Resources.Load<TickSystemScriptableObject>("TickSystemBackend");
+			asset.Initialize();
 		}
 
 		private void Update()
 		{
 			// The first layer is reserved for Unity's Update method
-			backendAsset.GetUnityTickLayers()[0].Tick();
+			asset.GetUnityTickLayers()[0].Tick();
 
-			foreach (var tick in backendAsset.GetTickLayers())
+			foreach (var tick in asset.GetTickLayers())
 			{
 				// If the tick should tick, then tick it
 				// (ticking ticks tick ticket and ticked tick it. I'm going insane)
@@ -66,13 +66,13 @@ namespace Core.TickSystem
 		private void FixedUpdate()
 		{
 			// The second layer is reserved for Unity's FixedUpdate method
-			backendAsset.GetUnityTickLayers()[1].Tick();
+			asset.GetUnityTickLayers()[1].Tick();
 		}
 	
 		private void LateUpdate()
 		{
 			// The third layer is reserved for Unity's LateUpdate method
-			backendAsset.GetUnityTickLayers()[2].Tick();
+			asset.GetUnityTickLayers()[2].Tick();
 		}
 
 		#endregion

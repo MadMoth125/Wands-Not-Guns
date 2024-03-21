@@ -6,15 +6,17 @@ using UnityEngine.Serialization;
 
 namespace Core.TickSystem
 {
-	[CreateAssetMenu(fileName = "TickSystemBackend", menuName = "Game/Tick System/TickSystemBackend")]
-	public class TickSystemBackendScriptableObject : ScriptableObject
+	[CreateAssetMenu(fileName = "TickSystemBackend", menuName = "Game/Tick System/Tick Backend")]
+	public class TickSystemScriptableObject : ScriptableObject
 	{
 		public bool EnableUpdateTick => enableUpdateTick;
 	
 		public bool EnableFixedUpdateTick => enableFixedUpdateTick;
 	
 		public bool EnableLateUpdateTick => enableLateUpdateTick;
-	
+
+		#region Serialized Fields
+
 		[BoxGroup("Tick System")]
 		[TitleGroup("Tick System/Unity Tick")]
 		[ToggleLeft]
@@ -52,6 +54,8 @@ namespace Core.TickSystem
 		[LabelText("Groups")]
 		[SerializeField]
 		private List<TickGroup> tickGroups = new();
+
+		#endregion
 	
 		private List<TickGroup> _combinedTicks;
 		private List<TickGroup> _unityTicks;
