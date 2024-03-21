@@ -5,36 +5,41 @@ using UnityEngine;
 
 namespace Core.Utils.Editor
 {
-	public class FrameRateEditorWindow : OdinEditorWindow
+	public class FrameRateEditor : OdinEditorWindow
 	{
 		#if UNITY_EDITOR
 		
 		#region Static Methods
 
 		[MenuItem("Window/Frame Rate Adjustment")]
-		public static void OpenWindow() => GetWindow<FrameRateEditorWindow>().Show();
+		public static void OpenWindow() => GetWindow<FrameRateEditor>().Show();
 	
 		private static void SetFrameRate(int frameRate) => Application.targetFrameRate = frameRate;
 
 		#endregion
 
-		[BoxGroup("Settings")]
-		[PropertySpace(10, 0)]
+		[BoxGroup("Frame Rate Settings")]
+		[HorizontalGroup("Frame Rate Settings/Properties", Width = 0.8f)]
+		[VerticalGroup("Frame Rate Settings/Properties/Variables")]
 		[Range(1, 240)]
-		[LabelWidth(120)]
+		[LabelWidth(80)]
+		[LabelText("Target FPS:")]
 		[SerializeField]
 		private int maxFrameRate = 60;
 	
-		[BoxGroup("Settings")]
-		[PropertySpace(0, 10)]
-		[LabelWidth(120)]
-		[LabelText("Current:")]
+		[BoxGroup("Frame Rate Settings")]
+		[HorizontalGroup("Frame Rate Settings/Properties")]
+		[VerticalGroup("Frame Rate Settings/Properties/Variables")]
+		[LabelWidth(80)]
+		[LabelText("Current FPS:")]
+		[DisableIf("@true")]
 		[ShowInInspector]
 		[DisplayAsString]
 		private string _currentFrameRate = "Uncapped";
 	
-		[BoxGroup("Settings")]
-		[HorizontalGroup("Settings/Buttons")]
+		[BoxGroup("Frame Rate Settings")]
+		[HorizontalGroup("Frame Rate Settings/Properties", Width = 0.2f)]
+		[VerticalGroup("Frame Rate Settings/Properties/Buttons")]
 		[Tooltip("'Apply' sets the application's frame rate to the value above.")]
 		[Button("Apply", ButtonSizes.Medium)]
 		public void ApplyFrameRate()
@@ -43,8 +48,9 @@ namespace Core.Utils.Editor
 			_currentFrameRate = Application.targetFrameRate == -1 ? "Uncapped" : Application.targetFrameRate.ToString();
 		}
 	
-		[BoxGroup("Settings")]
-		[HorizontalGroup("Settings/Buttons")]
+		[BoxGroup("Frame Rate Settings")]
+		[HorizontalGroup("Frame Rate Settings/Properties")]
+		[VerticalGroup("Frame Rate Settings/Properties/Buttons")]
 		[Tooltip("'Reset' sets the application's frame rate of -1, essentially un-capping the frame rate.")]
 		[Button("Reset", ButtonSizes.Medium)]
 		public void ResetFrameRate()
