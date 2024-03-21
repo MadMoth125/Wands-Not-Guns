@@ -124,6 +124,10 @@ namespace Core.TickSystem
 			return _combinedTicks;
 		}
 	
+		/// <summary>
+		/// Returns all currently assigned Unity tick layers.
+		/// </summary>
+		/// <returns></returns>
 		public List<TickGroup> GetUnityTickLayers()
 		{
 			return _unityTicks;
