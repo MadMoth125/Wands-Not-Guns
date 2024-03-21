@@ -131,7 +131,7 @@ namespace Core.TickSystem
 		/// <param name="listener">The listener to add.</param>
 		public void AddListener(Action listener)
 		{
-			if (_listeners.Contains(listener)) return;
+			if (NoListeners || _listeners.Contains(listener)) return;
 			_listeners.Add(listener);
 			OnTick += listener;
 		}
@@ -143,7 +143,7 @@ namespace Core.TickSystem
 		/// <param name="listener">The listener to remove.</param>
 		public void RemoveListener(Action listener)
 		{
-			if (!_listeners.Contains(listener)) return;
+			if (NoListeners || !_listeners.Contains(listener)) return;
 			_listeners.Remove(listener);
 			OnTick -= listener;
 		}
