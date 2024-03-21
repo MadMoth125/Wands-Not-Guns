@@ -17,6 +17,11 @@ namespace Core.TickSystem
 
 		#region Serialized Fields
 
+		[BoxGroup("Required Assets")]
+		[Required]
+		[SerializeField] 
+		private TickSystemParametersScriptableObject systemSettings;
+		
 		[BoxGroup("Tick System")]
 		[TitleGroup("Tick System/Unity Tick")]
 		[ToggleLeft]
@@ -60,11 +65,6 @@ namespace Core.TickSystem
 		private List<TickGroup> _combinedTicks;
 		private List<TickGroup> _unityTicks;
 	
-		private const string MAIN_TICK_LAYER_NAME = "Main";
-		private const string UPDATE_TICK_LAYER_NAME = "Update";
-		private const string FIXED_UPDATE_TICK_LAYER_NAME = "FixedUpdate";
-		private const string LATE_UPDATE_TICK_LAYER_NAME = "LateUpdate";
-	
 		/// <summary>
 		/// Initializes the tick system and creates the necessary tick layers.
 		/// Required to be called before any listeners are added.
@@ -73,15 +73,15 @@ namespace Core.TickSystem
 		{
 			_combinedTicks = new List<TickGroup>
 			{
-				new TickGroup(MAIN_TICK_LAYER_NAME, tickRate),
+				new TickGroup(systemSettings.MainGroupName, tickRate),
 			};
 			_combinedTicks.AddRange(tickGroups);
 		
 			_unityTicks = new List<TickGroup>
 			{
-				new TickGroup(UPDATE_TICK_LAYER_NAME, 0, enableUpdateTick),
-				new TickGroup(FIXED_UPDATE_TICK_LAYER_NAME, 0, enableFixedUpdateTick),
-				new TickGroup(LATE_UPDATE_TICK_LAYER_NAME, 0, enableLateUpdateTick)
+				new TickGroup(systemSettings.UpdateGroupName, 0, enableUpdateTick),
+				new TickGroup(systemSettings.FixedUpdateGroupName, 0, enableFixedUpdateTick),
+				new TickGroup(systemSettings.LateUpdateGroupName, 0, enableLateUpdateTick)
 			};
 		}
 	
