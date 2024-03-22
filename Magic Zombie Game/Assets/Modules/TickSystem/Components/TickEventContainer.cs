@@ -9,14 +9,16 @@ namespace CustomTickSystem.Components
 	/// </summary>
 	public class TickEventContainer
 	{
+		// idk if this is necessary
 		~TickEventContainer()
 		{
 			ClearListeners();
 		}
 		
-		// consider making this private
 		private event Action OnTick;
 	
+		public int TickCount { get; private set; }
+		
 		private readonly List<Action> _listeners = new();
 	
 		/// <summary>
@@ -24,7 +26,9 @@ namespace CustomTickSystem.Components
 		/// </summary>
 		public void Tick()
 		{
+			if (!HasAnyListeners()) return;
 			OnTick?.Invoke();
+			TickCount++;
 		}
 	
 		/// <summary>
