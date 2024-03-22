@@ -23,5 +23,5 @@ MonoBehaviour:
   tickGroups:
   - parameters:
       name: UI
-      enabled: 0
+      enabled: 1
       tickRate: 10
