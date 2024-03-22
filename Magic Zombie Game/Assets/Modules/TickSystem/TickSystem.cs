@@ -15,9 +15,10 @@ namespace CustomTickSystem
 	{
 		private static TickSystem instance;
 		private static TickSystemAsset dataAsset;
-
+		private static bool hasGameStarted;
+		
 		#region Static Methods
-
+		
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 		private static void InitializeTickSystem()
 		{
@@ -34,6 +35,12 @@ namespace CustomTickSystem
 			DontDestroyOnLoad(instance.gameObject);
 		}
 
+		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+		private static void BeginTickSystemExecution()
+		{
+			hasGameStarted = true;
+		}
+		
 		/// <summary>
 		/// Subscribes a listener to a tick layer.
 		/// </summary>
@@ -106,13 +113,18 @@ namespace CustomTickSystem
 		private void Awake()
 		{
 			dataAsset = Resources.Load<TickSystemAsset>("TickSystemAsset");
+			
+			dataAsset.GetUpdateTickGroup().parameters.enabled = dataAsset.useUnityUpdate;
+			dataAsset.GetFixedUpdateTickGroup().parameters.enabled = dataAsset.useUnityFixedUpdate;
+			dataAsset.GetLateUpdateTickGroup().parameters.enabled = dataAsset.useUnityLateUpdate;
 		}
 
 		private void Update()
 		{
+			if (!hasGameStarted) return;
 			if (dataAsset == null) return;
-		
-			if (dataAsset.useUnityUpdate)
+
+			if (dataAsset.GetUpdateTickGroup().parameters.enabled)
 			{
 				dataAsset.GetUpdateTickGroup().eventContainer.Tick();
 			}
@@ -129,9 +141,10 @@ namespace CustomTickSystem
 
 		private void FixedUpdate()
 		{
+			if (!hasGameStarted) return;
 			if (dataAsset == null) return;
-		
-			if (dataAsset.useUnityFixedUpdate)
+			
+			if (dataAsset.GetFixedUpdateTickGroup().parameters.enabled)
 			{
 				dataAsset.GetFixedUpdateTickGroup().eventContainer.Tick();
 			}
@@ -139,9 +152,10 @@ namespace CustomTickSystem
 
 		private void LateUpdate()
 		{
+			if (!hasGameStarted) return;
 			if (dataAsset == null) return;
-		
-			if (dataAsset.useUnityLateUpdate)
+			
+			if (dataAsset.GetLateUpdateTickGroup().parameters.enabled)
 			{
 				dataAsset.GetLateUpdateTickGroup().eventContainer.Tick();
 			}
