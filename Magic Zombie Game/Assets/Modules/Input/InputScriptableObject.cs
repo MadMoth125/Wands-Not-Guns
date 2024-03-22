@@ -88,14 +88,14 @@ namespace InputMapping
 
 		private void SubscribeToEvents()
 		{
-			TickSystem.OnUpdateTick += OnUpdateTickListener;
+			// TickSystem.OnUpdateTick += OnUpdateTickListener;
 			_internalPlayerControls.Default.Movement.performed += OnMovementListener;
 			_internalPlayerControls.Default.LookPosition.performed += OnLookListener;
 		}
 
 		private void UnsubscribeFromEvents()
 		{
-			TickSystem.OnUpdateTick -= OnUpdateTickListener;
+			// TickSystem.OnUpdateTick -= OnUpdateTickListener;
 			_internalPlayerControls.Default.Movement.performed -= OnMovementListener;
 			_internalPlayerControls.Default.LookPosition.performed -= OnLookListener;
 		}
