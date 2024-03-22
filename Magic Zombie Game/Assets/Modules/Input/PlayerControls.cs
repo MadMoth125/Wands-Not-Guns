@@ -15,12 +15,12 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace InputModule
+namespace CustomControls
 {
-    public partial class @CustomInputAsset: IInputActionCollection2, IDisposable
+    public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         public InputActionAsset asset { get; }
-        public @CustomInputAsset()
+        public @PlayerControls()
         {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""CustomInputAsset"",
@@ -39,10 +39,19 @@ namespace InputModule
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""LookPosition"",
+                    ""name"": ""Cursor Position"",
                     ""type"": ""PassThrough"",
                     ""id"": ""8854db77-e7e2-49da-8296-8e6e54052bfa"",
                     ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Primary Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf4ddc1f-ffa1-4283-87d7-4a2bc317a51f"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -56,7 +65,7 @@ namespace InputModule
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""LookPosition"",
+                    ""action"": ""Cursor Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -67,7 +76,7 @@ namespace InputModule
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
-                    ""action"": ""LookPosition"",
+                    ""action"": ""Cursor Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -83,7 +92,7 @@ namespace InputModule
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
+                    ""name"": ""WASD"",
                     ""id"": ""25a35e3b-95da-4278-a9f9-d2759d1bf307"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -136,6 +145,83 @@ namespace InputModule
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Arrow Keys"",
+                    ""id"": ""45a11a45-e3df-45c7-b81d-46c15d70df29"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""5926ef6d-fce7-4ada-9021-180e981641d3"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""1f5a2f43-2d5b-49b8-9330-84106ae2215c"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""62d190d5-286d-4248-8bb8-71c680836a7d"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""4bac5943-8db8-4190-a683-73c431c0c1ae"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2b377f17-8e82-4341-95da-75211a3ab42e"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Primary Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6059992f-61eb-48b2-bb36-ea38f8685ee6"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Primary Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -167,7 +253,8 @@ namespace InputModule
             // Default
             m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
             m_Default_Movement = m_Default.FindAction("Movement", throwIfNotFound: true);
-            m_Default_LookPosition = m_Default.FindAction("LookPosition", throwIfNotFound: true);
+            m_Default_CursorPosition = m_Default.FindAction("Cursor Position", throwIfNotFound: true);
+            m_Default_PrimaryInteract = m_Default.FindAction("Primary Interact", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -230,13 +317,15 @@ namespace InputModule
         private readonly InputActionMap m_Default;
         private List<IDefaultActions> m_DefaultActionsCallbackInterfaces = new List<IDefaultActions>();
         private readonly InputAction m_Default_Movement;
-        private readonly InputAction m_Default_LookPosition;
+        private readonly InputAction m_Default_CursorPosition;
+        private readonly InputAction m_Default_PrimaryInteract;
         public struct DefaultActions
         {
-            private @CustomInputAsset m_Wrapper;
-            public DefaultActions(@CustomInputAsset wrapper) { m_Wrapper = wrapper; }
+            private @PlayerControls m_Wrapper;
+            public DefaultActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Default_Movement;
-            public InputAction @LookPosition => m_Wrapper.m_Default_LookPosition;
+            public InputAction @CursorPosition => m_Wrapper.m_Default_CursorPosition;
+            public InputAction @PrimaryInteract => m_Wrapper.m_Default_PrimaryInteract;
             public InputActionMap Get() { return m_Wrapper.m_Default; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -249,9 +338,12 @@ namespace InputModule
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @LookPosition.started += instance.OnLookPosition;
-                @LookPosition.performed += instance.OnLookPosition;
-                @LookPosition.canceled += instance.OnLookPosition;
+                @CursorPosition.started += instance.OnCursorPosition;
+                @CursorPosition.performed += instance.OnCursorPosition;
+                @CursorPosition.canceled += instance.OnCursorPosition;
+                @PrimaryInteract.started += instance.OnPrimaryInteract;
+                @PrimaryInteract.performed += instance.OnPrimaryInteract;
+                @PrimaryInteract.canceled += instance.OnPrimaryInteract;
             }
 
             private void UnregisterCallbacks(IDefaultActions instance)
@@ -259,9 +351,12 @@ namespace InputModule
                 @Movement.started -= instance.OnMovement;
                 @Movement.performed -= instance.OnMovement;
                 @Movement.canceled -= instance.OnMovement;
-                @LookPosition.started -= instance.OnLookPosition;
-                @LookPosition.performed -= instance.OnLookPosition;
-                @LookPosition.canceled -= instance.OnLookPosition;
+                @CursorPosition.started -= instance.OnCursorPosition;
+                @CursorPosition.performed -= instance.OnCursorPosition;
+                @CursorPosition.canceled -= instance.OnCursorPosition;
+                @PrimaryInteract.started -= instance.OnPrimaryInteract;
+                @PrimaryInteract.performed -= instance.OnPrimaryInteract;
+                @PrimaryInteract.canceled -= instance.OnPrimaryInteract;
             }
 
             public void RemoveCallbacks(IDefaultActions instance)
@@ -300,7 +395,8 @@ namespace InputModule
         public interface IDefaultActions
         {
             void OnMovement(InputAction.CallbackContext context);
-            void OnLookPosition(InputAction.CallbackContext context);
+            void OnCursorPosition(InputAction.CallbackContext context);
+            void OnPrimaryInteract(InputAction.CallbackContext context);
         }
     }
 }

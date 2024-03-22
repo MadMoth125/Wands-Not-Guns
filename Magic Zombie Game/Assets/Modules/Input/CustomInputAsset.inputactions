@@ -1,5 +1,5 @@
 {
-    "name": "PlayerControls",
+    "name": "CustomInputAsset",
     "maps": [
         {
             "name": "Default",
@@ -15,10 +15,19 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LookPosition",
+                    "name": "Cursor Position",
                     "type": "PassThrough",
                     "id": "8854db77-e7e2-49da-8296-8e6e54052bfa",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Primary Interact",
+                    "type": "Button",
+                    "id": "bf4ddc1f-ffa1-4283-87d7-4a2bc317a51f",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -32,7 +41,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "LookPosition",
+                    "action": "Cursor Position",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -43,7 +52,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "LookPosition",
+                    "action": "Cursor Position",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -59,7 +68,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "2D Vector",
+                    "name": "WASD",
                     "id": "25a35e3b-95da-4278-a9f9-d2759d1bf307",
                     "path": "2DVector",
                     "interactions": "",
@@ -112,6 +121,83 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "Arrow Keys",
+                    "id": "45a11a45-e3df-45c7-b81d-46c15d70df29",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "5926ef6d-fce7-4ada-9021-180e981641d3",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "1f5a2f43-2d5b-49b8-9330-84106ae2215c",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "62d190d5-286d-4248-8bb8-71c680836a7d",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "4bac5943-8db8-4190-a683-73c431c0c1ae",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "2b377f17-8e82-4341-95da-75211a3ab42e",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Primary Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6059992f-61eb-48b2-bb36-ea38f8685ee6",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Primary Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

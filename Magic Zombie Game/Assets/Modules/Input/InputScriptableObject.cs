@@ -1,12 +1,11 @@
-using Core;
 using Core.CustomDebugger;
-using InputModule;
+using CustomTickSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace InputMapping
+namespace CustomControls
 {
-	[CreateAssetMenu(fileName = "InputScriptableObject", menuName = "ScriptableObject/InputScriptableObject")]
+	[CreateAssetMenu(fileName = "InputAsset", menuName = "ScriptableObject/InputScriptableObject")]
 	public class InputScriptableObject : ScriptableObject
 	{
 		public bool Enabled => _isInputEnabled;
@@ -18,7 +17,7 @@ namespace InputMapping
 		[SerializeField]
 		private LoggerScriptableObject logger;
 	
-		private CustomInputAsset _internalPlayerControls;
+		private PlayerControls _internalPlayerControls;
 	
 		private bool _isInputEnabled; // true if the input is enabled
 		private bool _isGamepadActive; // true if the last input was from a gamepad
@@ -62,7 +61,7 @@ namespace InputMapping
 		{
 			logger?.Log("Enabling input", this);
 		
-			_internalPlayerControls = new CustomInputAsset();
+			_internalPlayerControls = new PlayerControls();
 		
 			_internalPlayerControls.Enable();
 			_isInputEnabled = true;
@@ -89,16 +88,16 @@ namespace InputMapping
 
 		private void SubscribeToEvents()
 		{
-			// TickSystem.OnUpdateTick += OnUpdateTickListener;
+			TickSystem.AddListener("Update", OnUpdateTickListener);
 			_internalPlayerControls.Default.Movement.performed += OnMovementListener;
-			_internalPlayerControls.Default.LookPosition.performed += OnLookListener;
+			_internalPlayerControls.Default.CursorPosition.performed += OnLookListener;
 		}
 
 		private void UnsubscribeFromEvents()
 		{
-			// TickSystem.OnUpdateTick -= OnUpdateTickListener;
+			TickSystem.RemoveListener("Update", OnUpdateTickListener);
 			_internalPlayerControls.Default.Movement.performed -= OnMovementListener;
-			_internalPlayerControls.Default.LookPosition.performed -= OnLookListener;
+			_internalPlayerControls.Default.CursorPosition.performed -= OnLookListener;
 		}
 
 		#endregion
@@ -106,7 +105,7 @@ namespace InputMapping
 		#region Event Listeners
 
 		// called every frame from static tick system
-		private void OnUpdateTickListener(float delfaTime)
+		private void OnUpdateTickListener()
 		{
 			if (UsingGamepad)
 			{

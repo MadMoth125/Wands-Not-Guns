@@ -1,9 +1,8 @@
-using InputMapping;
 using UnityEngine;
 
-namespace InputModule
+namespace CustomControls.Example
 {
-	public class InputVisuals : MonoBehaviour
+	public class RectTransformController : MonoBehaviour
 	{
 		public RectTransform moveableObject;
 	
