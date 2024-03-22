@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
-using CustomTickSystem;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace GameTesting
+namespace CustomTickSystem.Tests
 {
 	public class TickSystemTests
 	{
