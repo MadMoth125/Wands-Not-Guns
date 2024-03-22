@@ -49,6 +49,12 @@ namespace CustomTickSystem
 		public static void AddListener(string layerName, Action listener)
 		{
 			var layer = GetLayer(layerName);
+			
+			if (layer == null)
+			{
+				Debug.LogWarning($"{nameof(TickSystem)}.{nameof(AddListener)}(): Tick layer with name '{layerName}' does not exist.");
+			}
+			
 			layer?.eventContainer.AddListener(listener);
 		}
 
@@ -68,6 +74,12 @@ namespace CustomTickSystem
 		public static void RemoveListener(string layerName, Action listener)
 		{
 			var layer = GetLayer(layerName);
+			
+			if (layer == null)
+			{
+				Debug.LogWarning($"{nameof(TickSystem)}.{nameof(RemoveListener)}(): Tick layer with name '{layerName}' does not exist.");
+			}
+			
 			layer?.eventContainer.RemoveListener(listener);
 		}
 	
@@ -82,7 +94,14 @@ namespace CustomTickSystem
 		public static TickLayer GetLayer(string layerName)
 		{
 			if (dataAsset == null) return null;
-			return dataAsset.GetAllTickGroups().FirstOrDefault(layer => CaseInsensitiveMatch(layerName, layer.parameters.name));
+			var layer = dataAsset.GetAllTickGroups().FirstOrDefault(layer => CaseInsensitiveMatch(layerName, layer.parameters.name));
+			
+			if (layer == null)
+			{
+				Debug.LogWarning($"{nameof(TickSystem)}.{nameof(GetLayer)}(): Tick layer with name '{layerName}' does not exist.");
+			}
+
+			return layer;
 		}
 
 		public static IEnumerable<TickLayer> GetLayers(params string[] layerNames)
