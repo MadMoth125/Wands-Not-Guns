@@ -1,29 +1,32 @@
 using InputMapping;
 using UnityEngine;
 
-public class InputVisuals : MonoBehaviour
+namespace InputModule
 {
-	public RectTransform moveableObject;
+	public class InputVisuals : MonoBehaviour
+	{
+		public RectTransform moveableObject;
 	
-	public InputScriptableObject inputAsset;
+		public InputScriptableObject inputAsset;
 	
-	#region Unity Methods
+		#region Unity Methods
 
-	private void Update()
-	{
-		if (moveableObject == null || inputAsset == null) return;
-		moveableObject.position = inputAsset.GetAbsoluteCursorPosition();
+		private void Update()
+		{
+			if (moveableObject == null || inputAsset == null) return;
+			moveableObject.position = inputAsset.GetAbsoluteCursorPosition();
+		}
+
+		private void OnEnable()
+		{
+			inputAsset.EnableInput();
+		}
+
+		private void OnDisable()
+		{
+			inputAsset.DisableInput();
+		}
+
+		#endregion
 	}
-
-	private void OnEnable()
-	{
-		inputAsset.EnableInput();
-	}
-
-	private void OnDisable()
-	{
-		inputAsset.DisableInput();
-	}
-
-	#endregion
 }

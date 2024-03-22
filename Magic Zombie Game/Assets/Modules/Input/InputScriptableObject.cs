@@ -1,5 +1,6 @@
 using Core;
 using Core.CustomDebugger;
+using InputModule;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,7 +18,7 @@ namespace InputMapping
 		[SerializeField]
 		private LoggerScriptableObject logger;
 	
-		private PlayerControls _internalPlayerControls;
+		private CustomInputAsset _internalPlayerControls;
 	
 		private bool _isInputEnabled; // true if the input is enabled
 		private bool _isGamepadActive; // true if the last input was from a gamepad
@@ -61,7 +62,7 @@ namespace InputMapping
 		{
 			logger?.Log("Enabling input", this);
 		
-			_internalPlayerControls = new PlayerControls();
+			_internalPlayerControls = new CustomInputAsset();
 		
 			_internalPlayerControls.Enable();
 			_isInputEnabled = true;
