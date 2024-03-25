@@ -91,23 +91,3 @@ MonoBehaviour:
       EditorTypeName: 
     - DrawnTypeName: Obvious.Soap.Example.VfxSpawner, Obious.Soap.Example
       EditorTypeName: 
-    - DrawnTypeName: UnityEngine.InputSystem.InputActionReference, Unity.InputSystem
-      EditorTypeName: 
-    - DrawnTypeName: UnityEngine.InputSystem.InputSystemObject, Unity.InputSystem
-      EditorTypeName: 
-    - DrawnTypeName: UnityEngine.InputSystem.RemoteInputPlayerConnection, Unity.InputSystem
-      EditorTypeName: 
-    - DrawnTypeName: UnityEngine.InputSystem.EnhancedTouch.TouchSimulation, Unity.InputSystem
-      EditorTypeName: 
-    - DrawnTypeName: UnityEngine.InputSystem.OnScreen.OnScreenButton, Unity.InputSystem
-      EditorTypeName: 
-    - DrawnTypeName: UnityEngine.InputSystem.UI.BaseInputOverride, Unity.InputSystem
-      EditorTypeName: 
-    - DrawnTypeName: UnityEngine.InputSystem.UI.TrackedDeviceRaycaster, Unity.InputSystem
-      EditorTypeName: 
-    - DrawnTypeName: UnityEngine.InputSystem.UI.VirtualMouseInput, Unity.InputSystem
-      EditorTypeName: 
-    - DrawnTypeName: UnityEngine.InputSystem.XR.TrackedPoseDriver, Unity.InputSystem
-      EditorTypeName: 
-    - DrawnTypeName: UnityEngine.EventSystems.BaseInput, UnityEngine.UI
-      EditorTypeName: 

@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b7ca52a950d1494aa1184cdc7700c3d, type: 3}
-  m_Name: SoapSettings
+  m_Script: {fileID: 11500000, guid: 4a400fbbb1467ca47b4d497f7e251618, type: 3}
+  m_Name: BetterInputAsset
   m_EditorClassIdentifier: 
-  VariableDisplayMode: 0
-  NamingOnCreationMode: 0
-  ReferencesRefreshMode: 0
-  Categories:
-  - Default

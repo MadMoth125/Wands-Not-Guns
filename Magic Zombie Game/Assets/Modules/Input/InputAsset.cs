@@ -2,17 +2,18 @@ using Core.CustomDebugger;
 using CustomTickSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 namespace CustomControls
 {
-	[CreateAssetMenu(fileName = "InputAsset", menuName = "ScriptableObject/InputScriptableObject")]
-	public class InputScriptableObject : ScriptableObject
+	[CreateAssetMenu(fileName = "InputAsset", menuName = "Input/Input Asset")]
+	public class InputAsset : ScriptableObject
 	{
 		public bool Enabled => _isInputEnabled;
 	
 		public bool UsingKeyboard => !_isGamepadActive;
 	
-		public bool UsingGamepad => _isGamepadActive;
+		public bool UsingGamepad => _currentDevice is Device.GenericGamepad or Device.XboxGamepad or Device.PlayStationGamepad;
 	
 		[SerializeField]
 		private LoggerScriptableObject logger;
@@ -25,7 +26,8 @@ namespace CustomControls
 		private Vector2 _internalCursorPosition; //
 		private Vector2 _mousePositionInput; // mouse position
 		private Vector2 _gamepadLookDirectionInput; // gamepad right stick
-
+		private Device _currentDevice;
+		
 		/// <summary>
 		/// Returns the current movement input direction.
 		/// Value will always be normalized.
@@ -133,7 +135,21 @@ namespace CustomControls
 		private void OnLookListener(InputAction.CallbackContext obj)
 		{
 			_isGamepadActive = obj.control.device is Gamepad;
-		
+
+			Debug.Log(_isGamepadActive);
+			var currentScheme = _internalPlayerControls.controlSchemes;
+			
+			/*var currentScheme = InputControlScheme.FindControlSchemeForDevice(obj.control.device, _internalPlayerControls.controlSchemes);
+
+			if (currentScheme != null)
+			{
+				Debug.Log($"Current scheme: {currentScheme.Value.name}");
+			}
+			else
+			{
+				Debug.LogError("No scheme found");
+			}*/
+
 			if (UsingGamepad)
 			{
 				_gamepadLookDirectionInput = obj.ReadValue<Vector2>();

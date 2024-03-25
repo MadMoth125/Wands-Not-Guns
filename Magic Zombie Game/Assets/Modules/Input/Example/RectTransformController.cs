@@ -6,7 +6,7 @@ namespace CustomControls.Example
 	{
 		public RectTransform moveableObject;
 	
-		public InputScriptableObject inputAsset;
+		public InputAsset inputAsset;
 	
 		#region Unity Methods
 
