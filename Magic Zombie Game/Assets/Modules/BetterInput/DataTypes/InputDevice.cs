@@ -1,4 +1,4 @@
-namespace CustomControls
+namespace MyCustomControls
 {
 	public enum Device
 	{
