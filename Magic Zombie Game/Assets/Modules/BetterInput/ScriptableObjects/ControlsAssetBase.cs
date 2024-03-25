@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Core.Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,15 +17,14 @@ namespace MyCustomControls
 
 		#region Properties
 
-		public Device CurrentDevice => _currentDevice;
+		public Device CurrentDevice => _deviceChange.current;
 		
 		protected MyPlayerControls Controls => _internalControls ??= new MyPlayerControls();
 
 		#endregion
 		
 		private MyPlayerControls _internalControls;
-		private Device _currentDevice;
-		private Device _newDevice;
+		private ValueChange<Device> _deviceChange = new();
 
 		#region Static Methods
 
@@ -104,11 +104,11 @@ namespace MyCustomControls
 			var lastInputDevice = action.activeControl?.device;
 			if (lastInputDevice == null) return;
 
-			_newDevice = GetDeviceType(lastInputDevice);
-			if (_currentDevice == _newDevice) return;
+			_deviceChange.current = GetDeviceType(lastInputDevice);
+			if (_deviceChange.HasChanged) return;
 			
-			_currentDevice = _newDevice;
-			OnDeviceChange?.Invoke(_currentDevice);
+			_deviceChange.UpdatePreviousValue();
+			OnDeviceChange?.Invoke(_deviceChange.current);
 		}
 	}
 }
