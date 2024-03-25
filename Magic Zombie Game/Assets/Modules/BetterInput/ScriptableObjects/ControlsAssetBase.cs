@@ -9,11 +9,19 @@ namespace MyCustomControls
 {
 	public class ControlsAssetBase : ScriptableObject
 	{
+		#region Events
+
 		public event Action<Device> OnDeviceChange;
-		
+
+		#endregion
+
+		#region Properties
+
 		public Device CurrentDevice => _currentDevice;
 		
 		protected MyPlayerControls Controls => _internalControls ??= new MyPlayerControls();
+
+		#endregion
 		
 		private MyPlayerControls _internalControls;
 		private Device _currentDevice;
@@ -63,7 +71,7 @@ namespace MyCustomControls
 
 		public virtual void DisableControls()
 		{
-			Controls?.Disable();
+			Controls.Disable();
 			UnsubscribeFromEvents();
 		}
 

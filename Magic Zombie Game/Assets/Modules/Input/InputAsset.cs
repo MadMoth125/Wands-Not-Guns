@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.Users;
 
 namespace CustomControls
 {
-	[CreateAssetMenu(fileName = "InputAsset", menuName = "Input/Input Asset")]
+	// [CreateAssetMenu(fileName = "InputAsset", menuName = "Input/Input Asset")]
 	public class InputAsset : ScriptableObject
 	{
 		public bool Enabled => _isInputEnabled;

@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 
 namespace MyCustomControls
 {
-	[CreateAssetMenu(fileName = "PlayerControlsAsset", menuName = "Input/Player Controls", order = 0)]
-	public class PlayerGameControls : ControlsAssetBase
+	[CreateAssetMenu(fileName = "GameControlsAsset", menuName = "Input/Game Controls", order = 0)]
+	public class GameControlsAsset : ControlsAssetBase
 	{
 		public event Action<InputAction.CallbackContext> OnMoveCallback
 		{
