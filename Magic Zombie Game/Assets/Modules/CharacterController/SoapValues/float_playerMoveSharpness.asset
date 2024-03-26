@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9978ce9c8bdc724896114c9952c52ea, type: 3}
   m_Name: float_playerMoveSharpness
   m_EditorClassIdentifier: 
-  CategoryIndex: 0
+  CategoryIndex: 1
   Description: 
   _guid: ab0b1731bf84fff44a948d4251208ff1
   _saveGuid: 0

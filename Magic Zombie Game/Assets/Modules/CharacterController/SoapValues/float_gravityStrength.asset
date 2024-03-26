@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9978ce9c8bdc724896114c9952c52ea, type: 3}
   m_Name: float_gravityStrength
   m_EditorClassIdentifier: 
-  CategoryIndex: 0
+  CategoryIndex: 1
   Description: 
   _guid: d00cd9634e628524bab0fe3ce1ce6353
   _saveGuid: 0
