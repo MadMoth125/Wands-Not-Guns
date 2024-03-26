@@ -15,8 +15,8 @@ MonoBehaviour:
   raycastDistance: 1000
   layers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 17
   ignoredUILayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 23
   instantiateEventSystem: 0
