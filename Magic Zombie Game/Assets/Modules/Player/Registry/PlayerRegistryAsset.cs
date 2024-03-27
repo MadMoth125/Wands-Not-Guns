@@ -22,19 +22,6 @@ namespace Player.Registry
 			return root.FindClosestTransform(registry.Values);
 		}
 		
-		public Transform GetRandomPlayer()
-		{
-			if (Count == 0)
-			{
-				LogRegistryEmpty();
-				return null;
-			}
-
-			int randomIndex = UnityEngine.Random.Range(0, Count);
-			var randomPlayer = registry[randomIndex];
-			return randomPlayer;
-		}
-		
 		protected void LogRegistryEmpty()
 		{
 			LogWrapper("Registry is empty. (No players in the registry.)", LoggerAsset.LogType.Warning);

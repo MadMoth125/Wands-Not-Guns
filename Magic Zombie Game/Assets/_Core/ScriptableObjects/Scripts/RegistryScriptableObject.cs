@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.CustomDebugger;
 using UnityEngine;
 
@@ -87,7 +88,24 @@ namespace Core.Registries
 			LogWrapper($"Outputting {registry?.Values.Count} values in the registry.", LoggerAsset.LogType.Info);
 			return registry?.Values;
 		}
+		
+		/// <summary>
+		/// Returns a random value from the registry.
+		/// </summary>
+		public virtual TValue GetRandomValue()
+		{
+			if (Count == 0)
+			{
+				LogWrapper("Registry is empty, unable to get random value.", LoggerAsset.LogType.Warning);
+				return default;
+			}
 
+			int randomIndex = UnityEngine.Random.Range(0, Count);
+			var randomValue = GetValues().ElementAt(randomIndex);
+			LogWrapper($"Random value \"{randomValue}\" has been retrieved from the registry.", LoggerAsset.LogType.Info);
+			return randomValue;
+		}
+		
 		/// <summary>
 		/// Clears the registry.
 		/// </summary>
