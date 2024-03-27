@@ -28,12 +28,12 @@ namespace Core.HealthSystem
 
 		/// <summary>
 		/// The GameObject that owns this <see cref="HealthComponent"/>.
-		/// Get/Set works the same as calling <see cref="GetOwningGameObject"/> and <see cref="SetOwningGameObject"/> respectively.
+		/// Get/Set works the same as calling <see cref="GetOwningGameObject"/> and <see cref="SetOwner"/> respectively.
 		/// </summary>
 		public GameObject Owner
 		{
-			get => GetOwningGameObject();
-			set => SetOwningGameObject(value);
+			get => GetOwner();
+			set => SetOwner(value);
 		}
 
 		/// <summary>
@@ -115,9 +115,9 @@ namespace Core.HealthSystem
 		
 		#region Getters and Setters
 		
-		public GameObject GetOwningGameObject() => _owningGameObject;
+		public GameObject GetOwner() => _owningGameObject;
 
-		public void SetOwningGameObject(GameObject owner) => _owningGameObject = owner;
+		public void SetOwner(GameObject owner) => _owningGameObject = owner;
 
 		public virtual float GetHealth() => _internalHealthSystem.GetHealth();
 
@@ -142,11 +142,17 @@ namespace Core.HealthSystem
 		#endregion
 
 		#region Public Methods
-
+		
 		public virtual void Damage(float damageAmount)
 		{
 			_previousHealth = _internalHealthSystem.GetHealth();
 			_internalHealthSystem.Damage(damageAmount);
+		}
+
+		public void Kill()
+		{
+			_previousHealth = _internalHealthSystem.GetHealth();
+			_internalHealthSystem.SetHealth(0f);
 		}
 
 		public virtual void Heal(float healAmount)
@@ -176,7 +182,7 @@ namespace Core.HealthSystem
 				_internalHealthSystem.SetHealth(startingHealthAmount);
 			}
 			
-			SetOwningGameObject(gameObject);
+			SetOwner(gameObject);
 			
 			AfterAwake();
 		}

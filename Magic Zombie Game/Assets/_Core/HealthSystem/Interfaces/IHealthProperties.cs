@@ -1,29 +1,57 @@
-
 using UnityEngine;
 
-public interface IHealthProperties
+namespace Core.HealthSystem
 {
-	public GameObject GetOwningGameObject();
+	public interface IHealthProperties : IDamageable, IHealable
+	{
+		/// <summary>
+		/// The GameObject that owns this <see cref="IHealthProperties"/>.
+		/// </summary>
+		/// <returns>The GameObject owner.</returns>
+		public GameObject GetOwner();
+		
+		/// <summary>
+		/// Sets the GameObject that owns this <see cref="IHealthProperties"/>.
+		/// </summary>
+		/// <param name="owner">The GameObject owner.</param>
+		public void SetOwner(GameObject owner);
 	
-	public void SetOwningGameObject(GameObject owner);
+		/// <summary>
+		/// The current health of the target.
+		/// </summary>
+		public float GetHealth();
 	
-	public float GetHealth();
+		/// <summary>
+		/// Sets the current health of the target.
+		/// Clamped between 0 and the maximum health.
+		/// </summary>
+		public void SetHealth(float health);
 	
-	public void SetHealth(float health);
+		/// <summary>
+		/// The maximum health of the target.
+		/// </summary>
+		public float GetMaxHealth();
 	
-	public float GetMaxHealth();
+		/// <summary>
+		/// Sets the maximum health of the target.
+		/// </summary>
+		/// <param name="healthMax">The new maximum health.</param>
+		/// <param name="fullHealth">Should the health be set to the new maximum health.</param>
+		public void SetMaxHealth(float healthMax, bool fullHealth);
 	
-	public void SetMaxHealth(float healthMax, bool fullHealth);
+		/// <summary>
+		/// The current health of the target as a normalized value between 0 and 1.
+		/// </summary>
+		public float GetHealthNormalized();
 	
-	public float GetHealthNormalized();
+		/// <summary>
+		/// Whether the target is dead.
+		/// </summary>
+		public bool IsDead();
 	
-	public void Heal(float healAmount);
-	
-	public void HealComplete();
-	
-	public void Damage(float damageAmount);
-	
-	public bool IsDead();
-	
-	public void Die();
+		/// <summary>
+		/// When the target's health reaches 0.
+		/// </summary>
+		public void Die();
+	}
 }
