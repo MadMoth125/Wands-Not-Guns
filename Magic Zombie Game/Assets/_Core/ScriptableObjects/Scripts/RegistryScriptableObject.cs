@@ -11,7 +11,7 @@ namespace Core.Registries
 
 		[Tooltip("Logger to use for this registry. If null, no logging will occur.")]
 		[SerializeField]
-		private LoggerScriptableObject logger;
+		private LoggerAsset logger;
 		
 		protected readonly Dictionary<TKey, TValue> registry = new();
 
@@ -27,11 +27,11 @@ namespace Core.Registries
 
 			if (registry.TryAdd(key, value))
 			{
-				LogWrapper($"Value \"{value}\" with key of \"{key}\" has been added to the registry.", LoggerScriptableObject.LogType.Info);
+				LogWrapper($"Value \"{value}\" with key of \"{key}\" has been added to the registry.", LoggerAsset.LogType.Info);
 				return true;
 			}
 			
-			LogWrapper($"Key \"{key}\" already exists in the registry.", LoggerScriptableObject.LogType.Warning);
+			LogWrapper($"Key \"{key}\" already exists in the registry.", LoggerAsset.LogType.Warning);
 			return false;
 		}
 		
@@ -45,11 +45,11 @@ namespace Core.Registries
 
 			if (registry.Remove(key, out TValue value))
 			{
-				LogWrapper($"Value \"{value}\" with key \"{key}\" has been removed from the registry.", LoggerScriptableObject.LogType.Info);
+				LogWrapper($"Value \"{value}\" with key \"{key}\" has been removed from the registry.", LoggerAsset.LogType.Info);
 				return true;
 			}
 			
-			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerScriptableObject.LogType.Warning);
+			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerAsset.LogType.Warning);
 			return false;
 		}
 		
@@ -58,7 +58,7 @@ namespace Core.Registries
 		/// </summary>
 		public virtual IEnumerable<TKey> GetKeys()
 		{
-			LogWrapper("Outputting all keys in the registry.", LoggerScriptableObject.LogType.Info);
+			LogWrapper("Outputting all keys in the registry.", LoggerAsset.LogType.Info);
 			return registry?.Keys;
 		}
 
@@ -67,7 +67,7 @@ namespace Core.Registries
 		/// </summary>
 		public virtual IEnumerable<TValue> GetValues()
 		{
-			LogWrapper("Outputting all values in the registry.", LoggerScriptableObject.LogType.Info);
+			LogWrapper("Outputting all values in the registry.", LoggerAsset.LogType.Info);
 			return registry?.Values;
 		}
 
@@ -76,11 +76,11 @@ namespace Core.Registries
 		/// </summary>
 		public virtual void Clear()
 		{
-			LogWrapper("Registry has been cleared.", LoggerScriptableObject.LogType.Info);
+			LogWrapper("Registry has been cleared.", LoggerAsset.LogType.Info);
 			registry?.Clear();
 		}
 		
-		private void LogWrapper(string message, LoggerScriptableObject.LogType logType)
+		private void LogWrapper(string message, LoggerAsset.LogType logType)
 		{
 			if (logger == null) return;
 			logger.Log(message, this, logType);

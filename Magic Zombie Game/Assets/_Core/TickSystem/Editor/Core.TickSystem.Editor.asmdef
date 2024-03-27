@@ -1,12 +1,12 @@
 {
-    "name": "Core",
+    "name": "Core.TickSystem.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:ee6baafdecd94804a8714654c4bd097f",
-        "GUID:9a509af08fef84146b6eb4e5c5164e8b",
-        "GUID:4307f53044263cf4b835bd812fc161a4"
+        "GUID:f932d7c65becc1f44b83a9146e54b177"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

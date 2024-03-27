@@ -15,7 +15,7 @@ namespace GameTesting
 		[Test]
 		public void RoundOneHealth()
 		{
-			Assert.AreEqual(150d, Core.GameplayParams.GetMaxHealthDouble(1, 
+			Assert.AreEqual(150d, Core.GameFunction.GetMaxHealthDouble(1, 
 				STARTING_HEALTH, 
 				FLAT_INCREASE_AMOUNT, 
 				PERCENTAGE_INCREASE_AMOUNT));
@@ -24,7 +24,7 @@ namespace GameTesting
 		[Test]
 		public void RoundTwoHealth()
 		{
-			Assert.AreEqual(250d, Core.GameplayParams.GetMaxHealthDouble(2, 
+			Assert.AreEqual(250d, Core.GameFunction.GetMaxHealthDouble(2, 
 				STARTING_HEALTH, 
 				FLAT_INCREASE_AMOUNT, 
 				PERCENTAGE_INCREASE_AMOUNT));
@@ -33,7 +33,7 @@ namespace GameTesting
 		[Test]
 		public void RoundEightHealth()
 		{
-			Assert.AreEqual(850d, Core.GameplayParams.GetMaxHealthDouble(8, 
+			Assert.AreEqual(850d, Core.GameFunction.GetMaxHealthDouble(8, 
 				STARTING_HEALTH, 
 				FLAT_INCREASE_AMOUNT, 
 				PERCENTAGE_INCREASE_AMOUNT));
@@ -42,7 +42,7 @@ namespace GameTesting
 		[Test]
 		public void RoundNineHealth()
 		{
-			Assert.AreEqual(950d, Core.GameplayParams.GetMaxHealthDouble(9, 
+			Assert.AreEqual(950d, Core.GameFunction.GetMaxHealthDouble(9, 
 				STARTING_HEALTH, 
 				FLAT_INCREASE_AMOUNT, 
 				PERCENTAGE_INCREASE_AMOUNT));
@@ -51,7 +51,7 @@ namespace GameTesting
 		[Test]
 		public void RoundTenHealth()
 		{
-			Assert.AreEqual(1045d, Core.GameplayParams.GetMaxHealthDouble(10, 
+			Assert.AreEqual(1045d, Core.GameFunction.GetMaxHealthDouble(10, 
 				STARTING_HEALTH, 
 				FLAT_INCREASE_AMOUNT, 
 				PERCENTAGE_INCREASE_AMOUNT));
@@ -60,7 +60,7 @@ namespace GameTesting
 		[Test]
 		public void RoundFifteenHealth()
 		{
-			Assert.AreEqual(1683d, Core.GameplayParams.GetMaxHealthDouble(15, 
+			Assert.AreEqual(1683d, Core.GameFunction.GetMaxHealthDouble(15, 
 				STARTING_HEALTH, 
 				FLAT_INCREASE_AMOUNT, 
 				PERCENTAGE_INCREASE_AMOUNT));
@@ -69,7 +69,7 @@ namespace GameTesting
 		[Test]
 		public void RoundThirtyHealth()
 		{
-			Assert.AreEqual(7030d, Core.GameplayParams.GetMaxHealthDouble(30, 
+			Assert.AreEqual(7030d, Core.GameFunction.GetMaxHealthDouble(30, 
 				STARTING_HEALTH, 
 				FLAT_INCREASE_AMOUNT, 
 				PERCENTAGE_INCREASE_AMOUNT));
@@ -78,7 +78,7 @@ namespace GameTesting
 		[Test]
 		public void RoundFiftyHealth()
 		{
-			Assert.AreEqual(47_296d, Core.GameplayParams.GetMaxHealthDouble(50, 
+			Assert.AreEqual(47_296d, Core.GameFunction.GetMaxHealthDouble(50, 
 				STARTING_HEALTH, 
 				FLAT_INCREASE_AMOUNT, 
 				PERCENTAGE_INCREASE_AMOUNT));
@@ -87,7 +87,7 @@ namespace GameTesting
 		[Test]
 		public void RoundOneHundredHealth()
 		{
-			Assert.AreEqual(5_552_109, Core.GameplayParams.GetMaxHealthDouble(100, 
+			Assert.AreEqual(5_552_109, Core.GameFunction.GetMaxHealthDouble(100, 
 				STARTING_HEALTH, 
 				FLAT_INCREASE_AMOUNT, 
 				PERCENTAGE_INCREASE_AMOUNT));
