@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8662566722262695757}
   - component: {fileID: 1199584344658862037}
   - component: {fileID: 5874321443662702928}
+  - component: {fileID: 547158333121335342}
+  - component: {fileID: 5583482628018821711}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -123,6 +125,48 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &547158333121335342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021278345141429334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f996a8c5add5554b91e35a0b2552fe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthAmountMax: 150
+  startingHealthAmount: 0
+--- !u!114 &5583482628018821711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021278345141429334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e34e3686c73d3240b357b2ffb45bd1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDie:
+    m_PersistentCalls:
+      m_Calls: []
+  healthComponent: {fileID: 547158333121335342}
 --- !u!1 &9177834577314522018
 GameObject:
   m_ObjectHideFlags: 0
