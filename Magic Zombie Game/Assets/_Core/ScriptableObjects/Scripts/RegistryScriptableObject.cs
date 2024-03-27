@@ -11,7 +11,7 @@ namespace Core.Registries
 
 		[Tooltip("Logger to use for this registry. If null, no logging will occur.")]
 		[SerializeField]
-		private LoggerAsset logger;
+		protected LoggerAsset logger;
 		
 		protected readonly Dictionary<TKey, TValue> registry = new();
 
@@ -21,9 +21,17 @@ namespace Core.Registries
 		/// </summary>
 		public virtual bool Register(TKey key, TValue value)
 		{
-			if (registry == null) return false;
-			if (key == null) return false;
-			if (value == null) return false;
+			if (registry == null)
+			{
+				LogRegistryInvalid();
+				return false;
+			}
+
+			if (key == null)
+			{
+				LogKeyInvalid();
+				return false;
+			}
 
 			if (registry.TryAdd(key, value))
 			{
@@ -40,8 +48,17 @@ namespace Core.Registries
 		/// </summary>
 		public virtual bool Unregister(TKey key)
 		{
-			if (registry == null) return false;
-			if (key == null) return false;
+			if (registry == null)
+			{
+				LogRegistryInvalid();
+				return false;
+			}
+
+			if (key == null)
+			{
+				LogKeyInvalid();
+				return false;
+			}
 
 			if (registry.Remove(key, out TValue value))
 			{
@@ -58,7 +75,7 @@ namespace Core.Registries
 		/// </summary>
 		public virtual IEnumerable<TKey> GetKeys()
 		{
-			LogWrapper("Outputting all keys in the registry.", LoggerAsset.LogType.Info);
+			LogWrapper($"Outputting {registry?.Keys.Count} keys in the registry.", LoggerAsset.LogType.Info);
 			return registry?.Keys;
 		}
 
@@ -67,7 +84,7 @@ namespace Core.Registries
 		/// </summary>
 		public virtual IEnumerable<TValue> GetValues()
 		{
-			LogWrapper("Outputting all values in the registry.", LoggerAsset.LogType.Info);
+			LogWrapper($"Outputting {registry?.Values.Count} values in the registry.", LoggerAsset.LogType.Info);
 			return registry?.Values;
 		}
 
@@ -79,8 +96,18 @@ namespace Core.Registries
 			LogWrapper("Registry has been cleared.", LoggerAsset.LogType.Info);
 			registry?.Clear();
 		}
+
+		protected void LogRegistryInvalid()
+		{
+			LogWrapper("Internal registry reference is null, unable to perform operation.", LoggerAsset.LogType.Error);
+		}
+
+		protected void LogKeyInvalid()
+		{
+			LogWrapper("Key is null, unable to perform operation.", LoggerAsset.LogType.Warning);
+		}
 		
-		private void LogWrapper(string message, LoggerAsset.LogType logType)
+		protected void LogWrapper(string message, LoggerAsset.LogType logType)
 		{
 			if (logger == null) return;
 			logger.Log(message, this, logType);
