@@ -13,7 +13,7 @@ namespace Core.Data
 		/// <returns>The max health for the given round.</returns>
 		public double GetMaxHealth(int round)
 		{
-			return GameplayParams.GetMaxHealthDouble(round, _value.StartingHealth, _value.FlatIncreaseAmount, _value.PercentageIncreaseAmount);
+			return GameFunction.GetMaxHealthDouble(round, _value.StartingHealth, _value.FlatIncreaseAmount, _value.PercentageIncreaseAmount);
 		}
 		
 		/// <summary>

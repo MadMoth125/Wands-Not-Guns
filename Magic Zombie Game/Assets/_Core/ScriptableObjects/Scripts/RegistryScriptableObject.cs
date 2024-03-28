@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.CustomDebugger;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace Core.Registries
 
 		[Tooltip("Logger to use for this registry. If null, no logging will occur.")]
 		[SerializeField]
-		private LoggerScriptableObject logger;
+		protected LoggerAsset logger;
 		
 		protected readonly Dictionary<TKey, TValue> registry = new();
 
@@ -21,17 +22,25 @@ namespace Core.Registries
 		/// </summary>
 		public virtual bool Register(TKey key, TValue value)
 		{
-			if (registry == null) return false;
-			if (key == null) return false;
-			if (value == null) return false;
+			if (registry == null)
+			{
+				LogRegistryInvalid();
+				return false;
+			}
+
+			if (key == null)
+			{
+				LogKeyInvalid();
+				return false;
+			}
 
 			if (registry.TryAdd(key, value))
 			{
-				LogWrapper($"Value \"{value}\" with key of \"{key}\" has been added to the registry.", LoggerScriptableObject.LogType.Info);
+				LogWrapper($"Value \"{value}\" with key of \"{key}\" has been added to the registry.", LoggerAsset.LogType.Info);
 				return true;
 			}
 			
-			LogWrapper($"Key \"{key}\" already exists in the registry.", LoggerScriptableObject.LogType.Warning);
+			LogWrapper($"Key \"{key}\" already exists in the registry.", LoggerAsset.LogType.Warning);
 			return false;
 		}
 		
@@ -40,16 +49,25 @@ namespace Core.Registries
 		/// </summary>
 		public virtual bool Unregister(TKey key)
 		{
-			if (registry == null) return false;
-			if (key == null) return false;
+			if (registry == null)
+			{
+				LogRegistryInvalid();
+				return false;
+			}
+
+			if (key == null)
+			{
+				LogKeyInvalid();
+				return false;
+			}
 
 			if (registry.Remove(key, out TValue value))
 			{
-				LogWrapper($"Value \"{value}\" with key \"{key}\" has been removed from the registry.", LoggerScriptableObject.LogType.Info);
+				LogWrapper($"Value \"{value}\" with key \"{key}\" has been removed from the registry.", LoggerAsset.LogType.Info);
 				return true;
 			}
 			
-			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerScriptableObject.LogType.Warning);
+			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerAsset.LogType.Warning);
 			return false;
 		}
 		
@@ -58,7 +76,7 @@ namespace Core.Registries
 		/// </summary>
 		public virtual IEnumerable<TKey> GetKeys()
 		{
-			LogWrapper("Outputting all keys in the registry.", LoggerScriptableObject.LogType.Info);
+			LogWrapper($"Outputting {registry?.Keys.Count} keys in the registry.", LoggerAsset.LogType.Info);
 			return registry?.Keys;
 		}
 
@@ -67,20 +85,47 @@ namespace Core.Registries
 		/// </summary>
 		public virtual IEnumerable<TValue> GetValues()
 		{
-			LogWrapper("Outputting all values in the registry.", LoggerScriptableObject.LogType.Info);
+			LogWrapper($"Outputting {registry?.Values.Count} values in the registry.", LoggerAsset.LogType.Info);
 			return registry?.Values;
 		}
+		
+		/// <summary>
+		/// Returns a random value from the registry.
+		/// </summary>
+		public virtual TValue GetRandomValue()
+		{
+			if (Count == 0)
+			{
+				LogWrapper("Registry is empty, unable to get random value.", LoggerAsset.LogType.Warning);
+				return default;
+			}
 
+			int randomIndex = UnityEngine.Random.Range(0, Count);
+			var randomValue = GetValues().ElementAt(randomIndex);
+			LogWrapper($"Random value \"{randomValue}\" has been retrieved from the registry.", LoggerAsset.LogType.Info);
+			return randomValue;
+		}
+		
 		/// <summary>
 		/// Clears the registry.
 		/// </summary>
 		public virtual void Clear()
 		{
-			LogWrapper("Registry has been cleared.", LoggerScriptableObject.LogType.Info);
+			LogWrapper("Registry has been cleared.", LoggerAsset.LogType.Info);
 			registry?.Clear();
 		}
+
+		protected void LogRegistryInvalid()
+		{
+			LogWrapper("Internal registry reference is null, unable to perform operation.", LoggerAsset.LogType.Error);
+		}
+
+		protected void LogKeyInvalid()
+		{
+			LogWrapper("Key is null, unable to perform operation.", LoggerAsset.LogType.Warning);
+		}
 		
-		private void LogWrapper(string message, LoggerScriptableObject.LogType logType)
+		protected void LogWrapper(string message, LoggerAsset.LogType logType)
 		{
 			if (logger == null) return;
 			logger.Log(message, this, logType);
