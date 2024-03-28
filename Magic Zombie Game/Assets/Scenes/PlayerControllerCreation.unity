@@ -3727,6 +3727,8 @@ GameObject:
   - component: {fileID: 1768199295}
   - component: {fileID: 1768199294}
   - component: {fileID: 1768199293}
+  - component: {fileID: 1768199298}
+  - component: {fileID: 1768199297}
   - component: {fileID: 1768199292}
   m_Layer: 0
   m_Name: Damage Target
@@ -3833,6 +3835,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1768199297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768199291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e34e3686c73d3240b357b2ffb45bd1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1768199292}
+        m_TargetAssemblyTypeName: Core.HealthSystem.LogHealthEvents, Core.HealthSystem
+        m_MethodName: OnHealthChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMaxHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDie:
+    m_PersistentCalls:
+      m_Calls: []
+  healthComponent: {fileID: 1768199298}
+--- !u!114 &1768199298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768199291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f996a8c5add5554b91e35a0b2552fe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthAmountMax: 500
+  startingHealthAmount: 0
 --- !u!1 &1780451002
 GameObject:
   m_ObjectHideFlags: 0
@@ -3947,6 +4003,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1788266926}
+  - component: {fileID: 1788266927}
   m_Layer: 0
   m_Name: Damage Dealer
   m_TagString: Untagged
@@ -3969,6 +4026,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1788266927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788266925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855f516ddf44e604da919dd4da816ffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1768199291}
 --- !u!1 &1909248503
 GameObject:
   m_ObjectHideFlags: 0
@@ -4511,13 +4581,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1199584344658862037, guid: 6f04cc33b18bd7c46aee866fae4dfd1c,
         type: 3}
+      propertyPath: DiscreteCollisionEvents
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199584344658862037, guid: 6f04cc33b18bd7c46aee866fae4dfd1c,
+        type: 3}
       propertyPath: InteractiveRigidbodyHandling
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1199584344658862037, guid: 6f04cc33b18bd7c46aee866fae4dfd1c,
         type: 3}
       propertyPath: KillVelocityWhenExceedMaxMovementIterations
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1199584344658862037, guid: 6f04cc33b18bd7c46aee866fae4dfd1c,
         type: 3}
@@ -4578,6 +4653,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5874321443662702928, guid: 6f04cc33b18bd7c46aee866fae4dfd1c,
+        type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5874321443662702928, guid: 6f04cc33b18bd7c46aee866fae4dfd1c,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5874321443662702928, guid: 6f04cc33b18bd7c46aee866fae4dfd1c,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
