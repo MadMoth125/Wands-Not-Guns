@@ -12,7 +12,7 @@ namespace Core.CustomTickSystem.Editor
 		[SerializeField]
 		private TickSystemAsset dataAsset;
 	
-		[MenuItem("Window/Tick")]
+		[MenuItem("Window/Custom Editors/Tick System", priority = -10)]
 		public static void OpenWindow() => GetWindow<TickSystemEditor>().Show();
 	
 		protected override void OnEnable()
