@@ -7,17 +7,6 @@ namespace Core.Utils.Editor
 {
 	public class FrameRateEditor : OdinEditorWindow
 	{
-		#if UNITY_EDITOR
-		
-		#region Static Methods
-
-		[MenuItem("Window/Frame Rate Adjustment")]
-		public static void OpenWindow() => GetWindow<FrameRateEditor>().Show();
-	
-		private static void SetFrameRate(int frameRate) => Application.targetFrameRate = frameRate;
-
-		#endregion
-
 		[BoxGroup("Frame Rate Settings")]
 		[HorizontalGroup("Frame Rate Settings/Properties", Width = 0.8f)]
 		[VerticalGroup("Frame Rate Settings/Properties/Variables")]
@@ -26,7 +15,7 @@ namespace Core.Utils.Editor
 		[LabelText("Target FPS:")]
 		[SerializeField]
 		private int maxFrameRate = 60;
-	
+
 		[BoxGroup("Frame Rate Settings")]
 		[HorizontalGroup("Frame Rate Settings/Properties")]
 		[VerticalGroup("Frame Rate Settings/Properties/Variables")]
@@ -36,7 +25,7 @@ namespace Core.Utils.Editor
 		[ShowInInspector]
 		[DisplayAsString]
 		private string _currentFrameRate = "Uncapped";
-	
+
 		[BoxGroup("Frame Rate Settings")]
 		[HorizontalGroup("Frame Rate Settings/Properties", Width = 0.2f)]
 		[VerticalGroup("Frame Rate Settings/Properties/Buttons")]
@@ -47,7 +36,16 @@ namespace Core.Utils.Editor
 			Application.targetFrameRate = maxFrameRate;
 			_currentFrameRate = Application.targetFrameRate == -1 ? "Uncapped" : Application.targetFrameRate.ToString();
 		}
+
+		#region Static Methods
+
+		[MenuItem("Window/Custom Editors/Frame Rate Adjuster")]
+		public static void OpenWindow() => GetWindow<FrameRateEditor>().Show();
 	
+		private static void SetFrameRate(int frameRate) => Application.targetFrameRate = frameRate;
+
+		#endregion
+
 		[BoxGroup("Frame Rate Settings")]
 		[HorizontalGroup("Frame Rate Settings/Properties")]
 		[VerticalGroup("Frame Rate Settings/Properties/Buttons")]
@@ -59,7 +57,5 @@ namespace Core.Utils.Editor
 			ApplyFrameRate();
 			maxFrameRate = 60;
 		}
-		
-		#endif
 	}
 }
