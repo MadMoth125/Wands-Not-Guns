@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 5874321443662702928}
   - component: {fileID: 547158333121335342}
   - component: {fileID: 5583482628018821711}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,6 +60,7 @@ MonoBehaviour:
   gravityComponent:
     gravityStrength: {fileID: 11400000, guid: d00cd9634e628524bab0fe3ce1ce6353, type: 2}
     drag: {fileID: 11400000, guid: dd7e518b11293324db3195acae0def5a, type: 2}
+  collisionLayerMask: {fileID: 11400000, guid: 08781ee2bec462f40ad2a3bf5e9d2e56, type: 2}
 --- !u!114 &1199584344658862037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +85,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   DiscreteCollisionEvents: 0
   StepHandling: 1
-  MaxStepHeight: 0.5
+  MaxStepHeight: 0.4
   AllowSteppingWithoutStableGrounding: 0
   MinRequiredStepDepth: 0.1
   LedgeAndDenivelationHandling: 1
@@ -178,7 +179,6 @@ GameObject:
   - component: {fileID: 223737439555254814}
   - component: {fileID: 93156599212014294}
   - component: {fileID: 2327585310556079391}
-  - component: {fileID: 5957032467706000574}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -251,26 +251,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5957032467706000574
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9177834577314522018}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}

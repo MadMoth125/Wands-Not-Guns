@@ -43,7 +43,11 @@ namespace Player.Controller
 		[InlineProperty]
 		[SerializeField]
 		private GravityMovementSoap gravityComponent = new();
-	
+
+		[Title("Collision")]
+		[SerializeField]
+		private LayerMaskVariable collisionLayerMask;
+		
 		private IEnumerable<IMovementAbility> _abilityCollection;
 		private KinematicCharacterMotor _motor;
 
@@ -123,7 +127,7 @@ namespace Player.Controller
 
 		public bool IsColliderValidForCollisions(Collider coll)
 		{
-			return true;
+			return collisionLayerMask != null && (collisionLayerMask.Value & (1 << coll.gameObject.layer)) != 0;
 		}
 
 		public void OnGroundHit(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport)
