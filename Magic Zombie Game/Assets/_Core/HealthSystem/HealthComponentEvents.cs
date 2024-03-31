@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,30 +13,32 @@ namespace Core.HealthSystem
 	public class HealthComponentEvents : MonoBehaviour
 	{
 		#region Events
-
-		[FoldoutGroup("Events", Order = 200)]
+		
 		public UnityEvent<HealthChangedArgs> OnHealthChanged;
-		
-		[FoldoutGroup("Events")]
+
 		public UnityEvent<HealthChangedArgs> OnMaxHealthChanged;
-		
-		[FoldoutGroup("Events")]
+
 		public UnityEvent<HealthChangedArgs> OnDamaged;
-		
-		[FoldoutGroup("Events")]
+
 		public UnityEvent<HealthChangedArgs> OnHealed;
-		
-		[FoldoutGroup("Events")]
+
 		public UnityEvent OnDie;
 		
 		#endregion
 		
-		[TitleGroup("Required Components", Order = 100)]
-		[Required]
+		[HideInInspector]
 		[SerializeField]
 		private HealthComponent healthComponent;
 		
 		#region Unity Methods
+
+		private void OnValidate()
+		{
+			if (healthComponent == null)
+			{
+				healthComponent = GetComponent<HealthComponent>();
+			}
+		}
 
 		private void Awake()
 		{
@@ -47,6 +50,8 @@ namespace Core.HealthSystem
 
 		private void OnEnable()
 		{
+			if (!CanValidateHealthComponent()) return;
+			
 			healthComponent.OnHealthChanged += OnHealthChanged.Invoke;
 			healthComponent.OnMaxHealthChanged += OnMaxHealthChanged.Invoke;
 			healthComponent.OnDamaged += OnDamaged.Invoke;
@@ -56,6 +61,8 @@ namespace Core.HealthSystem
 
 		private void OnDisable()
 		{
+			if (!CanValidateHealthComponent()) return;
+			
 			healthComponent.OnHealthChanged -= OnHealthChanged.Invoke;
 			healthComponent.OnMaxHealthChanged -= OnMaxHealthChanged.Invoke;
 			healthComponent.OnDamaged -= OnDamaged.Invoke;
@@ -64,5 +71,15 @@ namespace Core.HealthSystem
 		}
 
 		#endregion
+		
+		private bool CanValidateHealthComponent()
+		{
+			if (healthComponent == null)
+			{
+				healthComponent = GetComponent<HealthComponent>();
+			}
+			
+			return healthComponent != null;
+		}
 	}
 }
