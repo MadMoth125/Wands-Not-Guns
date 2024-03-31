@@ -8,6 +8,20 @@ namespace ScriptExtensions
 {
 	public static class TransformExtensions
 	{
+		public static Vector3 GetCenterOfTransforms(IEnumerable<Transform> transforms)
+		{
+			Vector3 center = Vector3.zero;
+			int count = 0;
+
+			foreach (Transform transform in transforms)
+			{
+				center += transform.position;
+				count++;
+			}
+
+			return center / count;
+		}
+		
 		/// <summary>
 		/// Find the closest transform from a list of transforms.
 		/// </summary>
