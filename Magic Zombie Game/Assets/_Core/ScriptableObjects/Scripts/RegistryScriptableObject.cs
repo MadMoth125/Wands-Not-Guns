@@ -8,6 +8,12 @@ namespace Core.Registries
 {
 	public abstract class RegistryScriptableObject<TKey, TValue> : ScriptableObject where TKey : IEquatable<TKey>
 	{
+		public event Action<TKey, TValue> OnItemAdded;
+		
+		public event Action<TKey, TValue> OnItemRemoved;
+		
+		public event Action<IEnumerable<TKey>, IEnumerable<TValue>> OnRegistryCleared;
+		
 		public int Count => registry.Count;
 
 		[Tooltip("Logger to use for this registry. If null, no logging will occur.")]
@@ -36,6 +42,7 @@ namespace Core.Registries
 
 			if (registry.TryAdd(key, value))
 			{
+				InvokeItemAdded(key, value);
 				LogWrapper($"Value \"{value}\" with key of \"{key}\" has been added to the registry.", LoggerAsset.LogType.Info);
 				return true;
 			}
@@ -63,12 +70,40 @@ namespace Core.Registries
 
 			if (registry.Remove(key, out TValue value))
 			{
+				InvokeItemRemoved(key, value);
 				LogWrapper($"Value \"{value}\" with key \"{key}\" has been removed from the registry.", LoggerAsset.LogType.Info);
 				return true;
 			}
 			
 			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerAsset.LogType.Warning);
 			return false;
+		}
+		
+		/// <summary>
+		/// Returns a value from the registry if the provided key exists.
+		/// </summary>
+		public TValue GetValue(TKey key)
+		{
+			if (registry == null)
+			{
+				LogRegistryInvalid();
+				return default;
+			}
+
+			if (key == null)
+			{
+				LogKeyInvalid();
+				return default;
+			}
+
+			if (registry.TryGetValue(key, out TValue value))
+			{
+				LogWrapper($"Value \"{value}\" with key \"{key}\" has been retrieved from the registry.", LoggerAsset.LogType.Info);
+				return value;
+			}
+			
+			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerAsset.LogType.Warning);
+			return default;
 		}
 		
 		/// <summary>
@@ -111,9 +146,31 @@ namespace Core.Registries
 		/// </summary>
 		public virtual void Clear()
 		{
+			InvokeRegistryCleared(registry.Keys, registry.Values);
 			LogWrapper("Registry has been cleared.", LoggerAsset.LogType.Info);
 			registry?.Clear();
 		}
+
+		#region Event Invokers
+
+		protected void InvokeItemAdded(TKey key, TValue value)
+		{
+			OnItemAdded?.Invoke(key, value);
+		}
+		
+		protected void InvokeItemRemoved(TKey key, TValue value)
+		{
+			OnItemRemoved?.Invoke(key, value);
+		}
+		
+		protected void InvokeRegistryCleared(IEnumerable<TKey> keys, IEnumerable<TValue> values)
+		{
+			OnRegistryCleared?.Invoke(keys, values);
+		}
+
+		#endregion
+
+		#region Logging
 
 		protected void LogRegistryInvalid()
 		{
@@ -130,5 +187,7 @@ namespace Core.Registries
 			if (logger == null) return;
 			logger.Log(message, this, logType);
 		}
+
+		#endregion
 	}
 }
