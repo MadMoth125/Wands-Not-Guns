@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807fa3b489de65542a7eec4167efded3, type: 3}
+  m_Name: SpawnIntervalAsset
+  m_EditorClassIdentifier: 
+  roundValue: {fileID: 11400000, guid: 1a738e7d7be9f8348a0c2a62557415ef, type: 2}
+  maxSpawnInterval: 2
+  minSpawnInterval: 0.1
+  reductionRate: 0.05
+  roundIntervalValue: 0
