@@ -67,6 +67,13 @@ namespace Core.ObjectPool
 
 		#region Public Methods
 
+		public virtual T GetElement(Transform spawnTransform)
+		{
+			Vector3 position = spawnTransform.position;
+			Quaternion rotation = spawnTransform.rotation;
+			return GetElement(position, rotation);
+		}
+		
 		/// <summary>
 		/// Gets an element from the pool.
 		/// Allows you to optionally set the element's new position, rotation, and scale.
