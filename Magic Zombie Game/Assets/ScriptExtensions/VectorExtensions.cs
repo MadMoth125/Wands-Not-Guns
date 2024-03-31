@@ -6,20 +6,66 @@ namespace ScriptExtensions
 {
 	public static class VectorExtensions
 	{
-		public static Vector3 MultiplyVector(Vector3 a, Vector3 b) => new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
+		public static Vector3 MultiplyVector(in Vector3 a, in Vector3 b) => new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
 		
-		public static Vector2 MultiplyVector(Vector2 a, Vector2 b) => new Vector2(a.x * b.x, a.y * b.y);
+		public static Vector2 MultiplyVector(in Vector2 a, in Vector2 b) => new Vector2(a.x * b.x, a.y * b.y);
+		
+		public static Vector3 GetCenterOfVectors(IEnumerable<Vector3> vectors)
+		{
+			Vector3 center = Vector3.zero;
+			int count = 0;
+
+			foreach (Vector3 vector in vectors)
+			{
+				center += vector;
+				count++;
+			}
+
+			return center / count;
+		}
+		
+		public static Vector2 GetCenterOfVectors(IEnumerable<Vector2> vectors)
+		{
+			Vector2 center = Vector2.zero;
+			int count = 0;
+
+			foreach (Vector2 vector in vectors)
+			{
+				center += vector;
+				count++;
+			}
+
+			return center / count;
+		}
 		
 		#region Vector3 Extensions
 
-		public static Vector3 SetX(this Vector3 vector, float x) => new(x, vector.y, vector.z);
+		public static Vector3 SetX(this Vector3 vector, in float x)
+		{
+			vector.x = x;
+			return vector;
+		}
 
-		public static Vector3 SetY(this Vector3 vector, float y) => new(vector.x, y, vector.z);
+		public static Vector3 SetY(this Vector3 vector, in float y)
+		{
+			vector.y = y;
+			return vector;
+		}
 
-		public static Vector3 SetZ(this Vector3 vector, float z) => new(vector.x, vector.y, z);
+		public static Vector3 SetZ(this Vector3 vector, in float z)
+		{
+			vector.z = z;
+			return vector;
+		}
 
-		public static Vector3 Multiply(this Vector3 a, Vector3 b) => new(a.x * b.x, a.y * b.y, a.z * b.z);
-		
+		public static Vector3 Multiply(this Vector3 a, in Vector3 b)
+		{
+			a.x *= b.x;
+			a.y *= b.y;
+			a.z *= b.z;
+			return a;
+		}
+
 		/// <summary>
 		/// Return the value multiplied by <see cref="Time.deltaTime"/>
 		/// </summary>
@@ -37,8 +83,8 @@ namespace ScriptExtensions
 		/// <param name="position">The origin position to search from.</param>
 		/// <param name="positions">The list of positions to search through.</param>
 		/// <returns>The closest position from the list, and the distance squared from the origin position.</returns>
-		public static (Vector3, float) FindClosestPosition(this Vector3 position, IEnumerable<Vector3> positions)
-			=> FindClosestOrFurthestPosition(ref position, ref positions, PositionSortType.Closest);
+		public static (Vector3 position, float distance) FindClosestPosition(this Vector3 position, IEnumerable<Vector3> positions)
+			=> FindClosestOrFurthestPosition(position, positions, PositionSortType.Closest);
 
 		/// <summary>
 		/// Find the furthest position from a list of positions.
@@ -47,17 +93,30 @@ namespace ScriptExtensions
 		/// <param name="positions">The list of positions to search through.</param>
 		/// <returns>The furthest position from the list, and the distance squared from the origin position.</returns>
 		public static (Vector3, float) FindFurthestPosition(this Vector3 position, IEnumerable<Vector3> positions) 
-			=> FindClosestOrFurthestPosition(ref position, ref positions, PositionSortType.Furthest);
+			=> FindClosestOrFurthestPosition(position, positions, PositionSortType.Furthest);
 
 		#endregion
 
 		#region Vector2 Extensions
 
-		public static Vector2 SetX(this Vector2 vector, float x) => new(x, vector.y);
-		
-		public static Vector2 SetY(this Vector2 vector, float y) => new(vector.x, y);
-		
-		public static Vector2 Multiply(this Vector2 a, Vector2 b) => new(a.x * b.x, a.y * b.y);
+		public static Vector2 SetX(this Vector2 vector, in float x)
+		{
+			vector.x = x;
+			return vector;
+		}
+
+		public static Vector2 SetY(this Vector2 vector, in float y)
+		{
+			vector.y = y;
+			return vector;
+		}
+
+		public static Vector2 Multiply(this Vector2 a, in Vector2 b)
+		{
+			a.x *= b.x;
+			a.y *= b.y;
+			return a;
+		}
 
 		/// <summary>
 		/// Return the value multiplied by <see cref="Time.deltaTime"/>
@@ -71,7 +130,7 @@ namespace ScriptExtensions
 		/// Called by <see cref="FindClosestPosition"/> and <see cref="FindFurthestPosition"/> to expose selective search methods.
 		/// </summary>
 		/// <returns>A tuple containing the closest or furthest position and the distance squared from the origin position.</returns>
-		private static (Vector3, float) FindClosestOrFurthestPosition(ref Vector3 position, ref IEnumerable<Vector3> positions, PositionSortType searchType)
+		private static (Vector3, float) FindClosestOrFurthestPosition(in Vector3 position, in IEnumerable<Vector3> positions, PositionSortType searchType)
 		{
 			Vector3 closestOrFurthest = Vector3.zero;
 			float closestOrFurthestDistanceSqr = Mathf.Infinity;
