@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemyRegistryLogger
   m_EditorClassIdentifier: 
   identifier: Enemy Registry
-  enabled: 1
+  enabled: 0

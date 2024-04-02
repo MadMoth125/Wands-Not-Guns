@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72e4056db15a6447976a455df1301a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetComponent: {fileID: 1078284786691879341}
+  pathfindingComponent: {fileID: 1078284786691879341}
   healthComponent: {fileID: 7298606842867131430}
 --- !u!114 &1078284786691879341
 MonoBehaviour:
@@ -67,8 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d180672b16884c342aba92842ac3002e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  aiPath: {fileID: 541312598520930036}
+  pathfinderComponent: {fileID: 541312598520930036}
 --- !u!114 &7298606842867131430
 MonoBehaviour:
   m_ObjectHideFlags: 0

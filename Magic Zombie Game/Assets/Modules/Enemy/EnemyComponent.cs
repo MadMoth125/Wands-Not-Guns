@@ -1,50 +1,23 @@
 using System;
 using Core.HealthSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyComponent : MonoBehaviour
 {
-	public static event Action<EnemyComponent> OnDie;
+	public event Action<EnemyComponent> OnDie;
 	
-	public EnemyTarget TargetComponent => targetComponent;
+	public EnemyPathfinding PathfindingComponent => pathfindingComponent;
 	
 	public HealthComponent HealthComponent => healthComponent;
 	
 	[SerializeField]
-	private EnemyTarget targetComponent;
+	private EnemyPathfinding pathfindingComponent;
 	
 	[SerializeField]
 	private HealthComponent healthComponent;
-	
-	public void SetTarget(Transform target)
-	{
-		if (targetComponent == null) return;
-		targetComponent.target = target;
-	}
-
-	public void SetTargetPosition(Vector3 position)
-	{
-		if (targetComponent == null) return;
-		targetComponent.aiPath.destination = position;
-	}
-
-	public void ClearTarget()
-	{
-		if (targetComponent == null) return;
-		targetComponent.target = null;
-	}
 
 	#region Unity Methods
-
-	private void Start()
-	{
-		
-	}
-
-	private void Update()
-	{
-		
-	}
 
 	private void OnEnable()
 	{
@@ -60,7 +33,6 @@ public class EnemyComponent : MonoBehaviour
 
 	private void HandleDie()
 	{
-		Debug.Log($"{gameObject.name} died");
 		OnDie?.Invoke(this);
 	}
 }
