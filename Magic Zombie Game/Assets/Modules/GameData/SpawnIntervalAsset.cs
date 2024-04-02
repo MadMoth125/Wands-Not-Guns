@@ -8,9 +8,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpawnIntervalAsset", menuName = "Gameplay/Spawn Interval Asset")]
 public class SpawnIntervalAsset : ScriptableObject
 {
-	[SerializeField]
-	private RoundValueAsset roundValue;
-	
 	[Tooltip("This is the maximum interval that the enemies will spawn at.")]
 	[LabelText("Maximum Interval")]
 	[SuffixLabel("/s", Overlay = true)]
@@ -22,7 +19,7 @@ public class SpawnIntervalAsset : ScriptableObject
 	[SuffixLabel("/s", Overlay = true)]
 	[SerializeField]
 	private float minSpawnInterval = 0.1f;
-	
+
 	[Tooltip("This is the percentage that the interval is decreased by every round.\n\n" +
 	         "Value sheet:\n" +
 	         "0.01 = 1% decrease,\n" +
@@ -37,7 +34,10 @@ public class SpawnIntervalAsset : ScriptableObject
 	[Tooltip("If the resulting interval value should be rounded. (nearest hundredth)")]
 	[SerializeField]
 	private bool roundIntervalValue = false;
-	
+
+	[SerializeField]
+	private RoundValueAsset roundValue;
+
 	public float GetInterval()
 	{
 		return GameFunction.GetSpawnInterval(roundValue.Round, maxSpawnInterval, minSpawnInterval, reductionRate, roundIntervalValue);

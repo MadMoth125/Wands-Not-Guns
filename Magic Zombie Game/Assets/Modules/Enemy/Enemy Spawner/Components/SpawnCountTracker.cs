@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [Serializable]
@@ -8,12 +9,9 @@ public class SpawnCountTracker : EnemySpawnerComponentBase
 {
 	public SpawnCountAsset SpawnCountAsset => spawnCountAsset;
 
+	[InlineEditor(InlineEditorObjectFieldModes.Foldout)]
 	[SerializeField]
 	private SpawnCountAsset spawnCountAsset;
-	
-	[Tooltip("The maximum number of enemies that can be spawned at once.")]
-	[SerializeField]
-	private int maxConcurrentEnemies = 30;
 	
 	private int _currentEnemyCount;
 	private int _totalEnemyCount;
@@ -42,7 +40,7 @@ public class SpawnCountTracker : EnemySpawnerComponentBase
 	/// <returns></returns>
 	public int GetMaxConcurrentEnemies()
 	{
-		return maxConcurrentEnemies;
+		return spawnCountAsset.GetMaxConcurrentEnemies();
 	}
 	
 	/// <summary>
@@ -51,7 +49,7 @@ public class SpawnCountTracker : EnemySpawnerComponentBase
 	/// <returns></returns>
 	public int GetMaxTotalEnemies()
 	{
-		return spawnCountAsset.GetSpawnCount();
+		return spawnCountAsset.GetMaxSpawnCount();
 	}
 
 	/// <summary>

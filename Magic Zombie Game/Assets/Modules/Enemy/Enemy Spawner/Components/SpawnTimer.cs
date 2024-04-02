@@ -1,5 +1,6 @@
 using System;
 using ScriptExtensions;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [Serializable]
@@ -13,11 +14,12 @@ public class SpawnTimer : EnemySpawnerComponentBase
 	
 	public SpawnIntervalAsset IntervalAsset => intervalAsset;
 
+	private float _timer;
+
+	[InlineEditor(InlineEditorObjectFieldModes.Foldout)]
 	[SerializeField]
 	private SpawnIntervalAsset intervalAsset;
-	
-	private float _timer;
-	
+
 	/// <summary>
 	/// The interval at which the timer ticks.
 	/// Returns <see cref="float.MaxValue"/> if the underlying interval asset is null/invalid.

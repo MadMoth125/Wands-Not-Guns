@@ -71,12 +71,12 @@ public class EnemyCountHandler : MonoBehaviour
 	/// <returns></returns>
 	public bool ReachedMaxTotalEnemies()
 	{
-		return _totalEnemyCount >= spawnCountAsset.GetSpawnCount();
+		return _totalEnemyCount >= spawnCountAsset.GetMaxSpawnCount();
 	}
 	
 	public int GetMaxTotalEnemies()
 	{
-		return spawnCountAsset.GetSpawnCount();
+		return spawnCountAsset.GetMaxSpawnCount();
 	}
 	
 	public int GetTotalEnemyCount()
