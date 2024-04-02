@@ -53,8 +53,7 @@ public class EnemySpawnManager : MonoBehaviour
 
 	private void SpawnTick(float time)
 	{
-		if (_countHandler.MaxConcurrentEnemies() || _countHandler.MaxTotalEnemies()) return;
-		
+		if (_countHandler.ReachedMaxConcurrentEnemies() || _countHandler.ReachedMaxTotalEnemies()) return;
 		var spawnPoint = _spawnerHandler.spawnPoints[Random.Range(0, _spawnerHandler.spawnPoints.Count)];
 		_spawnerHandler.SpawnEnemy(spawnPoint);
 	}
