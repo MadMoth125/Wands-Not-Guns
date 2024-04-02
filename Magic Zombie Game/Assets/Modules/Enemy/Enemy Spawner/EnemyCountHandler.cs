@@ -36,12 +36,12 @@ public class EnemyCountHandler : MonoBehaviour
 		_totalEnemyCount++;
 		_enemyCount++;
 
-		if (MaxConcurrentEnemies())
+		if (ReachedMaxConcurrentEnemies())
 		{
 			OnConcurrentMaxEnemiesReached?.Invoke();
 		}
 		
-		if (MaxTotalEnemies())
+		if (ReachedMaxTotalEnemies())
 		{
 			OnTotalMaxEnemiesReached?.Invoke();
 		}
@@ -55,17 +55,32 @@ public class EnemyCountHandler : MonoBehaviour
 	/// <summary>
 	/// Whether the max number of active/concurrent enemies has been reached.
 	/// </summary>
-	public bool MaxConcurrentEnemies()
+	public bool ReachedMaxConcurrentEnemies()
 	{
 		return _enemyCount >= spawnCountAsset.GetMaxConcurrentEnemies();
+	}
+	
+	public int GetMaxConcurrentEnemies()
+	{
+		return spawnCountAsset.GetMaxConcurrentEnemies();
 	}
 	
 	/// <summary>
 	/// Whether the total number of enemies to spawn for the round has been reached.
 	/// </summary>
 	/// <returns></returns>
-	public bool MaxTotalEnemies()
+	public bool ReachedMaxTotalEnemies()
 	{
 		return _totalEnemyCount >= spawnCountAsset.GetSpawnCount();
+	}
+	
+	public int GetMaxTotalEnemies()
+	{
+		return spawnCountAsset.GetSpawnCount();
+	}
+	
+	public int GetTotalEnemyCount()
+	{
+		return _totalEnemyCount;
 	}
 }
