@@ -15,24 +15,9 @@ public class EnemyRegistryDisplay : MonoBehaviour
 	
 	#region Unity Methods
 
-	private void Start()
-	{
-		
-	}
-
 	private void Update()
 	{
-		text.text = $"{prefix}{registry.Count}";
-	}
-
-	private void OnEnable()
-	{
-		
-	}
-
-	private void OnDisable()
-	{
-		
+		text.text = prefix + registry.Count;
 	}
 
 	#endregion
