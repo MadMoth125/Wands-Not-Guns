@@ -6,7 +6,11 @@ using UnityEngine;
 namespace Enemy.Jobs
 {
 	/// <summary>
-	/// Simple job that finds the closest player to each enemy.
+	/// DOTS Job that finds the closest player to each enemy.
+	/// Requires the positions of all enemies and id/positions of all players.
+	/// 
+	/// IDs are the ideal output so players can be identified in the registry
+	/// with the most up-to-date position rather than multiple frames old positional data.
 	/// </summary>
 	[BurstCompile]
 	public struct FindClosestPlayerJob : IJobFor
@@ -18,50 +22,39 @@ namespace Enemy.Jobs
 		public NativeArray<Vector3> enemyPositions;
 	
 		/// <summary>
-		/// The positions of all currently active players.
+		/// The IDs/positions of all currently active players.
 		/// </summary>
 		[ReadOnly]
-		public NativeArray<Vector3> playerPositions;
+		public NativeArray<PlayerData> playerData;
 	
 		/// <summary>
-		/// The instance IDs of all currently active players.
+		/// The resulting IDs/positions of the closest player to each enemy.
 		/// </summary>
-		[ReadOnly]
-		public NativeArray<int> playerIds;
-	
-		/// <summary>
-		/// The resulting positions of the closest player to each enemy.
-		/// </summary>
-		public NativeArray<Vector3> resultPositions;
-	
-		/// <summary>
-		/// The resulting instance IDs of the closest player to each enemy.
-		/// </summary>
-		public NativeArray<int> resultIds;
+		public NativeArray<PlayerData> resultData;
 	
 		public void Execute(int index)
 		{
+			// save outside of loop for more re-usability
+			PlayerData bestPlayer = new PlayerData(-1, Vector3.zero);
+
 			foreach (var enemyPos in enemyPositions)
 			{
-				int bestPlayerId = -1;
-				Vector3 bestPosition = Vector3.zero;
+				bestPlayer.SetData(-1, Vector3.zero);
 				float bestDistance = float.MaxValue;
 
-				for (int i = 0; i < playerIds.Length; i++)
+				foreach (var dat in playerData)
 				{
-					Vector3 distVec = playerPositions[i] - enemyPos;
+					Vector3 distVec = dat.Position - enemyPos;
 					float dist = distVec.sqrMagnitude;
 				
 					if (dist < bestDistance)
 					{
-						bestPlayerId = playerIds[i];
-						bestPosition = playerPositions[i];
+						bestPlayer = dat;
 						bestDistance = dist;
 					}
 				}
 			
-				resultPositions[index] = bestPosition;
-				resultIds[index] = bestPlayerId;
+				resultData[index] = bestPlayer;
 			}
 		}
 	}

@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Enemy.Registry;
 using Player.Registry;
 using Sirenix.OdinInspector;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Enemy.Jobs
 {
@@ -31,16 +27,14 @@ namespace Enemy.Jobs
 		[PropertyRange(1, 4)]
 		[SerializeField]
 		private int resultWaitTime = 4; // fix this not working with values under 4
-	
-		private NativeArray<Vector3> _playerPositions;
-		private NativeArray<int> _playerIds;
+		
 		private NativeArray<Vector3> _enemyPositions;
-		private NativeArray<Vector3> _resultPositions; // consider removing this, we don't use the result positions
-		private NativeArray<int> _resultIds;
+		private NativeArray<PlayerData> _playerData;
+		private NativeArray<PlayerData> _resultData;
 		private JobHandle _runningJobHandle;
 	
-		private EnemyComponent[] _cachedEnemyReferences;
-		private (int[] id, Transform[] body) _cachedPlayerData;
+		private EnemyComponent[] _cachedEnemies;
+		private (int[] id, Transform[] body) _cachedPlayers;
 	
 		private int _frameCount = 0;
 	
@@ -48,7 +42,7 @@ namespace Enemy.Jobs
 
 		private void Update()
 		{
-			int frameMod = _frameCount % resultWaitTime;
+			int frameMod = _frameCount % 4;
 		
 			if (frameMod == 0)
 			{
@@ -60,24 +54,22 @@ namespace Enemy.Jobs
 		
 				FindClosestPlayerJob job = new FindClosestPlayerJob()
 				{
-					playerPositions = _playerPositions,
-					playerIds = _playerIds,
 					enemyPositions = _enemyPositions,
-					resultPositions = _resultPositions,
-					resultIds = _resultIds,
+					playerData = _playerData,
+					resultData = _resultData,
 				};
 			
-				_runningJobHandle = job.ScheduleParallel(_cachedEnemyReferences.Length, minBatchCount, new JobHandle());
+				_runningJobHandle = job.ScheduleParallel(_cachedEnemies.Length, minBatchCount, new JobHandle());
 			}
-			else if (frameMod == resultWaitTime - 1)
+			else if (frameMod == 4 - 1)
 			{
 				_runningJobHandle.Complete();
-
-				for (int i = 0; i < _cachedEnemyReferences.Length; i++)
+				
+				for (int i = 0; i < _cachedEnemies.Length; i++)
 				{
-					var target = playerRegistry.GetValue(_resultIds[i]);
+					var target = playerRegistry.GetValue(_resultData[i].ID);
 					if (target == null || !target.gameObject.activeSelf) continue;
-					_cachedEnemyReferences[i].PathfindingComponent.SetTargetPosition(target.position);
+					_cachedEnemies[i].PathfindingComponent.SetTargetPosition(target.position);
 				}
 			
 				if (!_runningJobHandle.IsCompleted) return;
@@ -100,38 +92,44 @@ namespace Enemy.Jobs
 
 		private void CacheRegistryValues()
 		{
-			_cachedEnemyReferences = enemyRegistry.GetValuesArray();
-			_cachedPlayerData = (playerRegistry.GetKeysArray(), playerRegistry.GetValuesArray());
+			_cachedEnemies = enemyRegistry.GetValuesArray();
+			_cachedPlayers = (playerRegistry.GetKeysArray(), playerRegistry.GetValuesArray());
 		}
 		
 		private void InitializeNativeArrays()
 		{
-			_playerPositions = new NativeArray<Vector3>(_cachedPlayerData.id.Length, Allocator.TempJob);
-			_playerIds = new NativeArray<int>(_cachedPlayerData.id.Length, Allocator.TempJob);
-			_enemyPositions = new NativeArray<Vector3>(_cachedEnemyReferences.Length, Allocator.TempJob);
-			_resultPositions = new NativeArray<Vector3>(_cachedEnemyReferences.Length, Allocator.TempJob);
-			_resultIds = new NativeArray<int>(_cachedEnemyReferences.Length, Allocator.TempJob);
+			_enemyPositions = new NativeArray<Vector3>(_cachedEnemies.Length, Allocator.TempJob);
+			_playerData = new NativeArray<PlayerData>(_cachedPlayers.id.Length, Allocator.TempJob);
+			_resultData = new NativeArray<PlayerData>(_cachedEnemies.Length, Allocator.TempJob);
 		
 			// fill the native arrays with the cached data
-			for (int i = 0; i < _cachedEnemyReferences.Length; i++)
+			for (int i = 0; i < _cachedEnemies.Length; i++)
 			{
-				_enemyPositions[i] = _cachedEnemyReferences[i].transform.position;
+				_enemyPositions[i] = _cachedEnemies[i].transform.position;
 			}
 		
-			for (int i = 0; i < _cachedPlayerData.id.Length; i++)
+			for (int i = 0; i < _cachedPlayers.id.Length; i++)
 			{
-				_playerPositions[i] = _cachedPlayerData.body[i].position;
-				_playerIds[i] = _cachedPlayerData.id[i];
+				_playerData[i] = new PlayerData(_cachedPlayers.id[i], _cachedPlayers.body[i].position);
 			}
 		}
 		
 		private void DisposeNativeArrays()
 		{
-			_playerPositions.Dispose();
-			_playerIds.Dispose();
-			_enemyPositions.Dispose();
-			_resultPositions.Dispose();
-			_resultIds.Dispose();
+			if (_enemyPositions.IsCreated)
+			{
+				_enemyPositions.Dispose();
+			}
+			
+			if (_playerData.IsCreated)
+			{
+				_playerData.Dispose();
+			}
+			
+			if (_resultData.IsCreated)
+			{
+				_resultData.Dispose();
+			}
 		}
 	}
 }
