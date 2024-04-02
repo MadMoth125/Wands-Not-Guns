@@ -3,62 +3,65 @@ using ScriptExtensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[Serializable]
-public class SpawnTimer : EnemySpawnerComponentBase
+namespace Enemy.Spawner.Components
 {
-	/// <summary>
-	/// Invoked when the timer completes an interval.
-	/// <see cref="Time.time"/> is passed as an argument.
-	/// </summary>
-	public event Action<float> OnTimerTick;
+	[Serializable]
+	public class SpawnTimer : EnemySpawnerComponentBase
+	{
+		/// <summary>
+		/// Invoked when the timer completes an interval.
+		/// <see cref="Time.time"/> is passed as an argument.
+		/// </summary>
+		public event Action<float> OnTimerTick;
 	
-	public SpawnIntervalAsset IntervalAsset => intervalAsset;
+		public SpawnIntervalAsset IntervalAsset => intervalAsset;
 
-	private float _timer;
+		private float _timer;
 
-	[InlineEditor(InlineEditorObjectFieldModes.Foldout)]
-	[SerializeField]
-	private SpawnIntervalAsset intervalAsset;
+		[InlineEditor(InlineEditorObjectFieldModes.Foldout)]
+		[SerializeField]
+		private SpawnIntervalAsset intervalAsset;
 
-	/// <summary>
-	/// The interval at which the timer ticks.
-	/// Returns <see cref="float.MaxValue"/> if the underlying interval asset is null/invalid.
-	/// </summary>
-	public float GetInterval()
-	{
-		return intervalAsset != null ? intervalAsset.GetInterval() : float.MaxValue;
-	}
-	
-	/// <summary>
-	/// Resets the timer to 0.
-	/// </summary>
-	public void ResetTimer()
-	{
-		_timer = 0f;
-	}
-
-	/// <summary>
-	/// Ticks the timer by the given delta time.
-	/// Once the timer reaches the interval, it resets and invokes <see cref="OnTimerTick"/>.
-	/// </summary>
-	/// <param name="deltaTime">The delta time to tick the timer by.</param>
-	public void Tick(float deltaTime)
-	{
-		if (_timer < GetInterval())
+		/// <summary>
+		/// The interval at which the timer ticks.
+		/// Returns <see cref="float.MaxValue"/> if the underlying interval asset is null/invalid.
+		/// </summary>
+		public float GetInterval()
 		{
-			_timer += deltaTime;
+			return intervalAsset != null ? intervalAsset.GetInterval() : float.MaxValue;
 		}
-		else
+	
+		/// <summary>
+		/// Resets the timer to 0.
+		/// </summary>
+		public void ResetTimer()
 		{
-			_timer = Mathf.Max(0f, _timer - GetInterval());
-			
-			// if the timer is close enough to 0, reset it for simplicity
-			if (_timer.Equals(0f, 0.001f))
+			_timer = 0f;
+		}
+
+		/// <summary>
+		/// Ticks the timer by the given delta time.
+		/// Once the timer reaches the interval, it resets and invokes <see cref="OnTimerTick"/>.
+		/// </summary>
+		/// <param name="deltaTime">The delta time to tick the timer by.</param>
+		public void Tick(float deltaTime)
+		{
+			if (_timer < GetInterval())
 			{
-				ResetTimer();
+				_timer += deltaTime;
 			}
+			else
+			{
+				_timer = Mathf.Max(0f, _timer - GetInterval());
 			
-			OnTimerTick?.Invoke(Time.time);
+				// if the timer is close enough to 0, reset it for simplicity
+				if (_timer.Equals(0f, 0.001f))
+				{
+					ResetTimer();
+				}
+			
+				OnTimerTick?.Invoke(Time.time);
+			}
 		}
 	}
 }

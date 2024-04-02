@@ -1,5 +1,6 @@
 using System;
 using Enemy.Registry;
+using Enemy.Spawner;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

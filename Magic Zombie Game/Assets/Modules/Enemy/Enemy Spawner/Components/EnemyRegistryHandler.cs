@@ -1,12 +1,15 @@
-public class EnemyRegistryHandler : EnemySpawnerComponentBase
+namespace Enemy.Spawner.Components
 {
-	public void Register(EnemyComponent enemy)
+	public class EnemyRegistryHandler : EnemySpawnerComponentBase
 	{
-		EnemyRegistry.Register(enemy.gameObject.GetInstanceID(), enemy);
-	}
+		public void Register(EnemyComponent enemy)
+		{
+			EnemyRegistry.Register(enemy.gameObject.GetInstanceID(), enemy);
+		}
 	
-	public void Unregister(EnemyComponent enemy)
-	{
-		EnemyRegistry.Unregister(enemy.gameObject.GetInstanceID());
+		public void Unregister(EnemyComponent enemy)
+		{
+			EnemyRegistry.Unregister(enemy.gameObject.GetInstanceID());
+		}
 	}
 }
