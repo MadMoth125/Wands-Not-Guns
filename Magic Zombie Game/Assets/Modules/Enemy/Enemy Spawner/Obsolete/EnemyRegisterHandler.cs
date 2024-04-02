@@ -1,7 +1,9 @@
+using System;
 using Enemy.Registry;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+[Obsolete]
 public class EnemyRegisterHandler : MonoBehaviour
 {
 	[Required]

@@ -3,6 +3,7 @@ using ScriptExtensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+[Obsolete]
 public class EnemySpawnTimer : MonoBehaviour
 {
 	/// <summary>

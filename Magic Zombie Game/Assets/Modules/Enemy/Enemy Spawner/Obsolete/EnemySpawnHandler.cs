@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+[Obsolete]
 public class EnemySpawnHandler : MonoBehaviour
 {
 	#region Events

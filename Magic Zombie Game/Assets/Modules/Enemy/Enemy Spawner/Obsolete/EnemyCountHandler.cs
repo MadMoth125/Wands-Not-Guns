@@ -2,6 +2,7 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+[Obsolete]
 public class EnemyCountHandler : MonoBehaviour
 {
 	/// <summary>
