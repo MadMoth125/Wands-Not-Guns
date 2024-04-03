@@ -64,5 +64,19 @@ namespace MyCustomControls
 				Controls.Game.Interact.canceled -= value;
 			}
 		}
+		
+		public event Action<InputAction.CallbackContext> OnAttackCallback
+		{
+			add
+			{
+				Controls.Game.Attack.performed += value;
+				Controls.Game.Attack.canceled += value;
+			}
+			remove
+			{
+				Controls.Game.Attack.performed -= value;
+				Controls.Game.Attack.canceled -= value;
+			}
+		}
 	}
 }

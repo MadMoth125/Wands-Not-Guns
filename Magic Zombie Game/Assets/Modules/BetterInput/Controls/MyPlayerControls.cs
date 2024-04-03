@@ -64,6 +64,15 @@ namespace MyCustomControls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""474a36d6-74e6-4e0f-a608-3673c18490d0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -297,6 +306,39 @@ namespace MyCustomControls
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f7e1da4-50ea-49f3-b2d7-2bcaee57366a"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6060f492-218b-4f84-9458-6f6e8db91e7f"",
+                    ""path"": ""<XInputController>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox Gamepad"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ecf72f2b-fbac-4146-b66c-6b8ebd3fe6ef"",
+                    ""path"": ""<DualShockGamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Playstation Gamepad"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -348,6 +390,7 @@ namespace MyCustomControls
             m_Game_MoveCursor = m_Game.FindAction("MoveCursor", throwIfNotFound: true);
             m_Game_UseAbility = m_Game.FindAction("Use Ability", throwIfNotFound: true);
             m_Game_Interact = m_Game.FindAction("Interact", throwIfNotFound: true);
+            m_Game_Attack = m_Game.FindAction("Attack", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -413,6 +456,7 @@ namespace MyCustomControls
         private readonly InputAction m_Game_MoveCursor;
         private readonly InputAction m_Game_UseAbility;
         private readonly InputAction m_Game_Interact;
+        private readonly InputAction m_Game_Attack;
         public struct GameActions
         {
             private @MyPlayerControls m_Wrapper;
@@ -421,6 +465,7 @@ namespace MyCustomControls
             public InputAction @MoveCursor => m_Wrapper.m_Game_MoveCursor;
             public InputAction @UseAbility => m_Wrapper.m_Game_UseAbility;
             public InputAction @Interact => m_Wrapper.m_Game_Interact;
+            public InputAction @Attack => m_Wrapper.m_Game_Attack;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -442,6 +487,9 @@ namespace MyCustomControls
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -458,6 +506,9 @@ namespace MyCustomControls
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+                @Attack.started -= instance.OnAttack;
+                @Attack.performed -= instance.OnAttack;
+                @Attack.canceled -= instance.OnAttack;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -508,6 +559,7 @@ namespace MyCustomControls
             void OnMoveCursor(InputAction.CallbackContext context);
             void OnUseAbility(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnAttack(InputAction.CallbackContext context);
         }
     }
 }
