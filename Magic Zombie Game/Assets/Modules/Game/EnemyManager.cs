@@ -7,6 +7,8 @@ public class EnemyManager : MonoBehaviour, IManagerComponent<GameManager>
 {
 	#region Properties
 
+	public bool SpawningEnabled => enableSpawning;
+	public bool ConcurrentLimitEnforced => enableConcurrentLimit;
 	public GameManager ParentManager => _manager;
 	public EnemySpawner Spawner => spawner;
 	public EnemySpawnTimer SpawnTimer => spawnTimer;
@@ -17,18 +19,29 @@ public class EnemyManager : MonoBehaviour, IManagerComponent<GameManager>
 
 	#region Fields
 
+	[Tooltip("Whether to allow enemy spawning.")]
+	public bool enableSpawning = true;
+	
+	[Tooltip("Whether to limit the number of enemies that can be spawned at once." +
+	         "If false, enemies will only stop spawning when the total enemy limit is reached.")]
+	public bool enableConcurrentLimit = true;
+	
+	[BoxGroup("Components")]
 	[Required]
 	[SerializeField]
 	private EnemySpawner spawner;
 	
+	[BoxGroup("Components")]
 	[Required]
 	[SerializeField]
 	private EnemySpawnTimer spawnTimer;
 	
+	[BoxGroup("Components")]
 	[Required]
 	[SerializeField]
 	private EnemyCounter enemyCounter;
 	
+	[BoxGroup("Components")]
 	[Required]
 	[SerializeField]
 	private EnemySpawnPositions spawnPositions;
@@ -61,20 +74,5 @@ public class EnemyManager : MonoBehaviour, IManagerComponent<GameManager>
 		}
 	}
 
-	private void OnEnable()
-	{
-		SpawnTimer.OnTimerElapsed += OnTimerElapsed;
-	}
-
-	private void OnDisable()
-	{
-		SpawnTimer.OnTimerElapsed -= OnTimerElapsed;
-	}
-
 	#endregion
-
-	private void OnTimerElapsed()
-	{
-		
-	}
 }

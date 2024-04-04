@@ -1,4 +1,5 @@
 using System;
+using Core.CustomDebugger;
 using Enemy.Registry;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -25,11 +26,13 @@ public class EnemySpawner : MonoBehaviour, IManagerComponent<EnemyManager>
 	[Required]
 	[SerializeField]
 	private EnemyRegistryAsset registry;
+	
+	[SerializeField]
+	private LoggerAsset logger;
 
 	#endregion
 	
 	private EnemyObjectPool _pool;
-	private EnemyRegistryHandler _registryHandler;
 	private EnemyManager _manager;
 	
 	public void SetParentManager(EnemyManager manager)
@@ -49,10 +52,11 @@ public class EnemySpawner : MonoBehaviour, IManagerComponent<EnemyManager>
 	
 	public EnemyComponent SpawnEnemy(Vector3 position, Quaternion rotation)
 	{
-		var enemy = _pool.GetElement(position, rotation);
-		_registryHandler.EnemySpawned(enemy);
-		OnEnemySpawn?.Invoke(enemy);
-		return enemy;
+		var enemy = _pool.GetElement(position, rotation); // pull from pool
+		registry.Register(enemy.EnemyId, enemy); // register
+		enemy.OnDie += EnemyDieListener; // subscribe to die event
+		OnEnemySpawn?.Invoke(enemy); // invoke spawn event
+		return enemy; // return value
 	}
 	
 	#region Unity Methods
@@ -60,18 +64,15 @@ public class EnemySpawner : MonoBehaviour, IManagerComponent<EnemyManager>
 	private void Awake()
 	{
 		_pool = GetComponent<EnemyObjectPool>();
-		_registryHandler = new EnemyRegistryHandler(registry, _pool);
 	}
 
 	private void OnEnable()
 	{
-		_registryHandler.OnEnemyDie += (enemy) => OnEnemyDie?.Invoke(enemy);
 		_manager.SpawnTimer.OnTimerElapsed += OnTimerElapsed;
 	}
 
 	private void OnDisable()
 	{
-		_registryHandler.ClearEvent();
 		_manager.SpawnTimer.OnTimerElapsed -= OnTimerElapsed;
 	}
 
@@ -79,32 +80,73 @@ public class EnemySpawner : MonoBehaviour, IManagerComponent<EnemyManager>
 
 	private void OnTimerElapsed()
 	{
-		if (_manager.EnemyCounter.ReachedMaxTotalEnemies())
-		{
-			Debug.LogWarning("Max total enemies reached, cannot spawn more.");
-			return;
-		}
-
-		if (_manager.EnemyCounter.ReachedMaxConcurrentEnemies())
-		{
-			Debug.LogWarning("Max concurrent enemies reached, cannot spawn more.");
-			return;
-		}
-
-		if (!_manager.ParentManager.RoundManager.ValidSpawnPeriod)
-		{
-			Debug.LogWarning("Invalid spawn period, cannot spawn more enemies.");
-			return;
-		}
+		if (!CanSpawnEnemy()) return;
 		
 		var point = _manager.SpawnPositions.GetValidSpawnPosition();
 		SpawnEnemy(point);
 	}
 
 	/// <summary>
+	/// Handles the post-death cleanup of an enemy.
+	/// </summary>
+	private void EnemyDieListener(EnemyComponent enemy)
+	{
+		registry.Unregister(enemy.EnemyId); // unregister
+		_pool.ReleaseElement(enemy); // release to pool
+		enemy.OnDie -= EnemyDieListener; // unsubscribe from die event
+		OnEnemyDie?.Invoke(enemy); // invoke die event
+	}
+
+	/// <summary>
+	/// Conditions to check if an enemy can be spawned.
+	/// </summary>
+	/// <returns>Whether an enemy can be spawned.</returns>
+	private bool CanSpawnEnemy()
+	{
+		if (!_manager.SpawningEnabled)
+		{
+			if (logger != null)
+			{
+				logger.Log("Spawning is disabled.", this);
+			}
+			return false;
+		}
+		
+		if (_manager.EnemyCounter.ReachedMaxTotalEnemies())
+		{
+			if (logger != null)
+			{
+				logger.Log("Max allotted enemy count reached for round, cannot spawn more.", this);
+			}
+			return false;
+		}
+
+		if (_manager.ConcurrentLimitEnforced && _manager.EnemyCounter.ReachedMaxConcurrentEnemies())
+		{
+			if (logger != null)
+			{
+				logger.Log("Max concurrent enemy count reached, cannot spawn more.", this);
+			}
+			return false;
+		}
+
+		if (!_manager.ParentManager.RoundManager.ValidSpawnPeriod)
+		{
+			if (logger != null)
+			{
+				logger.Log("Invalid spawn period, cannot spawn more enemies.", this);
+			}
+			return false;
+		}
+
+		return true;
+	}
+
+	/// <summary>
 	/// Internal class to handle the enemy registry and OnDie event.
 	/// Each enemy spawned is registered in the registry and unregistered when it dies.
 	/// </summary>
+	[Obsolete]
 	private class EnemyRegistryHandler
 	{
 		public EnemyRegistryHandler(EnemyRegistryAsset registry, EnemyObjectPool pool)
@@ -118,19 +160,6 @@ public class EnemySpawner : MonoBehaviour, IManagerComponent<EnemyManager>
 		private readonly EnemyRegistryAsset _registry;
 		private readonly EnemyObjectPool _pool;
 
-		/// <summary>
-		/// Clear any listeners from the OnEnemyDie event.
-		/// </summary>
-		public void ClearEvent()
-		{
-			var listeners = OnEnemyDie?.GetInvocationList();
-			if (listeners == null) return;
-			foreach (var del in listeners)
-			{
-				OnEnemyDie -= (Action<EnemyComponent>) del;
-			}
-		}
-		
 		/// <summary>
 		/// Handle the spawning of an enemy and addition to the registry.
 		/// </summary>
