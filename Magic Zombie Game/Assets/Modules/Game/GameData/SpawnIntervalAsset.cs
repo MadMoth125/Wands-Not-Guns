@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "SpawnIntervalAsset", menuName = "Gameplay/Spawn Interval Asset")]
 public class SpawnIntervalAsset : ScriptableObject
@@ -30,21 +31,22 @@ public class SpawnIntervalAsset : ScriptableObject
 	[SuffixLabel("%", Overlay = true)]
 	[SerializeField]
 	private float reductionRate = 0.05f;
-
+	
 	[Tooltip("If the resulting interval value should be rounded. (nearest hundredth)")]
 	[SerializeField]
-	private bool roundIntervalValue = false;
+	private bool enableRounding = false;
 
+	[Required]
 	[SerializeField]
 	private RoundValueAsset roundValue;
 
 	public float GetInterval()
 	{
-		return GameFunction.GetSpawnInterval(roundValue.Round, maxSpawnInterval, minSpawnInterval, reductionRate, roundIntervalValue);
+		return GameFunction.GetSpawnInterval(roundValue.Round, maxSpawnInterval, minSpawnInterval, reductionRate, enableRounding);
 	}
 	
 	public float GetInterval(int round)
 	{
-		return GameFunction.GetSpawnInterval(round, maxSpawnInterval, minSpawnInterval, reductionRate, roundIntervalValue);
+		return GameFunction.GetSpawnInterval(round, maxSpawnInterval, minSpawnInterval, reductionRate, enableRounding);
 	}
 }

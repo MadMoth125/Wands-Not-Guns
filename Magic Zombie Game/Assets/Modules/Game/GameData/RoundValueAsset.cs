@@ -24,12 +24,15 @@ public class RoundValueAsset : ScriptableObject
 	
 	public int Round => round;
 	
+	[HideInInspector]
+	public bool roundActive = true;
+	
 	[SerializeField]
 	private int round = 1;
 	
 	public void SetRound(int value)
 	{
-		round = value;
+		round = Mathf.Max(1, value);
 		OnRoundChange?.Invoke();
 	}
 	
@@ -47,7 +50,7 @@ public class RoundValueAsset : ScriptableObject
 	
 	public void DecrementRound()
 	{
-		round--;
+		round = Mathf.Max(1, round - 1);
 		OnRoundDecremented?.Invoke();
 	}
 }

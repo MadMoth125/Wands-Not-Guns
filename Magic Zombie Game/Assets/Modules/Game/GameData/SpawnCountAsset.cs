@@ -25,7 +25,7 @@ public class SpawnCountAsset : ScriptableObject
 	/// Gets the maximum number of enemies that can be spawned for the current round.
 	/// Uses the round value and player count to determine the number of enemies to spawn.
 	/// </summary>
-	public int GetMaxSpawnCount()
+	public int GetMaxEnemyCount()
 	{
 		return GameFunction.GetSpawnCount(roundValue.Round, playerRegistry.Count);
 	}
@@ -36,7 +36,7 @@ public class SpawnCountAsset : ScriptableObject
 	/// </summary>
 	/// <param name="round">The round to get the spawn count for.</param>
 	/// <param name="players">The number of players in the game.</param>
-	public int GetMaxSpawnCount(int round, int players)
+	public int GetMaxEnemyCount(int round, int players)
 	{
 		return GameFunction.GetSpawnCount(round, players);
 	}
@@ -44,7 +44,7 @@ public class SpawnCountAsset : ScriptableObject
 	/// <summary>
 	/// The maximum number of enemies that can be spawned and alive at once.
 	/// </summary>
-	public int GetMaxConcurrentEnemies()
+	public int GetMaxConcurrentEnemyCount()
 	{
 		return maxConcurrentEnemies;
 	}
