@@ -7,6 +7,8 @@ public class EnemyComponent : MonoBehaviour
 {
 	public event Action<EnemyComponent> OnDie;
 	
+	public int EnemyId => gameObject.GetInstanceID();
+	
 	public EnemyPathfinding PathfindingComponent => pathfindingComponent;
 	
 	public HealthComponent HealthComponent => healthComponent;
