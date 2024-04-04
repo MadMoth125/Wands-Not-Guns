@@ -1,6 +1,8 @@
 using System;
+using Core.CustomDebugger;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 {
@@ -25,7 +27,17 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 	[Required]
 	[SerializeField]
 	private SpawnCountAsset spawnCountAsset;
+	
+	[TitleGroup("Debug", "Parameters", Alignment = TitleAlignments.Centered)]
+	[SerializeField]
+	private LoggerAsset logger;
 
+	[TitleGroup("Debug")]
+	[Tooltip("Enable logging of when the maximum concurrent enemy count is reached, " +
+	         "or the maximum total enemy count is reached.")]
+	[SerializeField]
+	private bool logMaxEnemyCountsReached = false;
+	
 	#endregion
 	
 	private int _remainingConcurrentEnemySpots;
@@ -85,6 +97,7 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 		if (ReachedMaxConcurrentEnemies())
 		{
 			OnMaxConcurrentCountReached?.Invoke();
+			if (logMaxEnemyCountsReached) LogWrapper($"Maximum concurrent enemy count '{spawnCountAsset.GetMaxConcurrentEnemyCount()}' reached.", LoggerAsset.LogType.Info);
 		}
 		
 		_remainingTotalEnemySpots--;
@@ -93,9 +106,8 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 		if (ReachedMaxTotalEnemies())
 		{
 			OnMaxTotalCountReached?.Invoke();
+			if (logMaxEnemyCountsReached) LogWrapper($"Maximum total enemy count '{spawnCountAsset.GetMaxEnemyCount()}'reached.", LoggerAsset.LogType.Info);
 		}
-		
-		// Debug.Log($"OnEnemyCountIncreased: Remaining spots: {_remainingConcurrentEnemySpots}");
 	}
 
 	private void OnEnemyCountDecreased(EnemyComponent enemy)
@@ -103,7 +115,13 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 		// INCREASE available spots when an enemy DIES
 		_remainingConcurrentEnemySpots++;
 		_remainingConcurrentEnemySpots = Mathf.Clamp(_remainingConcurrentEnemySpots, 0, spawnCountAsset.GetMaxConcurrentEnemyCount());
-		
-		// Debug.Log($"OnEnemyCountDecreased: Remaining spots: {_remainingConcurrentEnemySpots}");
+	}
+	
+	private void LogWrapper(string message, LoggerAsset.LogType logType)
+	{
+		if (logger != null)
+		{
+			logger.Log(message, this, logType);
+		}
 	}
 }

@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnCountAsset: {fileID: 11400000, guid: 519e152c7047d5c4385a0cfa136882ba, type: 2}
+  logger: {fileID: 11400000, guid: 1f71abeef9127ab4dafbdc436cc3b029, type: 2}
+  logMaxEnemyCountsReached: 0
 --- !u!1 &1870111815653329806
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59fb169ee15c6440ba5a05c39c33fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableSpawning: 1
+  enableConcurrentLimit: 1
   spawner: {fileID: 9164160053197864907}
   spawnTimer: {fileID: 4879396408198696747}
   enemyCounter: {fileID: 210197638962069743}
@@ -144,6 +148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   registry: {fileID: 11400000, guid: b8532133111939f4d97439c645ddbb1f, type: 2}
+  logger: {fileID: 11400000, guid: 1f71abeef9127ab4dafbdc436cc3b029, type: 2}
+  logEnemyLifecycle: 0
+  logSpawnState: 0
 --- !u!114 &9162020557131934804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +216,9 @@ MonoBehaviour:
   playerRegistry: {fileID: 11400000, guid: 819664a754ca252409aa5566515dabbb, type: 2}
   minBatchCount: 10
   resultWaitTime: 3
+  logger: {fileID: 11400000, guid: 1f71abeef9127ab4dafbdc436cc3b029, type: 2}
+  logJobStartAndEnd: 0
+  logNativeArrays: 0
 --- !u!1 &4578141206983489248
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,6 +313,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPositions:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7965580735112779716
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +365,9 @@ MonoBehaviour:
   spawnIntervalAsset: {fileID: 11400000, guid: b7cf3a2bfda1f184ea45eda658be36fa, type: 2}
   active: 1
   manualTick: 0
+  logger: {fileID: 11400000, guid: 1f71abeef9127ab4dafbdc436cc3b029, type: 2}
+  logTimerElapsed: 0
+  logTimerStateUpdates: 0
 --- !u!1 &8820550154741981104
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,4 +413,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundValueAsset: {fileID: 11400000, guid: 1a738e7d7be9f8348a0c2a62557415ef, type: 2}
-  transitionTime: 2
+  transitionTime: 5

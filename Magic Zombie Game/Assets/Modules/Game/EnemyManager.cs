@@ -26,22 +26,22 @@ public class EnemyManager : MonoBehaviour, IManagerComponent<GameManager>
 	         "If false, enemies will only stop spawning when the total enemy limit is reached.")]
 	public bool enableConcurrentLimit = true;
 	
-	[BoxGroup("Components")]
+	[TitleGroup("Components", Alignment = TitleAlignments.Centered)]
 	[Required]
 	[SerializeField]
 	private EnemySpawner spawner;
 	
-	[BoxGroup("Components")]
+	[TitleGroup("Components")]
 	[Required]
 	[SerializeField]
 	private EnemySpawnTimer spawnTimer;
 	
-	[BoxGroup("Components")]
+	[TitleGroup("Components")]
 	[Required]
 	[SerializeField]
 	private EnemyCounter enemyCounter;
 	
-	[BoxGroup("Components")]
+	[TitleGroup("Components")]
 	[Required]
 	[SerializeField]
 	private EnemySpawnPositions spawnPositions;

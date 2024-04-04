@@ -1,3 +1,4 @@
+using Core.CustomDebugger;
 using Enemy.Registry;
 using Player.Registry;
 using Sirenix.OdinInspector;
@@ -18,7 +19,7 @@ namespace Enemy.Jobs
 		private PlayerRegistryAsset playerRegistry;
 	
 		[Tooltip("The minimum number of enemies to process in a single batch.\n" +
-		         "Higher values may improve* performance, but may cause frame rate drops.")]
+		         "Higher values may improve performance for larger enemy groups.")]
 		[DisableInPlayMode]
 		[SerializeField]
 		private int minBatchCount = 10;
@@ -29,6 +30,20 @@ namespace Enemy.Jobs
 		[PropertyRange(1, 4)]
 		[SerializeField]
 		private int resultWaitTime = 4;
+		
+		[TitleGroup("Debug", "Parameters", Alignment = TitleAlignments.Centered)]
+		[SerializeField]
+		private LoggerAsset logger;
+
+		[TitleGroup("Debug")]
+		[Tooltip("Enable logging of when the job starts and ends.")]
+		[SerializeField]
+		private bool logJobStartAndEnd = false;
+		
+		[TitleGroup("Debug")]
+		[Tooltip("Enable logging of the native arrays and their state.")]
+		[SerializeField]
+		private bool logNativeArrays = false;
 		
 		private NativeArray<Vector3> _enemyPositions;
 		private NativeArray<PlayerData> _playerData;
@@ -52,12 +67,17 @@ namespace Enemy.Jobs
 			{
 				HandleJobBegin();
 				_firstIfExecuted = true;
+				
+				if (logJobStartAndEnd) LogWrapper("Job started at frame '{_frameCount}'.", LoggerAsset.LogType.Info);
 			}
 
+			// if the job has been started and the we've waited enough frames, end the job
 			if (_firstIfExecuted && frameMod == resultWaitTime - 1)
 			{
 				HandleJobEnd();
 				_firstIfExecuted = false;
+				
+				if (logJobStartAndEnd) LogWrapper("Job ended at frame '{_frameCount}'.", LoggerAsset.LogType.Info);
 			}
 		
 			_frameCount++;
@@ -112,7 +132,11 @@ namespace Enemy.Jobs
 				for (int i = 0; i < _cachedEnemies.Length; i++)
 				{
 					var target = playerRegistry.GetValue(_resultData[i].ID);
-					if (target == null || !target.gameObject.activeSelf) continue;
+					if (target == null || !target.gameObject.activeSelf)
+					{
+						LogWrapper($"Player with ID '{_resultData[i].ID}' not found or inactive.", LoggerAsset.LogType.Warning);
+						continue;
+					}
 					_cachedEnemies[i].PathfindingComponent.SetTargetPosition(target.position);
 				}
 			}
@@ -146,11 +170,15 @@ namespace Enemy.Jobs
 			{
 				_enemyPositions[i] = _cachedEnemies[i].transform.position;
 			}
+			
+			if (logNativeArrays) LogWrapper($"Native array '{nameof(_enemyPositions)}' initialized w/ {_cachedEnemies.Length} items.", LoggerAsset.LogType.Info);
 		
 			for (int i = 0; i < _cachedPlayers.id.Length; i++)
 			{
 				_playerData[i] = new PlayerData(_cachedPlayers.id[i], _cachedPlayers.body[i].position);
 			}
+			
+			if (logNativeArrays) LogWrapper($"Native array '{nameof(_playerData)}' initialized w/ {_cachedPlayers.id.Length} items.", LoggerAsset.LogType.Info);
 		}
 		
 		/// <summary>
@@ -162,17 +190,32 @@ namespace Enemy.Jobs
 			if (_enemyPositions.IsCreated)
 			{
 				_enemyPositions.Dispose();
+				if (logNativeArrays) LogWrapper($"Native array '{nameof(_enemyPositions)}' disposed.", LoggerAsset.LogType.Info);
 			}
 			
 			if (_playerData.IsCreated)
 			{
 				_playerData.Dispose();
+				if (logNativeArrays) LogWrapper($"Native array '{nameof(_playerData)}' disposed.", LoggerAsset.LogType.Info);
 			}
 			
 			if (_resultData.IsCreated)
 			{
 				_resultData.Dispose();
+				if (logNativeArrays) LogWrapper($"Native array '{nameof(_resultData)}' disposed.", LoggerAsset.LogType.Info);
 			}
+		}
+		
+		private void LogWrapper(string message, LoggerAsset.LogType type)
+		{
+			#if UNITY_EDITOR
+			
+			if (logger != null)
+			{
+				logger.Log(message, this, type);
+			}
+			
+			#endif
 		}
 	}
 }

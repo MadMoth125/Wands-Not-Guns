@@ -1,4 +1,5 @@
 using System;
+using Core.CustomDebugger;
 using ScriptExtensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -27,6 +28,20 @@ public class EnemySpawnTimer : MonoBehaviour, IManagerComponent<EnemyManager>
 	[Tooltip("Whether the timer should tick manually. If false, the timer will tick automatically.")]
 	public bool manualTick = false;
 	
+	[TitleGroup("Debug", "Parameters", Alignment = TitleAlignments.Centered)]
+	[SerializeField]
+	private LoggerAsset logger;
+
+	[TitleGroup("Debug")]
+	[Tooltip("Enable logging of when the timer elapses.")]
+	[SerializeField]
+	private bool logTimerElapsed = false;
+	
+	[TitleGroup("Debug")]
+	[Tooltip("Enable logging of when the timer's state is update via reset, pause, or play.")]
+	[SerializeField]
+	private bool logTimerStateUpdates = false;
+	
 	private float _timer;
 	private float _totalTime;
 	private EnemyManager _manager;
@@ -45,14 +60,10 @@ public class EnemySpawnTimer : MonoBehaviour, IManagerComponent<EnemyManager>
 		else
 		{
 			_timer = Mathf.Max(0f, _timer - Interval);
-			
-			// if the timer is close enough to 0, reset it for simplicity
-			// if (_timer.ApproxEquals(0f, 0.001f))
-			// {
-			// 	ResetTimer();
-			// }
-			
+
 			OnTimerElapsed?.Invoke();
+			
+			if (logTimerElapsed) LogWrapper("Timer elapsed.", LoggerAsset.LogType.Info);
 		}
 		
 		_totalTime += deltaTime;
@@ -63,6 +74,8 @@ public class EnemySpawnTimer : MonoBehaviour, IManagerComponent<EnemyManager>
 		_timer = 0f;
 		_totalTime = 0f;
 		OnTimerReset?.Invoke();
+		
+		if (logTimerStateUpdates) LogWrapper("Timer reset.", LoggerAsset.LogType.Info);
 	}
 
 	public void PauseTimer()
@@ -70,6 +83,8 @@ public class EnemySpawnTimer : MonoBehaviour, IManagerComponent<EnemyManager>
 		if (!active) return;
 		active = false;
 		OnTimerPaused?.Invoke();
+		
+		if (logTimerStateUpdates) LogWrapper("Timer paused.", LoggerAsset.LogType.Info);
 	}
 
 	public void ResumeTimer()
@@ -77,6 +92,8 @@ public class EnemySpawnTimer : MonoBehaviour, IManagerComponent<EnemyManager>
 		if (active) return;
 		active = true;
 		OnTimerPlayed?.Invoke();
+		
+		if (logTimerStateUpdates) LogWrapper("Timer resumed.", LoggerAsset.LogType.Info);
 	}
 
 	#region Unity Methods
@@ -97,4 +114,12 @@ public class EnemySpawnTimer : MonoBehaviour, IManagerComponent<EnemyManager>
 	}
 
 	#endregion
+	
+	private void LogWrapper(string message, LoggerAsset.LogType type)
+	{
+		if (logger != null)
+		{
+			logger.Log(message, this, type);
+		}
+	}
 }

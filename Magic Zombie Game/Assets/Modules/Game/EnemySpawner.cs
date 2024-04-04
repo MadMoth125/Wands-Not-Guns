@@ -27,8 +27,17 @@ public class EnemySpawner : MonoBehaviour, IManagerComponent<EnemyManager>
 	[SerializeField]
 	private EnemyRegistryAsset registry;
 	
+	[TitleGroup("Debug", "Parameters", Alignment = TitleAlignments.Centered)]
 	[SerializeField]
 	private LoggerAsset logger;
+	
+	[Tooltip("Enable logging of when enemies are spawned and die.")]
+	[SerializeField]
+	private bool logEnemyLifecycle = false;
+
+	[Tooltip("Enable logging of issues with spawning (if there are any).")]
+	[SerializeField]
+	private bool logSpawnState = false;
 
 	#endregion
 	
@@ -56,6 +65,7 @@ public class EnemySpawner : MonoBehaviour, IManagerComponent<EnemyManager>
 		registry.Register(enemy.EnemyId, enemy); // register
 		enemy.OnDie += EnemyDieListener; // subscribe to die event
 		OnEnemySpawn?.Invoke(enemy); // invoke spawn event
+		if (logEnemyLifecycle) LogWrapper($"Enemy '{enemy.EnemyId}' spawned.", LoggerAsset.LogType.Info);
 		return enemy; // return value
 	}
 	
@@ -95,6 +105,7 @@ public class EnemySpawner : MonoBehaviour, IManagerComponent<EnemyManager>
 		_pool.ReleaseElement(enemy); // release to pool
 		enemy.OnDie -= EnemyDieListener; // unsubscribe from die event
 		OnEnemyDie?.Invoke(enemy); // invoke die event
+		if (logEnemyLifecycle) LogWrapper($"Enemy '{enemy.EnemyId}' died.", LoggerAsset.LogType.Info);
 	}
 
 	/// <summary>
@@ -105,43 +116,39 @@ public class EnemySpawner : MonoBehaviour, IManagerComponent<EnemyManager>
 	{
 		if (!_manager.SpawningEnabled)
 		{
-			if (logger != null)
-			{
-				logger.Log("Spawning is disabled.", this);
-			}
+			if (logSpawnState) LogWrapper("Spawning is disabled.", LoggerAsset.LogType.Warning);
 			return false;
 		}
 		
 		if (_manager.EnemyCounter.ReachedMaxTotalEnemies())
 		{
-			if (logger != null)
-			{
-				logger.Log("Max allotted enemy count reached for round, cannot spawn more.", this);
-			}
+			if (logSpawnState) LogWrapper("Max total enemy count reached, cannot spawn more.", LoggerAsset.LogType.Warning);
 			return false;
 		}
 
 		if (_manager.ConcurrentLimitEnforced && _manager.EnemyCounter.ReachedMaxConcurrentEnemies())
 		{
-			if (logger != null)
-			{
-				logger.Log("Max concurrent enemy count reached, cannot spawn more.", this);
-			}
+			if (logSpawnState) LogWrapper("Max concurrent enemy count reached, cannot spawn more.", LoggerAsset.LogType.Warning);
 			return false;
 		}
 
 		if (!_manager.ParentManager.RoundManager.ValidSpawnPeriod)
 		{
-			if (logger != null)
-			{
-				logger.Log("Invalid spawn period, cannot spawn more enemies.", this);
-			}
+			if (logSpawnState) LogWrapper("Invalid spawn period.", LoggerAsset.LogType.Warning);
 			return false;
 		}
 
 		return true;
 	}
 
+	private void LogWrapper(string message, LoggerAsset.LogType type)
+	{
+		if (logger != null)
+		{
+			logger.Log(message, this, type);
+		}
+	}
+	
 	/// <summary>
 	/// Internal class to handle the enemy registry and OnDie event.
 	/// Each enemy spawned is registered in the registry and unregistered when it dies.
