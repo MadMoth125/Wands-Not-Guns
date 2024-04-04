@@ -8,11 +8,21 @@ using UnityEngine;
 
 namespace Enemy.Spawner
 {
+	[DisallowMultipleComponent]
 	[RequireComponent(typeof(EnemyObjectPool))]
 	public class EnemySpawnManager : MonoBehaviour
 	{
+		#region Properties
+
 		public EnemyObjectPool Pool => _pool;
-	
+		public RoundValueAsset Round => roundValueAsset;
+		public EnemyRegistryHandler RegistryHandler => _registryHandler;
+		public SpawnHandler SpawnerHandler => spawnerHandler;
+		public SpawnCountTracker SpawnCountTracker => spawnCountTracker;
+		public SpawnTimer SpawnTimer => spawnTimer;
+
+		#endregion
+		
 		private EnemyObjectPool _pool;
 
 		[TitleGroup("Registries")]
@@ -20,10 +30,16 @@ namespace Enemy.Spawner
 		[SerializeField]
 		private EnemyRegistryAsset enemyRegistry;
 
+		[TitleGroup("Registries")]
 		[Required]
 		[SerializeField]
 		private PlayerRegistryAsset playerRegistry;
 
+		[TitleGroup("Round")]
+		[Required]
+		[SerializeField]
+		private RoundValueAsset roundValueAsset;
+		
 		[TabGroup("Spawner")]
 		[HideLabel]
 		[InlineProperty]
@@ -34,15 +50,15 @@ namespace Enemy.Spawner
 		[HideLabel]
 		[InlineProperty]
 		[SerializeField]
-		private SpawnCountTracker spawnCountTracker = new SpawnCountTracker();
+		private SpawnCountTracker spawnCountTracker = new();
 
 		[TabGroup("Timer")]
 		[HideLabel]
 		[InlineProperty]
 		[SerializeField]
-		private SpawnTimer spawnTimer = new SpawnTimer();
+		private SpawnTimer spawnTimer = new();
 
-		private EnemyRegistryHandler _registryHandler = new EnemyRegistryHandler();
+		private EnemyRegistryHandler _registryHandler = new();
 		private List<IEnemySpawnerComponent> _enemySpawnerComponents;
 	
 		#region Unity Methods
@@ -62,7 +78,7 @@ namespace Enemy.Spawner
 			foreach (var component in _enemySpawnerComponents)
 			{
 				component.SetSpawnManager(this);
-				component.SetRegistryAssets(enemyRegistry, playerRegistry);
+				component.SetRegistryAssets(enemyRegistry, playerRegistry, roundValueAsset);
 			}
 		}
 
@@ -93,6 +109,7 @@ namespace Enemy.Spawner
 
 		private void SpawnTick(float time)
 		{
+			if (!roundValueAsset.roundActive) return;
 			if (spawnCountTracker.GetTotalEnemyCount() >= spawnCountTracker.GetMaxTotalEnemies()) return;
 			if (spawnCountTracker.GetEnemyCount() >= spawnCountTracker.GetMaxConcurrentEnemies()) return;
 		

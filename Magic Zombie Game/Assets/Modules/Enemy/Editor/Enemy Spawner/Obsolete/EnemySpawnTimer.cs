@@ -40,7 +40,7 @@ public class EnemySpawnTimer : MonoBehaviour
 			_timer = Mathf.Max(0f, _timer - GetValidInterval());
 			
 			// if the timer is close enough to 0, reset it for simplicity
-			if (_timer.Equals(0f, 0.001f))
+			if (_timer.ApproxEquals(0f, 0.001f))
 			{
 				ResetTimer();
 			}

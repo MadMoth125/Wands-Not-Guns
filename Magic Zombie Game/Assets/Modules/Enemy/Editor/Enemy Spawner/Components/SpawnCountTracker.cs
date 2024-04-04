@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,9 +7,12 @@ namespace Enemy.Spawner.Components
 	[Serializable]
 	public class SpawnCountTracker : EnemySpawnerComponentBase
 	{
+		public event Action OnTotalEnemyCountReached;
+		public event Action OnConcurrentEnemyCountReached;
+		
 		public SpawnCountAsset SpawnCountAsset => spawnCountAsset;
 
-		[InlineEditor(InlineEditorObjectFieldModes.Foldout)]
+		[InlineEditor(InlineEditorObjectFieldModes.Boxed)]
 		[SerializeField]
 		private SpawnCountAsset spawnCountAsset;
 	
@@ -42,7 +43,7 @@ namespace Enemy.Spawner.Components
 		/// <returns></returns>
 		public int GetMaxConcurrentEnemies()
 		{
-			return spawnCountAsset.GetMaxConcurrentEnemies();
+			return spawnCountAsset.GetMaxConcurrentEnemyCount();
 		}
 	
 		/// <summary>
@@ -51,16 +52,21 @@ namespace Enemy.Spawner.Components
 		/// <returns></returns>
 		public int GetMaxTotalEnemies()
 		{
-			return spawnCountAsset.GetMaxSpawnCount();
+			return spawnCountAsset.GetMaxEnemyCount();
 		}
 
 		/// <summary>
 		/// Set the total of how many enemies have been spawned.
+		/// Value is clamped between 0 and the maximum number of enemies that can be spawned for the round.
 		/// </summary>
 		/// <param name="count">The total number of enemies spawned.</param>
 		public void SetTotalEnemyCount(int count)
 		{
-			_totalEnemyCount = count;
+			_totalEnemyCount = Mathf.Clamp(count, 0, GetMaxTotalEnemies());
+			if (_totalEnemyCount >= GetMaxTotalEnemies())
+			{
+				OnTotalEnemyCountReached?.Invoke();
+			}
 		}
 	
 		/// <summary>

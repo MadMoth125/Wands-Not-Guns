@@ -18,7 +18,7 @@ namespace Enemy.Spawner.Components
 
 		private float _timer;
 
-		[InlineEditor(InlineEditorObjectFieldModes.Foldout)]
+		[InlineEditor(InlineEditorObjectFieldModes.Boxed)]
 		[SerializeField]
 		private SpawnIntervalAsset intervalAsset;
 
@@ -55,7 +55,7 @@ namespace Enemy.Spawner.Components
 				_timer = Mathf.Max(0f, _timer - GetInterval());
 			
 				// if the timer is close enough to 0, reset it for simplicity
-				if (_timer.Equals(0f, 0.001f))
+				if (_timer.ApproxEquals(0f, 0.001f))
 				{
 					ResetTimer();
 				}
