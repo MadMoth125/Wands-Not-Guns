@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 971047007395235317}
   - component: {fileID: 541312598520930036}
   - component: {fileID: 8476426920057641101}
-  - component: {fileID: 8692548184216666120}
   - component: {fileID: 2821983998902351441}
+  - component: {fileID: 8692548184216666120}
   - component: {fileID: 2186878643674534430}
   m_Layer: 8
   m_Name: Enemy
@@ -186,28 +186,6 @@ MonoBehaviour:
   wallAvoidFalloff: 1
   priority: 0.5
   debug: 0
---- !u!114 &8692548184216666120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5038476576420145446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1073741824
-  smoothType: 0
-  subdivisions: 2
-  iterations: 2
-  strength: 0.6
-  uniformLength: 1
-  maxSegmentLength: 2
-  bezierTangentLength: 0.4
-  offset: 0.2
-  factor: 0.1
 --- !u!114 &2821983998902351441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,13 +202,35 @@ MonoBehaviour:
   useRaycasting: 1
   mask:
     serializedVersion: 2
-    m_Bits: 2312
-  thickRaycast: 0
-  thickRaycastRadius: 0.2
+    m_Bits: 2313
+  thickRaycast: 1
+  thickRaycastRadius: 1
   use2DPhysics: 0
   raycastOffset: {x: 0, y: 0, z: 0}
   useGraphRaycasting: 0
   quality: 1
+--- !u!114 &8692548184216666120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038476576420145446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1073741824
+  smoothType: 0
+  subdivisions: 2
+  iterations: 4
+  strength: 0.4
+  uniformLength: 1
+  maxSegmentLength: 2
+  bezierTangentLength: 0.4
+  offset: 0.2
+  factor: 0.1
 --- !u!136 &2186878643674534430
 CapsuleCollider:
   m_ObjectHideFlags: 0
