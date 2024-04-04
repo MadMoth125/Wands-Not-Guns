@@ -55,7 +55,7 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 
 	#region Unity Methods
 
-	private void Awake()
+	private void Start()
 	{
 		ResetCounts();
 	}
@@ -95,7 +95,7 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 			OnMaxTotalCountReached?.Invoke();
 		}
 		
-		Debug.Log($"OnEnemyCountIncreased: Remaining spots: {_remainingConcurrentEnemySpots}");
+		// Debug.Log($"OnEnemyCountIncreased: Remaining spots: {_remainingConcurrentEnemySpots}");
 	}
 
 	private void OnEnemyCountDecreased(EnemyComponent enemy)
@@ -104,6 +104,6 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 		_remainingConcurrentEnemySpots++;
 		_remainingConcurrentEnemySpots = Mathf.Clamp(_remainingConcurrentEnemySpots, 0, spawnCountAsset.GetMaxConcurrentEnemyCount());
 		
-		Debug.Log($"OnEnemyCountDecreased: Remaining spots: {_remainingConcurrentEnemySpots}");
+		// Debug.Log($"OnEnemyCountDecreased: Remaining spots: {_remainingConcurrentEnemySpots}");
 	}
 }

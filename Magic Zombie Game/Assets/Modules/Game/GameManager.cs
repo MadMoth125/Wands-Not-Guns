@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[DefaultExecutionOrder(-1)]
+[DefaultExecutionOrder(-10)]
 public class GameManager : MonoBehaviour
 {
 	#region Properties
@@ -44,5 +44,5 @@ public class GameManager : MonoBehaviour
 	}
 
 	#endregion
-	
+
 }

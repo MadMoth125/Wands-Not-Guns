@@ -3,7 +3,7 @@ using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[DefaultExecutionOrder(-1)]
+[DefaultExecutionOrder(-5)]
 public class RoundManager : MonoBehaviour, IManagerComponent<GameManager>
 {
 	#region Events
@@ -35,7 +35,6 @@ public class RoundManager : MonoBehaviour, IManagerComponent<GameManager>
 
 	#endregion
 	
-	private bool _allEnemiesSpawned = false;
 	private GameManager _manager;
 
 	public void SetParentManager(GameManager manager)
@@ -53,40 +52,44 @@ public class RoundManager : MonoBehaviour, IManagerComponent<GameManager>
 
 	private void OnEnable()
 	{
-		_manager.EnemyManager.EnemyCounter.OnMaxTotalCountReached += EnemyLimitReached;
+		// _manager.EnemyManager.EnemyCounter.OnMaxTotalCountReached += EnemyLimitReached;
 		_manager.EnemyManager.Spawner.OnEnemyDie += FinalEnemyDeathListener;
 	}
 
 	private void OnDisable()
 	{
-		_manager.EnemyManager.EnemyCounter.OnMaxTotalCountReached -= EnemyLimitReached;
+		// _manager.EnemyManager.EnemyCounter.OnMaxTotalCountReached -= EnemyLimitReached;
 		_manager.EnemyManager.Spawner.OnEnemyDie -= FinalEnemyDeathListener;
 	}
 
 	#endregion
 
+	/// <summary>
+	/// Listener for the final enemy death event.
+	/// Responsible for transitioning to the next round upon the final enemy's death.
+	/// </summary>
 	private void FinalEnemyDeathListener(EnemyComponent enemy)
 	{
-		if (!_allEnemiesSpawned)
+		if (!_manager.EnemyManager.EnemyCounter.ReachedMaxTotalEnemies())
 		{
-			Debug.LogWarning("Not all enemies have finished spawning.");
 			return;
 		}
 		
-		if (_manager.EnemyManager.EnemyCounter.ConcurrentEnemyCount != 1)
+		// using greater than 1 to account for the final enemy that just died
+		// (strange order of events, idk)
+		if (_manager.EnemyManager.EnemyCounter.ConcurrentEnemyCount > 1)
 		{
-			// Debug.LogWarning("Final enemy died before all enemies spawned.");
 			return;
 		}
 		
 		TransitionNextRound();
 	}
 
-	private void EnemyLimitReached()
-	{
-		_allEnemiesSpawned = true;
-	}
-
+	/// <summary>
+	/// Initializes the first round by setting the round active to false,
+	/// waiting for the transition time, then setting the round active to true.
+	/// Invokes the <see cref="OnRoundBegin"/> event after the transition time.
+	/// </summary>
 	private void RoundOneInit()
 	{
 		StartCoroutine(TransitionTimer(PreWaitAction, PostWaitAction));
@@ -102,12 +105,16 @@ public class RoundManager : MonoBehaviour, IManagerComponent<GameManager>
 		void PostWaitAction()
 		{
 			roundValueAsset.roundActive = true;
-			_allEnemiesSpawned = false;
 			OnRoundBegin?.Invoke();
 			Debug.Log("Round One Begin");
 		}
 	}
 
+	/// <summary>
+	/// Handles the transition to the next round by setting the current round to inactive,
+	/// waiting for the transition time, incrementing the round, and setting the round to active.
+	/// Invokes the <see cref="OnRoundEnd"/> event before the transition time and the <see cref="OnRoundBegin"/> event after.
+	/// </summary>
 	private void TransitionNextRound()
 	{
 		StartCoroutine(TransitionTimer(PreWaitAction, PostWaitAction));
@@ -117,17 +124,16 @@ public class RoundManager : MonoBehaviour, IManagerComponent<GameManager>
 		void PreWaitAction()
 		{
 			roundValueAsset.roundActive = false;
+			roundValueAsset.IncrementRound();
 			OnRoundEnd?.Invoke();
 			Debug.Log($"Round {roundValueAsset.Round} Ended...");
-			roundValueAsset.IncrementRound();
 		}
 
 		void PostWaitAction()
 		{
 			roundValueAsset.roundActive = true;
-			_allEnemiesSpawned = false;
-			Debug.Log($"Round {roundValueAsset.Round} Begin!");
 			OnRoundBegin?.Invoke();
+			Debug.Log($"Round {roundValueAsset.Round} Begin!");
 		}
 	}
 

@@ -52,6 +52,7 @@ public class EnemyManager : MonoBehaviour, IManagerComponent<GameManager>
 			spawner,
 			spawnTimer,
 			enemyCounter,
+			spawnPositions,
 		};
 
 		foreach (var component in _components)
