@@ -2,15 +2,18 @@ using Core.HealthSystem;
 using Core.Utils;
 using MyCustomControls;
 using RotaryHeart.Lib.PhysicsExtension;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using PhysicsEx = RotaryHeart.Lib.PhysicsExtension.Physics;
 
 public class SimpleGun : MonoBehaviour
 {
+	[Required]
 	[SerializeField]
 	private GameControlsAsset gameControls;
 	
+	[Required]
 	[SerializeField]
 	private MouseUtilityAsset mouseUtility;
 	
