@@ -25,3 +25,7 @@ MonoBehaviour:
       name: UI
       enabled: 1
       tickRate: 10
+  - parameters:
+      name: EnemyTarget
+      enabled: 1
+      tickRate: 5
