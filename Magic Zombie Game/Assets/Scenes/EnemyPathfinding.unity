@@ -2292,7 +2292,7 @@ PrefabInstance:
     - target: {fileID: 1217217130875922530, guid: 6f04cc33b18bd7c46aee866fae4dfd1c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.66485
+      value: -1.1648502
       objectReference: {fileID: 0}
     - target: {fileID: 1217217130875922530, guid: 6f04cc33b18bd7c46aee866fae4dfd1c,
         type: 3}
@@ -3247,8 +3247,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyRegistry: {fileID: 11400000, guid: b8532133111939f4d97439c645ddbb1f, type: 2}
   playerRegistry: {fileID: 11400000, guid: 819664a754ca252409aa5566515dabbb, type: 2}
-  minBatchCount: 10
-  resultWaitTime: 3
+  batchCount: 10
+  completionWaitTime: 4
+  logger: {fileID: 0}
+  logJobStartAndEnd: 0
+  logNativeArrays: 0
 --- !u!1 &1685003856
 GameObject:
   m_ObjectHideFlags: 0
