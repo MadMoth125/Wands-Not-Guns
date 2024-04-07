@@ -1,6 +1,7 @@
 using System;
 using CodeMonkey.HealthSystemCM;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Core.HealthSystem
 {
@@ -30,7 +31,7 @@ namespace Core.HealthSystem
 		/// The GameObject that owns this <see cref="HealthComponent"/>.
 		/// Get/Set works the same as calling <see cref="GetOwningGameObject"/> and <see cref="SetOwner"/> respectively.
 		/// </summary>
-		public GameObject Owner
+		public Object Owner
 		{
 			get => GetOwner();
 			set => SetOwner(value);
@@ -79,7 +80,7 @@ namespace Core.HealthSystem
 		private float startingHealthAmount = 0f;
 	
 		private CodeMonkey.HealthSystemCM.HealthSystem _internalHealthSystem;
-		private GameObject _owningGameObject;
+		private Object _owner;
 		private float _previousHealth;
 		private float _previousMaxHealth;
 
@@ -115,9 +116,9 @@ namespace Core.HealthSystem
 		
 		#region Getters and Setters
 		
-		public GameObject GetOwner() => _owningGameObject;
+		public Object GetOwner() => _owner;
 
-		public void SetOwner(GameObject owner) => _owningGameObject = owner;
+		public void SetOwner(Object owner) => _owner = owner;
 
 		public virtual float GetHealth() => _internalHealthSystem.GetHealth();
 
@@ -182,7 +183,7 @@ namespace Core.HealthSystem
 				_internalHealthSystem.SetHealth(startingHealthAmount);
 			}
 			
-			SetOwner(gameObject);
+			// SetOwner(gameObject);
 			
 			AfterAwake();
 		}
