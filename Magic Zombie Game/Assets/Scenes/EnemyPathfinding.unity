@@ -1067,7 +1067,9 @@ GameObject:
   m_Component:
   - component: {fileID: 679214466}
   - component: {fileID: 679214465}
-  - component: {fileID: 679214467}
+  - component: {fileID: 679214469}
+  - component: {fileID: 679214468}
+  - component: {fileID: 679214470}
   m_Layer: 0
   m_Name: Player Weapon
   m_TagString: Untagged
@@ -1092,8 +1094,8 @@ MonoBehaviour:
   updateGroup: 1
   copyMethod: 1
   lerpSharpness: 10
-  positionOffsetType: 0
-  positionOffset: {x: 0, y: 0, z: 0}
+  positionOffsetType: 1
+  positionOffset: {x: 0, y: 0.5, z: 0}
 --- !u!4 &679214466
 Transform:
   m_ObjectHideFlags: 0
@@ -1109,7 +1111,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &679214467
+--- !u!114 &679214468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1118,14 +1120,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 679214464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa6e9a69ce44854991f5e94d902a6d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 9124cf919b4505240a2d80cdd8a13042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameControls: {fileID: 11400000, guid: ac6f9f39ea6abe443b0ba39de52f6c56, type: 2}
-  mouseUtility: {fileID: 11400000, guid: 186ac9b12b2083e42881629e379ceae0, type: 2}
-  hitDetectionLayers:
+  damage: 10
+  range: 20
+  projectileHandler: {fileID: 679214470}
+--- !u!114 &679214469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679214464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67cd3a67a0ad2bb4ea9e452339084a6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controls: {fileID: 11400000, guid: ac6f9f39ea6abe443b0ba39de52f6c56, type: 2}
+--- !u!114 &679214470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679214464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb261185add4651894fed4c71c520db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchVelocity: 10
+  selfDestructTime: 5
+  layers:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 256
+  projectilePrefab: {fileID: 4544362507684475865, guid: 6f736b3f3e344d745a21c8531bda985a,
+    type: 3}
 --- !u!1 &706477808
 GameObject:
   m_ObjectHideFlags: 0
