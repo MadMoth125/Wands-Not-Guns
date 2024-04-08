@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a500821b0b642e640b2e53d2c1f6435d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemySpawnEvent: {fileID: 11400000, guid: 712b83a7d66899442b04b096116fd8ea, type: 2}
+  enemyDieEvent: {fileID: 11400000, guid: 2baca0adc9072c34e814b09298a017f0, type: 2}
+  roundEndEvent: {fileID: 11400000, guid: eb9f4d1513fc9b14e9747a5e166dfda3, type: 2}
   spawnCountAsset: {fileID: 11400000, guid: 519e152c7047d5c4385a0cfa136882ba, type: 2}
   logger: {fileID: 11400000, guid: 1f71abeef9127ab4dafbdc436cc3b029, type: 2}
   logMaxEnemyCountsReached: 1
@@ -147,7 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39b37d5535d3334ba686f802d71e5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  registry: {fileID: 11400000, guid: b8532133111939f4d97439c645ddbb1f, type: 2}
+  enemySpawnEvent: {fileID: 11400000, guid: 712b83a7d66899442b04b096116fd8ea, type: 2}
+  enemyDieEvent: {fileID: 11400000, guid: 2baca0adc9072c34e814b09298a017f0, type: 2}
+  enemyRegistry: {fileID: 11400000, guid: b8532133111939f4d97439c645ddbb1f, type: 2}
   logger: {fileID: 11400000, guid: 1f71abeef9127ab4dafbdc436cc3b029, type: 2}
   logEnemyLifecycle: 0
   logSpawnState: 0
@@ -214,8 +219,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyRegistry: {fileID: 11400000, guid: b8532133111939f4d97439c645ddbb1f, type: 2}
   playerRegistry: {fileID: 11400000, guid: 819664a754ca252409aa5566515dabbb, type: 2}
-  minBatchCount: 10
-  jobCompleteWaitDuration: 3
+  batchCount: 10
+  completionWaitTime: 3
   logger: {fileID: 11400000, guid: 1f71abeef9127ab4dafbdc436cc3b029, type: 2}
   logJobStartAndEnd: 0
   logNativeArrays: 0
@@ -389,9 +394,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14e97290907f774aa8a32dcf8eaa342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnIntervalAsset: {fileID: 11400000, guid: b7cf3a2bfda1f184ea45eda658be36fa, type: 2}
   active: 1
   manualTick: 0
+  spawnInterval: {fileID: 11400000, guid: b7cf3a2bfda1f184ea45eda658be36fa, type: 2}
   logger: {fileID: 11400000, guid: 1f71abeef9127ab4dafbdc436cc3b029, type: 2}
   logTimerElapsed: 0
   logTimerStateUpdates: 0
@@ -439,5 +444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4612ba395461a41bb9ee74da0dd8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundValueAsset: {fileID: 11400000, guid: 1a738e7d7be9f8348a0c2a62557415ef, type: 2}
+  roundBeginEvent: {fileID: 11400000, guid: f20039fb10ec34b40899de0591869f2e, type: 2}
+  roundEndEvent: {fileID: 11400000, guid: eb9f4d1513fc9b14e9747a5e166dfda3, type: 2}
+  enemyDieEvent: {fileID: 11400000, guid: 2baca0adc9072c34e814b09298a017f0, type: 2}
   transitionTime: 5
+  roundNumber: {fileID: 11400000, guid: 1a738e7d7be9f8348a0c2a62557415ef, type: 2}

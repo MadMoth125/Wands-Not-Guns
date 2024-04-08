@@ -22,7 +22,7 @@ namespace Core.Registries
 
 		[Tooltip("Logger to use for this registry. If null, no logging will occur.")]
 		[SerializeField]
-		protected LoggerAsset logger;
+		protected LoggerScriptableObject logger;
 		
 		protected TKey[] cachedKeys;
 		protected TValue[] cachedValues;
@@ -50,11 +50,11 @@ namespace Core.Registries
 			{
 				RefreshCache();
 				InvokeItemAdded(key, value);
-				LogWrapper($"Value \"{value}\" with key of \"{key}\" has been added to the registry.", LoggerAsset.LogType.Info);
+				LogWrapper($"Value \"{value}\" with key of \"{key}\" has been added to the registry.", LoggerType.Info);
 				return true;
 			}
 			
-			LogWrapper($"Key \"{key}\" already exists in the registry.", LoggerAsset.LogType.Warning);
+			LogWrapper($"Key \"{key}\" already exists in the registry.", LoggerType.Warning);
 			return false;
 		}
 		
@@ -79,11 +79,11 @@ namespace Core.Registries
 			{
 				RefreshCache();
 				InvokeItemRemoved(key, value);
-				LogWrapper($"Value \"{value}\" with key \"{key}\" has been removed from the registry.", LoggerAsset.LogType.Info);
+				LogWrapper($"Value \"{value}\" with key \"{key}\" has been removed from the registry.", LoggerType.Info);
 				return true;
 			}
 			
-			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerAsset.LogType.Warning);
+			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerType.Warning);
 			return false;
 		}
 		
@@ -106,11 +106,11 @@ namespace Core.Registries
 
 			if (registry.TryGetValue(key, out TValue value))
 			{
-				LogWrapper($"Value \"{value}\" with key \"{key}\" has been retrieved from the registry.", LoggerAsset.LogType.Info);
+				LogWrapper($"Value \"{value}\" with key \"{key}\" has been retrieved from the registry.", LoggerType.Info);
 				return value;
 			}
 			
-			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerAsset.LogType.Warning);
+			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerType.Warning);
 			return default;
 		}
 		
@@ -135,11 +135,11 @@ namespace Core.Registries
 			{
 				registry[key] = value;
 				RefreshCache();
-				LogWrapper($"Value \"{value}\" with key \"{key}\" has been set in the registry.", LoggerAsset.LogType.Info);
+				LogWrapper($"Value \"{value}\" with key \"{key}\" has been set in the registry.", LoggerType.Info);
 			}
 			else
 			{
-				LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerAsset.LogType.Warning);
+				LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerType.Warning);
 			}
 		}
 		
@@ -149,7 +149,7 @@ namespace Core.Registries
 		/// </summary>
 		public virtual IEnumerable<TKey> GetKeysEnumerable()
 		{
-			LogWrapper($"Got {cachedKeys.Length} registry keys.", LoggerAsset.LogType.Info);
+			LogWrapper($"Got {cachedKeys.Length} registry keys.", LoggerType.Info);
 			return cachedKeys;
 		}
 		
@@ -159,7 +159,7 @@ namespace Core.Registries
 		/// </summary>
 		public virtual TKey[] GetKeysArray()
 		{
-			LogWrapper($"Got {cachedKeys.Length} registry keys.", LoggerAsset.LogType.Info);
+			LogWrapper($"Got {cachedKeys.Length} registry keys.", LoggerType.Info);
 			return cachedKeys;
 		}
 
@@ -169,7 +169,7 @@ namespace Core.Registries
 		/// </summary>
 		public virtual IEnumerable<TValue> GetValuesEnumerable()
 		{
-			LogWrapper($"Got {cachedValues.Length} registry values.", LoggerAsset.LogType.Info);
+			LogWrapper($"Got {cachedValues.Length} registry values.", LoggerType.Info);
 			return cachedValues;
 		}
 		
@@ -179,7 +179,7 @@ namespace Core.Registries
 		/// </summary>
 		public virtual TValue[] GetValuesArray()
 		{
-			LogWrapper($"Got {cachedValues.Length} registry values.", LoggerAsset.LogType.Info);
+			LogWrapper($"Got {cachedValues.Length} registry values.", LoggerType.Info);
 			return cachedValues;
 		}
 		
@@ -191,13 +191,13 @@ namespace Core.Registries
 		{
 			if (Count == 0)
 			{
-				LogWrapper("Registry is empty, unable to get random key.", LoggerAsset.LogType.Warning);
+				LogWrapper("Registry is empty, unable to get random key.", LoggerType.Warning);
 				return default;
 			}
 
 			int randomIndex = UnityEngine.Random.Range(0, Count);
 			var randomKey = GetKeysArray()[randomIndex];
-			LogWrapper($"Random key \"{randomKey}\" has been retrieved from the registry.", LoggerAsset.LogType.Info);
+			LogWrapper($"Random key \"{randomKey}\" has been retrieved from the registry.", LoggerType.Info);
 			return randomKey;
 		}
 		
@@ -208,13 +208,13 @@ namespace Core.Registries
 		{
 			if (Count == 0)
 			{
-				LogWrapper("Registry is empty, unable to get random value.", LoggerAsset.LogType.Warning);
+				LogWrapper("Registry is empty, unable to get random value.", LoggerType.Warning);
 				return default;
 			}
 
 			int randomIndex = UnityEngine.Random.Range(0, Count);
 			var randomValue = GetValuesArray()[randomIndex];
-			LogWrapper($"Random value \"{randomValue}\" has been retrieved from the registry.", LoggerAsset.LogType.Info);
+			LogWrapper($"Random value \"{randomValue}\" has been retrieved from the registry.", LoggerType.Info);
 			return randomValue;
 		}
 		
@@ -228,7 +228,7 @@ namespace Core.Registries
 			registry?.Clear();
 			RefreshCache();
 			
-			LogWrapper("Registry has been cleared.", LoggerAsset.LogType.Info);
+			LogWrapper("Registry has been cleared.", LoggerType.Info);
 		}
 
 		/// <summary>
@@ -273,15 +273,15 @@ namespace Core.Registries
 
 		protected void LogRegistryInvalid()
 		{
-			LogWrapper("Internal registry reference is null, unable to perform operation.", LoggerAsset.LogType.Error);
+			LogWrapper("Internal registry reference is null, unable to perform operation.", LoggerType.Error);
 		}
 
 		protected void LogKeyInvalid()
 		{
-			LogWrapper("Key is null, unable to perform operation.", LoggerAsset.LogType.Warning);
+			LogWrapper("Key is null, unable to perform operation.", LoggerType.Warning);
 		}
 		
-		protected void LogWrapper(string message, LoggerAsset.LogType logType)
+		protected void LogWrapper(string message, LoggerType logType)
 		{
 			if (logger == null) return;
 			logger.Log(message, this, logType);

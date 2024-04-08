@@ -16,13 +16,15 @@ namespace Enemy.Jobs
 	{
 		#region Fields
 
+		[RegistryCategory]
 		[Required]
 		[SerializeField]
-		private EnemyRegistryAsset enemyRegistry;
+		private EnemyRegistry enemyRegistry;
 	
+		[RegistryCategory]
 		[Required]
 		[SerializeField]
-		private PlayerRegistryAsset playerRegistry;
+		private PlayerRegistry playerRegistry;
 
 		[TitleGroup("Jobs", "Parameters", Alignment = TitleAlignments.Centered)]
 		[Tooltip("The minimum number of enemies to process in a single batch.\n" +
@@ -42,7 +44,7 @@ namespace Enemy.Jobs
 		
 		[TitleGroup("Debug", "Parameters", Alignment = TitleAlignments.Centered)]
 		[SerializeField]
-		private LoggerAsset logger;
+		private LoggerScriptableObject logger;
 
 		[TitleGroup("Debug")]
 		[Tooltip("Enable logging of when the job starts and ends.")]
@@ -100,7 +102,7 @@ namespace Enemy.Jobs
 					HandleJobEnd();
 					_jobActive = false;
 					_frameCount = 0;
-					if (logJobStartAndEnd) LogWrapper($"Job ended at frame '{Time.frameCount}'.", LoggerAsset.LogType.Info);
+					if (logJobStartAndEnd) LogWrapper($"Job ended at frame '{Time.frameCount}'.", LoggerType.Info);
 				}
 				else
 				{
@@ -115,7 +117,7 @@ namespace Enemy.Jobs
 		{
 			HandleJobBegin();
 			_jobActive = true;
-			if (logJobStartAndEnd) LogWrapper($"Job started at frame '{Time.frameCount}'.", LoggerAsset.LogType.Info);
+			if (logJobStartAndEnd) LogWrapper($"Job started at frame '{Time.frameCount}'.", LoggerType.Info);
 		}
 		
 		/// <summary>
@@ -149,7 +151,7 @@ namespace Enemy.Jobs
 					var target = playerRegistry.GetValue(_resultData[i].ID);
 					if (target == null || !target.gameObject.activeSelf)
 					{
-						LogWrapper($"Player with ID '{_resultData[i].ID}' not found or inactive.", LoggerAsset.LogType.Warning);
+						LogWrapper($"Player with ID '{_resultData[i].ID}' not found or inactive.", LoggerType.Warning);
 						continue;
 					}
 					_cachedEnemies[i].PathfindingComponent.SetTargetPosition(target.position);
@@ -193,7 +195,7 @@ namespace Enemy.Jobs
 				_enemyPositions[i] = _cachedEnemies[i].transform.position;
 			}
 			
-			if (logNativeArrays) LogWrapper($"Native array '{nameof(_enemyPositions)}' initialized w/ {_cachedEnemies.Length} items.", LoggerAsset.LogType.Info);
+			if (logNativeArrays) LogWrapper($"Native array '{nameof(_enemyPositions)}' initialized w/ {_cachedEnemies.Length} items.", LoggerType.Info);
 		
 			PlayerData reusablePlayerData = new();
 			for (int i = 0; i < _cachedPlayerData.Length; i++)
@@ -202,7 +204,7 @@ namespace Enemy.Jobs
 				_playerData[i] = reusablePlayerData;
 			}
 			
-			if (logNativeArrays) LogWrapper($"Native array '{nameof(_playerData)}' initialized w/ {_cachedPlayerData.Length} items.", LoggerAsset.LogType.Info);
+			if (logNativeArrays) LogWrapper($"Native array '{nameof(_playerData)}' initialized w/ {_cachedPlayerData.Length} items.", LoggerType.Info);
 		}
 		
 		/// <summary>
@@ -214,23 +216,23 @@ namespace Enemy.Jobs
 			if (_enemyPositions.IsCreated)
 			{
 				_enemyPositions.Dispose();
-				if (logNativeArrays) LogWrapper($"Native array '{nameof(_enemyPositions)}' disposed.", LoggerAsset.LogType.Info);
+				if (logNativeArrays) LogWrapper($"Native array '{nameof(_enemyPositions)}' disposed.", LoggerType.Info);
 			}
 			
 			if (_playerData.IsCreated)
 			{
 				_playerData.Dispose();
-				if (logNativeArrays) LogWrapper($"Native array '{nameof(_playerData)}' disposed.", LoggerAsset.LogType.Info);
+				if (logNativeArrays) LogWrapper($"Native array '{nameof(_playerData)}' disposed.", LoggerType.Info);
 			}
 			
 			if (_resultData.IsCreated)
 			{
 				_resultData.Dispose();
-				if (logNativeArrays) LogWrapper($"Native array '{nameof(_resultData)}' disposed.", LoggerAsset.LogType.Info);
+				if (logNativeArrays) LogWrapper($"Native array '{nameof(_resultData)}' disposed.", LoggerType.Info);
 			}
 		}
 		
-		private void LogWrapper(string message, LoggerAsset.LogType type)
+		private void LogWrapper(string message, LoggerType type)
 		{
 			if (logger != null)
 			{

@@ -9,12 +9,12 @@ namespace Player.Controller
 {
 	/// <summary>
 	/// Simple base class for movement components.
-	/// Holds references to a <see cref="KinematicCharacterMotor"/> and <see cref="GameControlsAsset"/>
+	/// Holds references to a <see cref="KinematicCharacterMotor"/> and <see cref="ScriptableObjectGameControls"/>
 	/// received from the "owning" <see cref="MovementController"/>.
 	/// </summary>
 	public abstract class MovementComponent : IMovementAbility
 	{
-		protected GameControlsAsset Controls { get; private set; }
+		protected ScriptableObjectGameControls Controls { get; private set; }
 
 		protected KinematicCharacterMotor Motor { get; private set; }
 
@@ -37,7 +37,7 @@ namespace Player.Controller
 
 		public abstract void UpdateRotation(ref Quaternion currentRotation, in float deltaTime);
 
-		public void SetReferences(GameControlsAsset controls, KinematicCharacterMotor motor)
+		public void SetReferences(ScriptableObjectGameControls controls, KinematicCharacterMotor motor)
 		{
 			Controls = controls;
 			Motor = motor;

@@ -14,37 +14,40 @@ namespace Core.HealthSystem
 	{
 		#region Events
 		
-		public UnityEvent<HealthChangedArgs> OnHealthChanged;
+		[UnityEventsCategory]
+		public UnityEvent<HealthChangedArgs> OnHealthChanged = new();
 
-		public UnityEvent<HealthChangedArgs> OnMaxHealthChanged;
+		[UnityEventsCategory]
+		public UnityEvent<HealthChangedArgs> OnMaxHealthChanged = new();
 
-		public UnityEvent<HealthChangedArgs> OnDamaged;
+		[UnityEventsCategory]
+		public UnityEvent<HealthChangedArgs> OnDamaged = new();
 
-		public UnityEvent<HealthChangedArgs> OnHealed;
+		[UnityEventsCategory]
+		public UnityEvent<HealthChangedArgs> OnHealed = new();
 
-		public UnityEvent OnDie;
+		[UnityEventsCategory]
+		public UnityEvent OnDie = new();
 		
 		#endregion
 		
-		[HideInInspector]
-		[SerializeField]
-		private HealthComponent healthComponent;
+		private HealthComponent _healthComponent;
 		
 		#region Unity Methods
 
 		private void OnValidate()
 		{
-			if (healthComponent == null)
+			if (_healthComponent == null)
 			{
-				healthComponent = GetComponent<HealthComponent>();
+				_healthComponent = GetComponent<HealthComponent>();
 			}
 		}
 
 		private void Awake()
 		{
-			if (healthComponent == null)
+			if (_healthComponent == null)
 			{
-				healthComponent = GetComponent<HealthComponent>();
+				_healthComponent = GetComponent<HealthComponent>();
 			}
 		}
 
@@ -52,34 +55,34 @@ namespace Core.HealthSystem
 		{
 			if (!CanValidateHealthComponent()) return;
 			
-			healthComponent.OnHealthChanged += OnHealthChanged.Invoke;
-			healthComponent.OnMaxHealthChanged += OnMaxHealthChanged.Invoke;
-			healthComponent.OnDamaged += OnDamaged.Invoke;
-			healthComponent.OnHealed += OnHealed.Invoke;
-			healthComponent.OnDie += OnDie.Invoke;
+			_healthComponent.OnHealthChanged += OnHealthChanged.Invoke;
+			_healthComponent.OnMaxHealthChanged += OnMaxHealthChanged.Invoke;
+			_healthComponent.OnDamaged += OnDamaged.Invoke;
+			_healthComponent.OnHealed += OnHealed.Invoke;
+			_healthComponent.OnDie += OnDie.Invoke;
 		}
 
 		private void OnDisable()
 		{
 			if (!CanValidateHealthComponent()) return;
 			
-			healthComponent.OnHealthChanged -= OnHealthChanged.Invoke;
-			healthComponent.OnMaxHealthChanged -= OnMaxHealthChanged.Invoke;
-			healthComponent.OnDamaged -= OnDamaged.Invoke;
-			healthComponent.OnHealed -= OnHealed.Invoke;
-			healthComponent.OnDie -= OnDie.Invoke;
+			_healthComponent.OnHealthChanged -= OnHealthChanged.Invoke;
+			_healthComponent.OnMaxHealthChanged -= OnMaxHealthChanged.Invoke;
+			_healthComponent.OnDamaged -= OnDamaged.Invoke;
+			_healthComponent.OnHealed -= OnHealed.Invoke;
+			_healthComponent.OnDie -= OnDie.Invoke;
 		}
 
 		#endregion
 		
 		private bool CanValidateHealthComponent()
 		{
-			if (healthComponent == null)
+			if (_healthComponent == null)
 			{
-				healthComponent = GetComponent<HealthComponent>();
+				_healthComponent = GetComponent<HealthComponent>();
 			}
 			
-			return healthComponent != null;
+			return _healthComponent != null;
 		}
 	}
 }

@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72e4056db15a6447976a455df1301a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDieEventAsset: {fileID: 11400000, guid: 2baca0adc9072c34e814b09298a017f0, type: 2}
   pathfindingComponent: {fileID: 1078284786691879341}
   healthComponent: {fileID: 7298606842867131430}
 --- !u!114 &1078284786691879341

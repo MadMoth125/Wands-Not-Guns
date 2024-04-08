@@ -5,17 +5,27 @@ using UnityEngine;
 public class CurrentRoundDisplay : MonoBehaviour
 {
 	[Required]
-	public RoundValueAsset roundValueAsset;
-	
+	public TextMeshProUGUI textMesh;
+
 	[Required]
-	public TextMeshProUGUI text;
-	
+	public RoundNumberScriptableObject roundNumber;
+
 	#region Unity Methods
 
-	private void Update()
+	private void OnEnable()
 	{
-		text.text = $"Round: {roundValueAsset.Round}";
+		roundNumber.OnRoundChange += OnRoundChanged;
+	}
+
+	private void OnDisable()
+	{
+		roundNumber.OnRoundChange -= OnRoundChanged;
 	}
 
 	#endregion
+
+	private void OnRoundChanged()
+	{
+		textMesh.text = $"Round: {roundNumber.Round}";
+	}
 }

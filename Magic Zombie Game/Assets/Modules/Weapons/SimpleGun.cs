@@ -11,7 +11,7 @@ public class SimpleGun : MonoBehaviour
 {
 	[Required]
 	[SerializeField]
-	private GameControlsAsset gameControls;
+	private ScriptableObjectGameControls gameControls;
 	
 	[Required]
 	[SerializeField]

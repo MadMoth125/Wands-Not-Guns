@@ -30,17 +30,15 @@ namespace Player.Controller
 		#endregion
 	
 		[SerializeField]
-		private GameControlsAsset gameControls;
+		private ScriptableObjectGameControls gameControls;
 	
 		[Title("Movement")]
-		[HideLabel]
-		[InlineProperty]
+		[Inlined]
 		[SerializeField]
 		private InputMovementSoap movementComponent = new();
 	
 		[Title("Gravity")]
-		[HideLabel]
-		[InlineProperty]
+		[Inlined]
 		[SerializeField]
 		private GravityMovementSoap gravityComponent = new();
 

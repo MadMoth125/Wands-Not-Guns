@@ -6,7 +6,7 @@ namespace MyCustomControls
 {
 	public class InputEventTester : MonoBehaviour
 	{
-		public GameControlsAsset gameControlsAsset;
+		public ScriptableObjectGameControls gameControlsAsset;
 		
 		#region Unity Methods
 

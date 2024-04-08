@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [Serializable]
-public class UnityEventObservable<T> : Observable<T>
+public class UnityEventObservable<T> : Observable<T> where T : IEquatable<T>
 {
 	public UnityEventObservable(T value, Action<T> callback = null) : base(value, null)
 	{

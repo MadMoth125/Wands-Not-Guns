@@ -1,21 +1,27 @@
 using System;
 using Core.HealthSystem;
+using Obvious.Soap;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class EnemyComponent : MonoBehaviour
 {
-	public event Action<EnemyComponent> OnDie;
-	
 	public int EnemyId => gameObject.GetInstanceID();
-	
+
 	public EnemyPathfinding PathfindingComponent => pathfindingComponent;
-	
+
 	public HealthComponent HealthComponent => healthComponent;
-	
+
+	[TitleGroup("Events","Assets", Alignment = TitleAlignments.Centered)]
+	[Required]
+	[SerializeField]
+	private ScriptableEventInt onDieEventAsset;
+
+	[TitleGroup("References","Components", Alignment = TitleAlignments.Centered)]
 	[SerializeField]
 	private EnemyPathfinding pathfindingComponent;
 	
+	[TitleGroup("References")]
 	[SerializeField]
 	private HealthComponent healthComponent;
 
@@ -35,6 +41,6 @@ public class EnemyComponent : MonoBehaviour
 
 	private void HandleDie()
 	{
-		OnDie?.Invoke(this);
+		onDieEventAsset.Raise(EnemyId);
 	}
 }

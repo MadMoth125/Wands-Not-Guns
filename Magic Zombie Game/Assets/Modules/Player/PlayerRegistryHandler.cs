@@ -6,7 +6,7 @@ public class PlayerRegistryHandler : MonoBehaviour
 {
 	[Required]
 	[SerializeField]
-	private PlayerRegistryAsset playerRegistry;
+	private PlayerRegistry playerRegistry;
 	
 	#region Unity Methods
 

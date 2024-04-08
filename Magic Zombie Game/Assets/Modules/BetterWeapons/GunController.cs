@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class GunController : MonoBehaviour
 {
 	[SerializeField]
-	private GameControlsAsset controls;
+	private ScriptableObjectGameControls controls;
 
 	private Gun _gun;
 
