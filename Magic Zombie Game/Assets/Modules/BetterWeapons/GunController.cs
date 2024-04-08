@@ -1,4 +1,5 @@
 using MyCustomControls;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,26 +7,31 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Gun))]
 public class GunController : MonoBehaviour
 {
+	[Required]
 	[SerializeField]
-	private ScriptableObjectGameControls controls;
-
-	private Gun _gun;
+	private ScriptableObjectGameControls gameControls;
+	
+	[Required]
+	[SerializeField]
+	private Gun gun;
 
 	#region Unity Methods
 
 	private void Awake()
 	{
-		_gun = GetComponent<Gun>();
+		
 	}
 
 	private void OnEnable()
 	{
-		controls.OnAttackCallback += OnGunFired;
+		gameControls.OnAttackCallback += OnGunFired;
+		gameControls.OnDeviceChange += OnDeviceChange;
 	}
 
 	private void OnDisable()
 	{
-		controls.OnAttackCallback -= OnGunFired;
+		gameControls.OnAttackCallback -= OnGunFired;
+		gameControls.OnDeviceChange -= OnDeviceChange;
 	}
 
 	#endregion
@@ -34,7 +40,17 @@ public class GunController : MonoBehaviour
 	{
 		if (ctx.performed)
 		{
-			_gun.FireGun();
+			gun.FireGun();
+		}
+	}
+
+	private void OnDeviceChange(Device device)
+	{
+		Debug.Log($"Device changed to {device}");
+		
+		switch (device)
+		{
+			
 		}
 	}
 }
