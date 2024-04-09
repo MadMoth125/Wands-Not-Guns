@@ -21,7 +21,7 @@ namespace Core.CustomTickSystem.Components
 			};
 		
 			eventContainer = new TickEventContainer();
-			timer = new TickTimer();
+			timer = new TickTimer(tickFirstFrame: false);
 		}
 	
 		[InlineProperty]

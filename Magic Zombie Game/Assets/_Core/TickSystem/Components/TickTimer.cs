@@ -21,7 +21,7 @@ namespace Core.CustomTickSystem.Components
 	
 		private float _time = 0f;
 	
-		public bool ShouldTick(float interval, float deltaTime)
+		public bool ShouldTick(in float interval, in float deltaTime)
 		{
 			if (_time >= interval)
 			{

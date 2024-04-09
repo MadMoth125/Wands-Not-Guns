@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Core.CustomTickSystem.Components
 {
@@ -12,15 +13,17 @@ namespace Core.CustomTickSystem.Components
 		// idk if this is necessary
 		~TickEventContainer()
 		{
+			// Debug.Log("TickEventContainer destroyed.");
 			ClearListeners();
 		}
 		
 		private event Action OnTick;
-	
-		public int TickCount { get; private set; }
+
+		public int TickCount => _tickCount;
 		
 		private readonly List<Action> _listeners = new();
-	
+		private int _tickCount;
+		
 		/// <summary>
 		/// Calls the <see cref="OnTick"/> event.
 		/// </summary>
@@ -28,7 +31,7 @@ namespace Core.CustomTickSystem.Components
 		{
 			if (!HasAnyListeners()) return;
 			OnTick?.Invoke();
-			TickCount++;
+			_tickCount++;
 		}
 	
 		/// <summary>

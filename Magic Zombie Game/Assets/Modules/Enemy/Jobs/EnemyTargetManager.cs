@@ -63,11 +63,12 @@ namespace Enemy.Jobs
 		
 		private EnemyComponent[] _cachedEnemies;
 		private PlayerData[] _cachedPlayerData;
+		private PlayerData _reusablePlayerData = new();
 		
 		private NativeArray<Vector3> _enemyPositions;
 		private NativeArray<PlayerData> _playerData;
 		private NativeArray<PlayerData> _resultData;
-		private FindClosestPlayerJob _findPlayerJob;
+		private FindClosestPlayerJob _findPlayerJob = new();
 		private JobHandle _runningJobHandle;
 		private readonly JobHandle _dependencyJobHandleHandle = new();
 
@@ -75,7 +76,7 @@ namespace Enemy.Jobs
 
 		private void Awake()
 		{
-			_findPlayerJob = new FindClosestPlayerJob();
+			// _findPlayerJob = new FindClosestPlayerJob();
 		}
 
 		private void OnEnable()
@@ -170,13 +171,11 @@ namespace Enemy.Jobs
 		private void CacheRegistryValues()
 		{
 			_cachedEnemies = enemyRegistry.GetValuesArray();
-			
-			int[] playerKeys = playerRegistry.GetKeysArray();
-			Transform[] playerValues = playerRegistry.GetValuesArray();
-			_cachedPlayerData = new PlayerData[playerKeys.Length];
+			_cachedPlayerData = new PlayerData[playerRegistry.GetKeysArray().Length];
 			for (int i = 0; i < _cachedPlayerData.Length; i++)
 			{
-				_cachedPlayerData[i] = new PlayerData(playerKeys[i], playerValues[i].position);
+				_reusablePlayerData.SetData(playerRegistry.GetKeysArray()[i], playerRegistry.GetValuesArray()[i].position);
+				_cachedPlayerData[i] = _reusablePlayerData;
 			}
 		}
 		
@@ -196,12 +195,11 @@ namespace Enemy.Jobs
 			}
 			
 			if (logNativeArrays) LogWrapper($"Native array '{nameof(_enemyPositions)}' initialized w/ {_cachedEnemies.Length} items.", LoggerType.Info);
-		
-			PlayerData reusablePlayerData = new();
+
 			for (int i = 0; i < _cachedPlayerData.Length; i++)
 			{
-				reusablePlayerData.SetData(_cachedPlayerData[i].ID, _cachedPlayerData[i].Position);
-				_playerData[i] = reusablePlayerData;
+				_reusablePlayerData.SetData(_cachedPlayerData[i].ID, _cachedPlayerData[i].Position);
+				_playerData[i] = _reusablePlayerData;
 			}
 			
 			if (logNativeArrays) LogWrapper($"Native array '{nameof(_playerData)}' initialized w/ {_cachedPlayerData.Length} items.", LoggerType.Info);

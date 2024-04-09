@@ -51,28 +51,42 @@ namespace Core.CustomTickSystem
 
 		public TickLayer GetLateUpdateTickGroup() => _unityTickGroups[2];
 
+		public List<TickLayer> GetCustomTickGroups() => tickGroups;
+		
 		/// <summary>
 		/// Returns the main tick group and any custom defined tick groups.
 		/// </summary>
 		/// <returns></returns>
-		public List<TickLayer> GetTickGroups()
+		[Obsolete("Use either 'GetAllTickGroups()' or 'GetCustomTickGroups()' instead.")]
+		public IEnumerable<TickLayer> GetTickGroups()
 		{
-			var tempGroups = new List<TickLayer> { mainTickGroup };
-			tempGroups.AddRange(tickGroups);
-			return tempGroups;
+			for (int i = 0; i < tickGroups.Count + 1; i++)
+			{
+				yield return i < tickGroups.Count ? tickGroups[i] : mainTickGroup;
+			}
 		}
 
 		/// <summary>
 		/// Returns all tick groups shown in the asset.
-		/// (Main, Unity, and custom tick groups
+		/// (Main, Unity, and any custom tick groups
 		/// </summary>
-		public List<TickLayer> GetAllTickGroups()
+		public IEnumerable<TickLayer> GetAllTickGroups()
 		{
-			var allTickGroups = new List<TickLayer> { mainTickGroup };
-			allTickGroups.AddRange(tickGroups);
-			allTickGroups.AddRange(_unityTickGroups);
-		
-			return allTickGroups;
+			for (int i = 0; i < tickGroups.Count + _unityTickGroups.Count + 1; i++)
+			{
+				if (i < tickGroups.Count)
+				{
+					yield return tickGroups[i];
+				}
+				else if (i < tickGroups.Count + _unityTickGroups.Count)
+				{
+					yield return _unityTickGroups[i - tickGroups.Count];
+				}
+				else
+				{
+					yield return mainTickGroup;
+				}
+			}
 		}
 
 		#endregion

@@ -42,18 +42,14 @@ namespace Core.CustomTickSystem.Components
 
 		// tick name
 		[VerticalGroup("Layer")]
-	
 		[EnableIf(nameof(CanEditName))]
-	
 		[HideLabel]
 		public string name;
 
 		// tick enabled
 		[VerticalGroup("Layer")]
 		[HorizontalGroup("Layer/Parameters", 100)]
-	
 		[EnableIf(nameof(CanEditEnabled))]
-	
 		[ToggleLeft]
 		[LabelWidth(50)]
 		public bool enabled = true;
@@ -61,9 +57,7 @@ namespace Core.CustomTickSystem.Components
 		// tick rate
 		[VerticalGroup("Layer")]
 		[HorizontalGroup("Layer/Parameters")]
-	
 		[EnableIf(nameof(CanEditTickRate))]
-	
 		[PropertyRange(nameof(minTickRate), nameof(maxTickRate))]
 	
 		[SuffixLabel("tick/s", Icon = SdfIconType.Clock)]
