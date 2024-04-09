@@ -6,22 +6,24 @@ using UnityEngine;
 
 public class EnemyComponent : MonoBehaviour
 {
-	public int EnemyId => gameObject.GetInstanceID();
+	#region Properties
 
 	public EnemyPathfinding PathfindingComponent => pathfindingComponent;
-
 	public HealthComponent HealthComponent => healthComponent;
+	public int EnemyId => gameObject.GetInstanceID();
 
-	[TitleGroup("Events","Assets", Alignment = TitleAlignments.Centered)]
+	#endregion
+
+	[ScriptableEventCategory]
 	[Required]
 	[SerializeField]
 	private ScriptableEventInt onDieEventAsset;
 
-	[TitleGroup("References","Components", Alignment = TitleAlignments.Centered)]
+	[ExternalComponentCategory]
 	[SerializeField]
 	private EnemyPathfinding pathfindingComponent;
 	
-	[TitleGroup("References")]
+	[ExternalComponentCategory]
 	[SerializeField]
 	private HealthComponent healthComponent;
 
