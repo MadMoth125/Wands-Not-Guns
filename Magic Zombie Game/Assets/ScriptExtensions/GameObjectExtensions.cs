@@ -17,12 +17,19 @@ namespace ScriptExtensions
 		/// you can use this method to do both operations in one line.
 		/// </remarks>
 		/// <typeparam name="T">The type of the component to get or add.</typeparam>
-		/// <param name="gameObject">The GameObject to get the component from or add the component to.</param>
+		/// <param name="target">The GameObject to get the component from or add the component to.</param>
 		/// <returns>The existing component of the given type, or a new one if no such component exists.</returns> 
-		public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
+		public static T GetOrAddComponent<T>(this GameObject target) where T : Component
 		{
-			var component = gameObject.GetComponent<T>();
-			if (!component) component = gameObject.AddComponent<T>();
+			var component = target.GetComponent<T>();
+			if (!component) component = target.AddComponent<T>();
+			return component;
+		}
+		
+		public static T GetOrAddComponent<T>(this Component target) where T : Component
+		{
+			var component = target.gameObject.GetComponent<T>();
+			if (!component) component = target.gameObject.AddComponent<T>();
 			return component;
 		}
 
