@@ -17,11 +17,6 @@ public class GunController : MonoBehaviour
 
 	#region Unity Methods
 
-	private void Awake()
-	{
-		
-	}
-
 	private void OnEnable()
 	{
 		gameControls.OnAttackCallback += OnGunFired;
@@ -47,10 +42,5 @@ public class GunController : MonoBehaviour
 	private void OnDeviceChange(Device device)
 	{
 		Debug.Log($"Device changed to {device}");
-		
-		switch (device)
-		{
-			
-		}
 	}
 }

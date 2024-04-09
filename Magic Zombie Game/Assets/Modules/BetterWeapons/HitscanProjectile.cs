@@ -1,6 +1,8 @@
 using System;
+using Core.HealthSystem;
+using RotaryHeart.Lib.PhysicsExtension;
 using UnityEngine;
-using PhysicsEx = RotaryHeart.Lib.PhysicsExtension;
+using PhysicsEx = RotaryHeart.Lib.PhysicsExtension.Physics;
 
 public class HitscanProjectile : ProjectileHandler
 {
@@ -9,12 +11,13 @@ public class HitscanProjectile : ProjectileHandler
 
 	public override void FireProjectile(Action<HitContext> onHitComplete)
 	{
-		if (PhysicsEx.Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, maxDistance, layers,
-			    PhysicsEx.PreviewCondition.Editor,
+		if (PhysicsEx.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, maxDistance, layers,
+			    PreviewCondition.Editor,
 			    1f, 
 			    Color.green,
 			    Color.red))
 		{
+			// if (hitInfo.collider.GetComponent<IDamageable>() == null) return;
 			onHitComplete?.Invoke(new HitContext
 				{
 					distance = hitInfo.distance,

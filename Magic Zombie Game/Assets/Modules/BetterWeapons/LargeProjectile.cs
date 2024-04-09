@@ -14,7 +14,6 @@ public class LargeProjectile : ProjectileHandler
 	public Rigidbody projectilePrefab;
 	
 	private Action<HitContext> _onHitComplete;
-	// private readonly List<Rigidbody> _projectiles = new List<Rigidbody>();
 	private Dictionary<Rigidbody, Coroutine> _lifetimes = new();
 	
 	public override void FireProjectile(Action<HitContext> onHitComplete)
@@ -27,6 +26,7 @@ public class LargeProjectile : ProjectileHandler
 
 	private void Update()
 	{
+		if (_lifetimes.Count <= 0) return;
 		var rbs = new List<Rigidbody>(_lifetimes.Keys);
 		foreach (var r in rbs)
 		{
