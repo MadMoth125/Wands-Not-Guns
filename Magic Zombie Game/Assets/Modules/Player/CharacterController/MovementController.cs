@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using KinematicCharacterController;
 using MyCustomControls;
-using Player.Controller.SoapVer;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -40,12 +39,12 @@ namespace Player.Controller
 		[Title("Movement")]
 		[Inlined]
 		[SerializeField]
-		private InputMovementSoap movementComponent = new();
+		private CharacterMovement movementComponent = new();
 	
 		[Title("Gravity")]
 		[Inlined]
 		[SerializeField]
-		private GravityMovementSoap gravityComponent = new();
+		private GravityMovement gravityComponent = new();
 
 		[Title("Collision")]
 		[SerializeField]

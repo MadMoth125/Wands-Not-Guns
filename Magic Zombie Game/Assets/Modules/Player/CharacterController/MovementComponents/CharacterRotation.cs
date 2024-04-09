@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 namespace Player.Controller
 {
 	[Serializable]
-	public class CharacterRotation : MovementComponent
+	public class CharacterRotation : MovementComponentBase
 	{
 		public enum LookDirection
 		{

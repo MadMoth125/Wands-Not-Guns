@@ -12,7 +12,7 @@ namespace Player.Controller
 	/// Holds references to a <see cref="KinematicCharacterMotor"/> and <see cref="ScriptableObjectGameControls"/>
 	/// received from the "owning" <see cref="MovementController"/>.
 	/// </summary>
-	public abstract class MovementComponent : IMovementAbility
+	public abstract class MovementComponentBase : IMovementAbility
 	{
 		protected ScriptableObjectGameControls Controls { get; private set; }
 

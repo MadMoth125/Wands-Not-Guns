@@ -1,28 +1,46 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Obvious.Soap;
 using ScriptExtensions;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player.Controller.SoapVer
+namespace Player.Controller.Obsolete
 {
 	/// <summary>
 	/// Controls the player's movement on the ground and in-air.
-	/// Copy of the InputMovement class, but instead uses Soap variables
-	/// for configuration instead of instance variables.
+	/// Handles orientation of the player's movement direction and speed.
+	/// Most code is based on the KinematicCharacterMotor example project.
 	/// </summary>
-	[Serializable]
-	public class InputMovementSoap : MovementComponent
+	//[Serializable]
+	[Obsolete]
+	public class InputMovement : MovementComponentBase
 	{
 		public Transform forwardOverride;
-		public FloatVariable moveSpeed;
-		public FloatVariable moveSharpness;
-		public FloatVariable airMoveSpeed;
-		public FloatVariable airAccelerationSpeed;
-		
-		private Vector3 _moveDirection = Vector3.zero;
+	
+		[HorizontalGroup("Settings")]
+		[BoxGroup("Settings/Grounded")]
+		[LabelWidth(LABEL_WIDTH)]
+		[LabelText("Speed")]
+		public float moveSpeed = 10f;
+
+		[BoxGroup("Settings/Grounded")]
+		[LabelWidth(LABEL_WIDTH)]
+		[LabelText("Sharpness")]
+		public float moveSharpness = 15;
+
+		[BoxGroup("Settings/In-Air")]
+		[LabelWidth(LABEL_WIDTH)]
+		[LabelText("Speed")]
+		public float airMoveSpeed = 10f;
+
+		[BoxGroup("Settings/In-Air")]
+		[LabelWidth(LABEL_WIDTH)]
+		[LabelText("Acceleration")]
+		public float airAccelerationSpeed = 15f;
+	
+		private Vector3 _moveDirection;
+	
+		private const int LABEL_WIDTH = 80;
 
 		public override void Enable()
 		{
@@ -118,9 +136,9 @@ namespace Player.Controller.SoapVer
 
 		#endregion
 	
-		private void OnMoveListener(InputAction.CallbackContext ctx)
+		private void OnMoveListener(InputAction.CallbackContext obj)
 		{
-			var tempMoveDir = ctx.ReadValue<Vector2>().SwizzleXZ();
+			var tempMoveDir = obj.ReadValue<Vector2>().SwizzleXZ();
 		
 			if (forwardOverride != null)
 			{
@@ -128,7 +146,7 @@ namespace Player.Controller.SoapVer
 			}
 			else
 			{
-				tempMoveDir = Vector3.forward * tempMoveDir.z + Vector3.right * tempMoveDir.x;
+				tempMoveDir = Motor.CharacterForward * tempMoveDir.z + Motor.CharacterRight * tempMoveDir.x;
 			}
 
 			_moveDirection = tempMoveDir;
