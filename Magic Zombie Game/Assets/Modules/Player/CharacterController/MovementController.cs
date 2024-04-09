@@ -32,6 +32,11 @@ namespace Player.Controller
 		[SerializeField]
 		private ScriptableObjectGameControls gameControls;
 	
+		[Title("Rotation")]
+		[Inlined]
+		[SerializeField]
+		private CharacterRotation rotationComponent = new();
+		
 		[Title("Movement")]
 		[Inlined]
 		[SerializeField]
@@ -58,6 +63,7 @@ namespace Player.Controller
 
 			_abilityCollection = new IMovementAbility[]
 			{
+				rotationComponent,
 				movementComponent,
 				gravityComponent,
 			};

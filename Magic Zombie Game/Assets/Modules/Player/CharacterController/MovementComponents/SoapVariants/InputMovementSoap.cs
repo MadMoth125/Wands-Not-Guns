@@ -128,7 +128,7 @@ namespace Player.Controller.SoapVer
 			}
 			else
 			{
-				tempMoveDir = Motor.CharacterForward * tempMoveDir.z + Motor.CharacterRight * tempMoveDir.x;
+				tempMoveDir = Vector3.forward * tempMoveDir.z + Vector3.right * tempMoveDir.x;
 			}
 
 			_moveDirection = tempMoveDir;
