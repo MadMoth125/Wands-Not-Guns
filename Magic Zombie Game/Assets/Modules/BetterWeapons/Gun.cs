@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -9,6 +10,7 @@ public class Gun : MonoBehaviour
 	[SerializeField]
 	private ProjectileHandler projectileHandler;
 
+	[Button]
 	public void FireGun()
 	{
 		projectileHandler.FireProjectile(TargetHitCallback);
