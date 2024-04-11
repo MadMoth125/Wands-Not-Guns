@@ -8,13 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MegStaff_Mat
-  m_Shader: {fileID: 4800000, guid: ecd6049cee77c254b8a6a9a88ec9a5e5, type: 3}
+  m_Shader: {fileID: 4800000, guid: 2fa55a901ac2d1146bb7ef13c8d04d2c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlbedoTexture:
-        m_Texture: {fileID: 2800000, guid: 0c367edfc450c15459e8a71a5aa025d1, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0d921758a6074db4a94930611133ac08, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -64,11 +64,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicTexture:
-        m_Texture: {fileID: 2800000, guid: 88b5b5f4422a6ed49afc3879d3efa629, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6b2c76cd2be36b9459b26b0ea88efb75, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTexture:
-        m_Texture: {fileID: 2800000, guid: a82c0018672f1e844b4a066de132d02b, type: 3}
+        m_Texture: {fileID: 2800000, guid: c420527ba42c153408d9d9a1e8396549, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -80,7 +80,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SmoothnessTexture:
-        m_Texture: {fileID: 2800000, guid: 425ce3ed485a1e9428f0cb32b6b490d4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 368903f3b9cbbd2408bc1909e3642e91, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
