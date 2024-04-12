@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
@@ -44,6 +45,12 @@ namespace Core.ObjectPool
 		private int maximumCapacity = 20;
 
 		[Space(20)]
+		[Tooltip("Whether or not to pre-instantiate the pool elements.\n" +
+		         "If enabled, it will instantiate <b>'Default Capacity'</b> number of elements at the start of the scene.\n\n" +
+		         "<b>Parameter cannot be changed during runtime.</b>")]
+		[DisableInPlayMode]
+		[SerializeField]
+		private bool preInstantiate = false;
 		
 		[Tooltip("Whether or not to allow the destruction of elements when they are returned to the pool.\n" +
 		         "Primarily happens when an element is returned to the pool while it is above the max capacity.\n\n" +
@@ -63,8 +70,7 @@ namespace Core.ObjectPool
 		
 		private ObjectPool<T> _pool;
 		private readonly Dictionary<T, bool> _poolCollection = new();
-		private bool _cachedAllowElementDestruction = true;
-
+		
 		#region Public Methods
 
 		public virtual T GetElement(Transform spawnTransform)
@@ -92,7 +98,7 @@ namespace Core.ObjectPool
 			{
 				// if the pos and rot are both valid, use the
 				// dedicated method for setting the position and rotation.
-				obj.transform.SetPositionAndRotation(position.Value, rotation.Value);
+				cachedTransform.SetPositionAndRotation(position.Value, rotation.Value);
 			}
 			else
 			{
@@ -134,7 +140,7 @@ namespace Core.ObjectPool
 			ReleaseElement(element);
 			
 			// no need to use the ?. operator here, as the action is required and cannot be null.
-			resetStateAction.Invoke();
+			resetStateAction();
 		}
 
 		/// <summary>
@@ -163,10 +169,15 @@ namespace Core.ObjectPool
 		/// <param name="resetState">Whether or not to reset the state of the elements when returned to the pool.</param>
 		public virtual void ReturnAllObjects(bool resetState)
 		{
-			foreach (var obj in _poolCollection)
+			// var pc = _poolCollection;
+			for (int i = 0; i < _poolCollection.Count; i++)
+			{
+				ReleaseElement(_poolCollection.ElementAt(i).Key, resetState);
+			}
+			/*foreach (var obj in pc)
 			{
 				ReleaseElement(obj.Key, resetState);
-			}
+			}*/
 		}
 
 		#endregion
@@ -207,7 +218,7 @@ namespace Core.ObjectPool
 		{
 			component.gameObject.SetActive(true);
 			_poolCollection[component] = true;
-					
+			
 			OnElementGet(component, false);
 		}
 		
@@ -217,7 +228,7 @@ namespace Core.ObjectPool
 		protected virtual void OnReleasePoolElement(T component)
 		{
 			OnElementRelease(component, false);
-					
+			
 			component.gameObject.SetActive(false);
 			_poolCollection[component] = false;
 		}
@@ -227,7 +238,7 @@ namespace Core.ObjectPool
 		/// </summary>
 		protected virtual void OnDestroyPoolElement(T component)
 		{
-			if (_cachedAllowElementDestruction)
+			if (allowElementDestruction)
 			{
 				OnElementRelease(component, true);
 						
@@ -254,10 +265,44 @@ namespace Core.ObjectPool
 				Debug.LogAssertion("The prefab for the object pool is null.", gameObject);
 				return;
 			}
-			
-			_cachedAllowElementDestruction = allowElementDestruction;
+
 			InitializeObjectPool();
+			
+			if (preInstantiate)
+			{
+				// yield return null;
+				
+				for (int i = 0; i < defaultCapacity; i++)
+				{
+					T obj = _pool.Get();
+					obj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+					obj.transform.localScale = Vector3.one;
+				}
+				
+				// yield return null;
+				
+				ReturnAllObjects(false);
+			}
 		}
+
+		/*private IEnumerator Start()
+		{
+			if (preInstantiate)
+			{
+				// yield return null;
+				
+				for (int i = 0; i < defaultCapacity; i++)
+				{
+					T obj = _pool.Get();
+					obj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+					obj.transform.localScale = Vector3.one;
+				}
+				
+				// yield return null;
+				
+				ReturnAllObjects(false);
+			}
+		}*/
 
 		protected virtual void OnDestroy()
 		{
