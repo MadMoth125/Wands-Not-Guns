@@ -1275,9 +1275,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 814a6351149ab544494a723914b5cd67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: -124965536028730539, guid: 8557e2adf2d05f849b5f03d6e7c73652, type: 3}
+  item: {fileID: 2729406523003028990, guid: e654483505318b845a04a408c62c65be, type: 3}
   defaultCapacity: 20
   maximumCapacity: 40
+  preInstantiate: 1
   allowElementDestruction: 1
   enableCollectionChecks: 1
 --- !u!114 &2031689900
