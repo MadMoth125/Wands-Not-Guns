@@ -1,0 +1,16 @@
+{
+    "name": "Mr_sB.UnityTimer.Example",
+    "rootNamespace": "",
+    "references": [
+        "GUID:49927f2a70824a64a82399ad2292fb2a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
