@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 4941987223783744538}
   - component: {fileID: 4474711110537904426}
   m_Layer: 0
-  m_Name: Prefab_MegumiStaff
+  m_Name: Weapon_MegumiStaff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

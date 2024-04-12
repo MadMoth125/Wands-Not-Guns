@@ -3,44 +3,47 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[DisallowMultipleComponent]
-[RequireComponent(typeof(Gun))]
-public class GunController : MonoBehaviour
+namespace Weapons
 {
-	[Required]
-	[SerializeField]
-	private ScriptableObjectGameControls gameControls;
+	[DisallowMultipleComponent]
+	[RequireComponent(typeof(Gun))]
+	public class GunController : MonoBehaviour
+	{
+		[Required]
+		[SerializeField]
+		private ScriptableObjectGameControls gameControls;
 	
-	[Required]
-	[SerializeField]
-	private Gun gun;
+		[Required]
+		[SerializeField]
+		private Gun gun;
 
-	#region Unity Methods
+		#region Unity Methods
 
-	private void OnEnable()
-	{
-		gameControls.OnAttackCallback += OnGunFired;
-		gameControls.OnDeviceChange += OnDeviceChange;
-	}
-
-	private void OnDisable()
-	{
-		gameControls.OnAttackCallback -= OnGunFired;
-		gameControls.OnDeviceChange -= OnDeviceChange;
-	}
-
-	#endregion
-
-	private void OnGunFired(InputAction.CallbackContext ctx)
-	{
-		if (ctx.performed)
+		private void OnEnable()
 		{
-			gun.FireGun();
+			gameControls.OnAttackCallback += OnGunFired;
+			gameControls.OnDeviceChange += OnDeviceChange;
 		}
-	}
 
-	private void OnDeviceChange(Device device)
-	{
-		Debug.Log($"Device changed to {device}");
+		private void OnDisable()
+		{
+			gameControls.OnAttackCallback -= OnGunFired;
+			gameControls.OnDeviceChange -= OnDeviceChange;
+		}
+
+		#endregion
+
+		private void OnGunFired(InputAction.CallbackContext ctx)
+		{
+			if (ctx.performed)
+			{
+				gun.FireGun();
+			}
+		}
+
+		private void OnDeviceChange(Device device)
+		{
+			Debug.Log($"Device changed to {device}");
+		}
 	}
 }
