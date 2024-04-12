@@ -46,5 +46,10 @@ namespace ScriptExtensions
 		{
 			return list == null || list.Count == 0;
 		}
+
+		public static bool IsValid<T>(this IList<T> list)
+		{
+			return list != null && list.Count > 0;
+		}
 	}
 }
