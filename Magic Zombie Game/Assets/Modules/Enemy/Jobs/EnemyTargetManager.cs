@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using Core.CustomDebugger;
 using Core.CustomTickSystem;
 using Enemy.Registry;
@@ -8,10 +6,14 @@ using Sirenix.OdinInspector;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Enemy.Jobs
 {
+	/// <summary>
+	/// Manages finding the closest player to each enemy in the scene.
+	/// Then sets the pathfinding target of each enemy to the closest player.
+	/// Uses Unity's job system to process the data in parallel.
+	/// </summary>
 	public class EnemyTargetManager : MonoBehaviour
 	{
 		#region Fields
