@@ -47,7 +47,7 @@ MonoBehaviour:
   enemySpawnEvent: {fileID: 11400000, guid: 712b83a7d66899442b04b096116fd8ea, type: 2}
   enemyDieEvent: {fileID: 11400000, guid: 2baca0adc9072c34e814b09298a017f0, type: 2}
   roundEndEvent: {fileID: 11400000, guid: eb9f4d1513fc9b14e9747a5e166dfda3, type: 2}
-  spawnCountAsset: {fileID: 11400000, guid: 519e152c7047d5c4385a0cfa136882ba, type: 2}
+  spawnCount: {fileID: 11400000, guid: 519e152c7047d5c4385a0cfa136882ba, type: 2}
   logger: {fileID: 11400000, guid: 1f71abeef9127ab4dafbdc436cc3b029, type: 2}
   logMaxEnemyCountsReached: 1
 --- !u!1 &1870111815653329806
@@ -83,6 +83,7 @@ Transform:
   - {fileID: 547728145276383727}
   - {fileID: 5233620046576800612}
   - {fileID: 7906031283403379262}
+  - {fileID: 2500432051090202645}
   - {fileID: 1268405475607471168}
   - {fileID: 4241490555220164668}
   m_Father: {fileID: 2489659494117352202}
@@ -171,6 +172,7 @@ MonoBehaviour:
   item: {fileID: -3344201941731343668, guid: 49044d18906b8c340ba14857f6656f34, type: 3}
   defaultCapacity: 72
   maximumCapacity: 96
+  preInstantiate: 0
   allowElementDestruction: 1
   enableCollectionChecks: 1
 --- !u!1 &2111002234191851978
@@ -224,6 +226,53 @@ MonoBehaviour:
   logger: {fileID: 11400000, guid: 1f71abeef9127ab4dafbdc436cc3b029, type: 2}
   logJobStartAndEnd: 0
   logNativeArrays: 0
+--- !u!1 &3529542969405600859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2500432051090202645}
+  - component: {fileID: 3823161426679751897}
+  m_Layer: 0
+  m_Name: Health Set
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2500432051090202645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3529542969405600859}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 2597770301286093800}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3823161426679751897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3529542969405600859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e656974e7e8edab4faa9095ec274a1c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawnedEvent: {fileID: 11400000, guid: 712b83a7d66899442b04b096116fd8ea, type: 2}
+  enemyRegistry: {fileID: 11400000, guid: b8532133111939f4d97439c645ddbb1f, type: 2}
+  roundHealth: {fileID: 11400000, guid: 39c542dfe34bed241a28ad906772b487, type: 2}
 --- !u!1 &4578141206983489248
 GameObject:
   m_ObjectHideFlags: 0
