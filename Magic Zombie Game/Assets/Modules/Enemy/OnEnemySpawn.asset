@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: OnEnemySpawn
   m_EditorClassIdentifier: 
   CategoryIndex: 0
-  Description: 
+  Description: 'A global scriptable event that is called when an enemy is spawned.
+
+    The
+    enemy''s ID is passed as an event parameter, which can then be used to find the
+    specific enemy instance in the given registry. '
   _debugLogEnabled: 0
   _debugValue: 0
