@@ -1,4 +1,3 @@
-
 using System;
 using UnityEngine;
 
@@ -14,11 +13,9 @@ namespace Enemy.Jobs
 		}
 
 		public int ID => _id;
-
 		public Vector3 Position => _position;
 
 		private int _id;
-
 		private Vector3 _position;
 
 		public void SetData(int id, Vector3 position)
