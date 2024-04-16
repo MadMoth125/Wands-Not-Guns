@@ -24,21 +24,21 @@ public class EnemySpawnTimer : MonoBehaviour, IManagerComponent<EnemyManager>
 	[Tooltip("Whether the timer should tick manually. If false, the timer will tick automatically.")]
 	public bool manualTick = false;
 
-	[TitleGroup("Scriptable Objects", Alignment = TitleAlignments.Centered)]
+	[TabGroup("Scriptable Objects", Icon = SdfIconType.Box)]
 	[Required]
 	[SerializeField]
 	private SpawnIntervalScriptableObject spawnInterval;
 
-	[TitleGroup("Debug", "Parameters", Alignment = TitleAlignments.Centered)]
+	[TabGroup("Debug Settings", Icon = SdfIconType.Bug)]
 	[SerializeField]
 	private LoggerScriptableObject logger;
 
-	[TitleGroup("Debug")]
+	[TabGroup("Debug Settings")]
 	[Tooltip("Enable logging of when the timer elapses.")]
 	[SerializeField]
 	private bool logTimerElapsed = false;
 	
-	[TitleGroup("Debug")]
+	[TabGroup("Debug Settings")]
 	[Tooltip("Enable logging of when the timer's state is update via reset, pause, or play.")]
 	[SerializeField]
 	private bool logTimerStateUpdates = false;
