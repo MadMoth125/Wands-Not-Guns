@@ -19,8 +19,8 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 
 	public int RemainingConcurrentEnemySpots => _remainingConcurrentEnemySpots;
 	public int RemainingTotalEnemySpots => _remainingTotalEnemySpots;
-	public int ConcurrentEnemyCount => spawnCountAsset.GetMaxConcurrentEnemyCount() - _remainingConcurrentEnemySpots;
-	public int TotalEnemyCount => spawnCountAsset.GetMaxEnemyCount() - _remainingTotalEnemySpots;
+	public int ConcurrentEnemyCount => spawnCount.GetMaxConcurrentEnemyCount() - _remainingConcurrentEnemySpots;
+	public int TotalEnemyCount => spawnCount.GetMaxEnemyCount() - _remainingTotalEnemySpots;
 
 	#endregion
 
@@ -41,16 +41,16 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 	[SerializeField]
 	private ScriptableEventInt roundEndEvent;
 	
-	[TitleGroup("Scriptable Objects", Alignment = TitleAlignments.Centered)]
+	[TabGroup("Scriptable Objects", Icon = SdfIconType.Box)]
 	[Required]
 	[SerializeField]
-	private SpawnCountScriptableObject spawnCountAsset;
+	private SpawnCountScriptableObject spawnCount;
 	
-	[TitleGroup("Debug", "Parameters", Alignment = TitleAlignments.Centered)]
+	[TabGroup("Debug Settings", Icon = SdfIconType.Bug)]
 	[SerializeField]
 	private LoggerScriptableObject logger;
 
-	[TitleGroup("Debug")]
+	[TabGroup("Debug Settings")]
 	[Tooltip("Enable logging of when the maximum concurrent enemy count is reached, " +
 	         "or the maximum total enemy count is reached.")]
 	[SerializeField]
@@ -79,8 +79,8 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 
 	public void ResetCounts(int round)
 	{
-		_remainingConcurrentEnemySpots = spawnCountAsset.GetMaxConcurrentEnemyCount();
-		_remainingTotalEnemySpots = spawnCountAsset.GetMaxEnemyCount();
+		_remainingConcurrentEnemySpots = spawnCount.GetMaxConcurrentEnemyCount();
+		_remainingTotalEnemySpots = spawnCount.GetMaxEnemyCount();
 	}
 
 	#region Unity Methods
@@ -110,21 +110,21 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 	{
 		// DECREASE available spots when an enemy SPAWNS
 		_remainingConcurrentEnemySpots--;
-		_remainingConcurrentEnemySpots = Mathf.Clamp(_remainingConcurrentEnemySpots, 0, spawnCountAsset.GetMaxConcurrentEnemyCount());
+		_remainingConcurrentEnemySpots = Mathf.Clamp(_remainingConcurrentEnemySpots, 0, spawnCount.GetMaxConcurrentEnemyCount());
 		
 		if (ReachedMaxConcurrentEnemies())
 		{
 			OnMaxConcurrentCountReached?.Invoke();
-			if (logMaxEnemyCountsReached) LogWrapper($"Maximum concurrent enemy count '{spawnCountAsset.GetMaxConcurrentEnemyCount()}' reached.", LoggerType.Info);
+			if (logMaxEnemyCountsReached) LogWrapper($"Maximum concurrent enemy count '{spawnCount.GetMaxConcurrentEnemyCount()}' reached.", LoggerType.Info);
 		}
 		
 		_remainingTotalEnemySpots--;
-		_remainingTotalEnemySpots = Mathf.Clamp(_remainingTotalEnemySpots, 0, spawnCountAsset.GetMaxEnemyCount());
+		_remainingTotalEnemySpots = Mathf.Clamp(_remainingTotalEnemySpots, 0, spawnCount.GetMaxEnemyCount());
 		
 		if (ReachedMaxTotalEnemies())
 		{
 			OnMaxTotalCountReached?.Invoke();
-			if (logMaxEnemyCountsReached) LogWrapper($"Maximum total enemy count '{spawnCountAsset.GetMaxEnemyCount()}'reached.", LoggerType.Info);
+			if (logMaxEnemyCountsReached) LogWrapper($"Maximum total enemy count '{spawnCount.GetMaxEnemyCount()}'reached.", LoggerType.Info);
 		}
 	}
 
@@ -132,7 +132,7 @@ public class EnemyCounter : MonoBehaviour, IManagerComponent<EnemyManager>
 	{
 		// INCREASE available spots when an enemy DIES
 		_remainingConcurrentEnemySpots++;
-		_remainingConcurrentEnemySpots = Mathf.Clamp(_remainingConcurrentEnemySpots, 0, spawnCountAsset.GetMaxConcurrentEnemyCount());
+		_remainingConcurrentEnemySpots = Mathf.Clamp(_remainingConcurrentEnemySpots, 0, spawnCount.GetMaxConcurrentEnemyCount());
 	}
 	
 	private void LogWrapper(string message, LoggerType logType)
