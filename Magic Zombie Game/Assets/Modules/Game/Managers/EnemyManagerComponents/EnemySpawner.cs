@@ -162,44 +162,4 @@ public class EnemySpawner : MonoBehaviour, IManagerComponent<EnemyManager>
 			logger.Log(message, this, type);
 		}
 	}
-	
-	/// <summary>
-	/// Internal class to handle the enemy registry and OnDie event.
-	/// Each enemy spawned is registered in the registry and unregistered when it dies.
-	/// </summary>
-	[Obsolete]
-	private class EnemyRegistryHandler
-	{
-		public EnemyRegistryHandler(EnemyRegistry registry, EnemyObjectPool pool)
-		{
-			_registry = registry;
-			_pool = pool;
-		}
-		
-		public event Action<EnemyComponent> OnEnemyDie;
-		
-		private readonly EnemyRegistry _registry;
-		private readonly EnemyObjectPool _pool;
-
-		/// <summary>
-		/// Handle the spawning of an enemy and addition to the registry.
-		/// </summary>
-		public void EnemySpawned(EnemyComponent enemy)
-		{
-			_registry.Register(enemy.EnemyId, enemy);
-			// enemy.OnDie += OnDieListener;
-		}
-		
-		/// <summary>
-		/// Handles the post-death cleanup of an enemy.
-		/// </summary>
-		/// <param name="enemy"></param>
-		private void OnDieListener(EnemyComponent enemy)
-		{
-			_registry.Unregister(enemy.EnemyId);
-			_pool.ReleaseElement(enemy);
-			// enemy.OnDie -= OnDieListener;
-			OnEnemyDie?.Invoke(enemy);
-		}
-	}
 }
