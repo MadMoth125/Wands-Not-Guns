@@ -13,7 +13,9 @@ namespace StatSystem
 	public class StatModifierScriptableObject : ScriptableObject
 	{
 		#region Tooltips
-
+		
+		#pragma warning disable CS0414
+		
 		private static readonly string flatTooltip = "Modifier values are summed and directly added to the base value.\n" +
 		                                             "Values are calculated <b>before</b> additive and multiplicative modifiers.\n\n" +
 		                                             "Click for more info on how the calculation works.";
@@ -42,10 +44,16 @@ namespace StatSystem
 		                                                               "<b>100 x (1 + 0.1) x (1 + 0.2) = 132</b>\n\n" +
 		                                                               "stat = 132";
 
+		#pragma warning restore CS0414
+		
 		#endregion
 
+		// Multiple DetailedInfoBox attributes cannot be used on the same variable,
+		// so we need to create separate, hidden, variables to hold the tooltips.
 		#region Tooltip Holders
 
+		#pragma warning disable CS0414
+		
 		[DetailedInfoBox("@flatTooltip",
 			"@flatEquationTooltip",
 			VisibleIf = "@modifierType == ModifierType.Flat")]
@@ -73,6 +81,8 @@ namespace StatSystem
 		[DisplayAsString]
 		private readonly string _multiplicativeToolTipHolder = "";
 		
+		#pragma warning restore CS0414
+		
 		#endregion
 		
 		[DisableInPlayMode]
@@ -93,7 +103,7 @@ namespace StatSystem
 			if (_modifier.Type != modifierType)
 			{
 				_modifier = new Modifier(modifierValue, modifierType, this);
-			} 
+			}
 		
 			if (Math.Abs(_modifier.Value - modifierValue) > float.Epsilon)
 			{
