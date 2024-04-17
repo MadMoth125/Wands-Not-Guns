@@ -12,7 +12,14 @@ namespace Weapons
 		[Required]
 		[SerializeField]
 		private ScriptableObjectGameControls gameControls;
-	
+
+		[OnValueChanged(nameof(OnGunFiredDummy))]
+		[SerializeField]
+		private bool setInputHeld = false;
+		
+		[SerializeField]
+		private bool disableInput = false;
+		
 		[Required]
 		[SerializeField]
 		private Gun gun;
@@ -35,12 +42,30 @@ namespace Weapons
 
 		private void OnGunFired(InputAction.CallbackContext ctx)
 		{
+			if (disableInput) return;
+			
 			if (ctx.performed)
 			{
 				gun.FireGun();
 			}
+			else if (ctx.canceled)
+			{
+				gun.StopFiring();
+			}
 		}
 
+		private void OnGunFiredDummy()
+		{
+			if (setInputHeld)
+			{
+				gun.FireGun();
+			}
+			else if (!setInputHeld)
+			{
+				gun.StopFiring();
+			}
+		}
+		
 		private void OnDeviceChange(Device device)
 		{
 			Debug.Log($"Device changed to {device}");
