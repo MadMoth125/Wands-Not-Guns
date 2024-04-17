@@ -9,6 +9,8 @@ namespace Weapons
 	/// </summary>
 	public struct GameObjectStructureData
 	{
+		public IReadOnlyList<(Transform parent, Vector3 localPosition, bool active)> States => _states;
+		
 		#region Constructors
 
 		public GameObjectStructureData(IList<Transform> instances)
@@ -35,7 +37,10 @@ namespace Weapons
 		/// </summary>
 		public void SaveGameObjectState(IList<Transform> instances)
 		{
-			_states = new (Transform parent, Vector3 localPosition, bool active)[instances.Count];
+			if (_states == null || instances.Count != _states.Length)
+			{
+				_states = new (Transform parent, Vector3 localPosition, bool active)[instances.Count];
+			}
 		
 			for (int i = 0; i < _states.Length; i++)
 			{
@@ -51,7 +56,10 @@ namespace Weapons
 		/// </summary>
 		public void SaveGameObjectState(IList<GameObject> instances)
 		{
-			_states = new (Transform parent, Vector3 localPosition, bool active)[instances.Count];
+			if (_states == null || instances.Count != _states.Length)
+			{
+				_states = new (Transform parent, Vector3 localPosition, bool active)[instances.Count];
+			}
 		
 			for (int i = 0; i < _states.Length; i++)
 			{
