@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2859d2d7bab20409add3113e1888b5, type: 3}
   m_Name: EnemyHealthSetLogger
   m_EditorClassIdentifier: 
-  identifier: Logger Instance
+  identifier: EnemyHealthSetter
   enabled: 1
