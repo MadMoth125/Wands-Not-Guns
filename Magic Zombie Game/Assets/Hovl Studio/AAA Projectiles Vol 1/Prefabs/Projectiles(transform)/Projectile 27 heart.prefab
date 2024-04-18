@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4587943912328828}
   - component: {fileID: 198840703474818392}
   - component: {fileID: 199652021892514146}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4855,7 +4855,7 @@ GameObject:
   - component: {fileID: 4928152590134744}
   - component: {fileID: 198598355560077112}
   - component: {fileID: 199934617267810200}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hearts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9705,13 +9705,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4219202711483130}
   - component: {fileID: 198055307359729732}
+  - component: {fileID: 6309458853355287908}
+  - component: {fileID: 114672091461940390}
   - component: {fileID: 199691258809547058}
   - component: {fileID: 108353070863986816}
-  - component: {fileID: 114672091461940390}
-  - component: {fileID: 135350336402146296}
   - component: {fileID: 54933371835274920}
+  - component: {fileID: 135350336402146296}
   - component: {fileID: 6503073547386139799}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile 27 heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14528,6 +14529,40 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &6309458853355287908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487245307642514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f5101d875a7994ab597d1268f99f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
+  ignoredLayerMasks: {fileID: 11400000, guid: d8eecfe908c7af04cafc39d6bd750214, type: 2}
+--- !u!114 &114672091461940390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487245307642514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605a456cfc02f6b499a64717539a27e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  hitOffset: 0.1
+  UseFirePointRotation: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
+  hit: {fileID: 1402743518298044, guid: 6220b0bbd4630c24a9d0fd570b53d326, type: 3}
+  flash: {fileID: 1292704331029830, guid: 28538e5931854494fbe4d98d2d4cd548, type: 3}
+  Detached:
+  - {fileID: 1090975002139566}
 --- !u!199 &199691258809547058
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -14665,47 +14700,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114672091461940390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1487245307642514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 605a456cfc02f6b499a64717539a27e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  hitOffset: 0.1
-  UseFirePointRotation: 0
-  rotationOffset: {x: 0, y: 0, z: 0}
-  hit: {fileID: 1402743518298044, guid: 6220b0bbd4630c24a9d0fd570b53d326, type: 3}
-  flash: {fileID: 1292704331029830, guid: 28538e5931854494fbe4d98d2d4cd548, type: 3}
-  Detached:
-  - {fileID: 1090975002139566}
---- !u!135 &135350336402146296
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1487245307642514}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.05
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &54933371835274920
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14733,6 +14727,27 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!135 &135350336402146296
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487245307642514}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6503073547386139799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14767,7 +14782,7 @@ GameObject:
   - component: {fileID: 4847197780967490}
   - component: {fileID: 198104141697905822}
   - component: {fileID: 199915741868203060}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19668,7 +19683,7 @@ GameObject:
   - component: {fileID: 4356259679726644}
   - component: {fileID: 198082910738639804}
   - component: {fileID: 199327357237797786}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Flares
   m_TagString: Untagged
   m_Icon: {fileID: 0}

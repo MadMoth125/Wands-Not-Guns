@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4245338083937082}
   - component: {fileID: 198372953003977786}
+  - component: {fileID: 5209365409331766152}
   - component: {fileID: 199610180894210660}
   - component: {fileID: 108266483201387004}
   - component: {fileID: 114696230199224296}
   - component: {fileID: 54034537497690522}
   - component: {fileID: 135187156854092900}
   - component: {fileID: 6041073605316762328}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile 2 electro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4834,6 +4835,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &5209365409331766152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032096471364102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f5101d875a7994ab597d1268f99f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
+  ignoredLayerMasks: {fileID: 11400000, guid: d8eecfe908c7af04cafc39d6bd750214, type: 2}
 --- !u!199 &199610180894210660
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4916,7 +4931,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032096471364102}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -5073,7 +5088,7 @@ GameObject:
   - component: {fileID: 4366912051360190}
   - component: {fileID: 198692940710500382}
   - component: {fileID: 199205060469912400}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Electricy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9915,7 +9930,7 @@ GameObject:
   - component: {fileID: 4996690099686658}
   - component: {fileID: 198559730701285930}
   - component: {fileID: 199307829787777340}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14757,7 +14772,7 @@ GameObject:
   - component: {fileID: 4106549369329498}
   - component: {fileID: 198194833413760700}
   - component: {fileID: 199193693930752760}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ElectroCore
   m_TagString: Untagged
   m_Icon: {fileID: 0}

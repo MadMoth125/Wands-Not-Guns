@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4494156932542222}
   - component: {fileID: 198365587299786030}
+  - component: {fileID: 2221984859159111523}
   - component: {fileID: 114108851937209514}
   - component: {fileID: 199602846296022876}
   - component: {fileID: 108857234956802684}
   - component: {fileID: 54962462914559852}
   - component: {fileID: 135452002061114160}
   - component: {fileID: 7088065122760094921}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile 25 orange explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4832,6 +4833,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &2221984859159111523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079946990457772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f5101d875a7994ab597d1268f99f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
+  ignoredLayerMasks: {fileID: 11400000, guid: d8eecfe908c7af04cafc39d6bd750214, type: 2}
 --- !u!114 &114108851937209514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4934,7 +4949,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079946990457772}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -5071,7 +5086,7 @@ GameObject:
   - component: {fileID: 4899089606134644}
   - component: {fileID: 198442058369866520}
   - component: {fileID: 199288503146715412}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}

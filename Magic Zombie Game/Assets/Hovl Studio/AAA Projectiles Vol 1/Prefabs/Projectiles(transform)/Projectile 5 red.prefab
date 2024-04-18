@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4418311021728136}
   - component: {fileID: 198415471719698134}
   - component: {fileID: 199500045511874794}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SparksLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4861,13 +4861,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4412749077821204}
   - component: {fileID: 198789892598184418}
+  - component: {fileID: 997781069889860050}
   - component: {fileID: 114738880078527410}
   - component: {fileID: 199683473807085166}
   - component: {fileID: 108547967348268218}
   - component: {fileID: 54289311587510892}
   - component: {fileID: 135160217757687602}
   - component: {fileID: -2773907570833105664}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile 5 red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9701,6 +9702,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &997781069889860050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481587283673810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f5101d875a7994ab597d1268f99f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
+  ignoredLayerMasks: {fileID: 11400000, guid: d8eecfe908c7af04cafc39d6bd750214, type: 2}
 --- !u!114 &114738880078527410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9803,7 +9818,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1481587283673810}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -9940,7 +9955,7 @@ GameObject:
   - component: {fileID: 4612426551603798}
   - component: {fileID: 198959666223819020}
   - component: {fileID: 199910608741135838}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SemicirclesDark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14785,7 +14800,7 @@ GameObject:
   - component: {fileID: 4337381236613006}
   - component: {fileID: 198550019022794002}
   - component: {fileID: 199082237920681430}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SemicirclesLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19627,7 +19642,7 @@ GameObject:
   - component: {fileID: 4204678820934940}
   - component: {fileID: 198026845042648310}
   - component: {fileID: 199956316012036242}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SparksDark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4027987637637852}
   - component: {fileID: 198655005314859470}
   - component: {fileID: 199743327070401782}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4912,7 +4912,7 @@ GameObject:
   - component: {fileID: 4399222994734564}
   - component: {fileID: 198410589948394436}
   - component: {fileID: 199772766391086018}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Waves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9812,7 +9812,7 @@ GameObject:
   - component: {fileID: 4779957597998864}
   - component: {fileID: 198163848131447852}
   - component: {fileID: 199147209565792032}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14711,13 +14711,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4565549304361444}
   - component: {fileID: 198509539353394584}
+  - component: {fileID: 1082622694489834922}
   - component: {fileID: 114393580944946794}
   - component: {fileID: 199214229298909674}
   - component: {fileID: 108967227166258852}
   - component: {fileID: 54009887670358988}
   - component: {fileID: 135120235583084208}
   - component: {fileID: -8382261937405014345}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile 7 pink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19535,6 +19536,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &1082622694489834922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699459221867030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f5101d875a7994ab597d1268f99f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
+  ignoredLayerMasks: {fileID: 11400000, guid: d8eecfe908c7af04cafc39d6bd750214, type: 2}
 --- !u!114 &114393580944946794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19635,7 +19650,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699459221867030}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0

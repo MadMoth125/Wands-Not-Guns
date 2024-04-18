@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4979078473652990}
   - component: {fileID: 198343067639323108}
   - component: {fileID: 199632313697423724}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4861,13 +4861,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4603611077099896}
   - component: {fileID: 198565110370433080}
+  - component: {fileID: 1269010517350038161}
   - component: {fileID: 114964753825625706}
   - component: {fileID: 199496378200092506}
   - component: {fileID: 108086391996899420}
   - component: {fileID: 54320897707685700}
   - component: {fileID: 135810886318251054}
   - component: {fileID: -866232498955421750}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile 9 water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9684,6 +9685,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &1269010517350038161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300573103503756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f5101d875a7994ab597d1268f99f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
+  ignoredLayerMasks: {fileID: 11400000, guid: d8eecfe908c7af04cafc39d6bd750214, type: 2}
 --- !u!114 &114964753825625706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9786,7 +9801,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300573103503756}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -9923,7 +9938,7 @@ GameObject:
   - component: {fileID: 4158040155400464}
   - component: {fileID: 198789236737275484}
   - component: {fileID: 199918811470479684}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4118756434896196}
   - component: {fileID: 198181203595706770}
+  - component: {fileID: 3532130474113978245}
   - component: {fileID: 114733763777347194}
   - component: {fileID: 199935030968957248}
   - component: {fileID: 108183858505715088}
   - component: {fileID: 54656780710307248}
   - component: {fileID: 135893600698140846}
   - component: {fileID: -5499581777682491507}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile 14 blue rapid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4859,6 +4860,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &3532130474113978245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580133494715678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f5101d875a7994ab597d1268f99f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
+  ignoredLayerMasks: {fileID: 11400000, guid: d8eecfe908c7af04cafc39d6bd750214, type: 2}
 --- !u!114 &114733763777347194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4961,7 +4976,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580133494715678}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -5098,7 +5113,7 @@ GameObject:
   - component: {fileID: 4651312433719434}
   - component: {fileID: 198535202477826224}
   - component: {fileID: 199507863963710848}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SubRombs
   m_TagString: Untagged
   m_Icon: {fileID: 0}

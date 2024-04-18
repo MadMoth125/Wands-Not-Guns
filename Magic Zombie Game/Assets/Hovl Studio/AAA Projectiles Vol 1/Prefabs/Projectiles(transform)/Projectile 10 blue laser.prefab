@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4028683595068548}
   - component: {fileID: 198150377662665326}
   - component: {fileID: 199387716868261392}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4910,13 +4910,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4030331162844266}
   - component: {fileID: 198400494117706770}
+  - component: {fileID: 5695414731592320426}
   - component: {fileID: 114253239378482952}
   - component: {fileID: 199044981520133812}
   - component: {fileID: 108856531485638188}
   - component: {fileID: 54954342096587612}
   - component: {fileID: 135165777929722146}
   - component: {fileID: 76244501223305209}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile 10 blue laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9732,6 +9733,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &5695414731592320426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891902229039176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f5101d875a7994ab597d1268f99f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
+  ignoredLayerMasks: {fileID: 11400000, guid: d8eecfe908c7af04cafc39d6bd750214, type: 2}
 --- !u!114 &114253239378482952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9832,7 +9847,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891902229039176}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0

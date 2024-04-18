@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4869391961339478}
   - component: {fileID: 198433115122331948}
   - component: {fileID: 199659563733507752}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SubTriangles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4852,13 +4852,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4634660366729292}
   - component: {fileID: 198338901811232952}
+  - component: {fileID: 9176695576020243422}
   - component: {fileID: 114624625588967964}
   - component: {fileID: 199276083344950028}
   - component: {fileID: 108390838054146474}
   - component: {fileID: 54081376527705164}
   - component: {fileID: 135208624359317352}
   - component: {fileID: 2463153621486041043}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile 23 cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9683,6 +9684,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &9176695576020243422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343504842343394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f5101d875a7994ab597d1268f99f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
+  ignoredLayerMasks: {fileID: 11400000, guid: d8eecfe908c7af04cafc39d6bd750214, type: 2}
 --- !u!114 &114624625588967964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9784,7 +9799,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1343504842343394}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0

@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4856668287497590}
   - component: {fileID: 198571459502215574}
+  - component: {fileID: 5492627675487660927}
   - component: {fileID: 114351253421974366}
   - component: {fileID: 199085376630515598}
   - component: {fileID: 108320471180231846}
   - component: {fileID: 54026867493614958}
   - component: {fileID: 135840973497244662}
   - component: {fileID: -8068347901268953308}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile 26 blue diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4832,6 +4833,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &5492627675487660927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018882707796302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f5101d875a7994ab597d1268f99f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
+  ignoredLayerMasks: {fileID: 11400000, guid: d8eecfe908c7af04cafc39d6bd750214, type: 2}
 --- !u!114 &114351253421974366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4934,7 +4949,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018882707796302}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -5071,7 +5086,7 @@ GameObject:
   - component: {fileID: 4915149813840288}
   - component: {fileID: 198359807666768676}
   - component: {fileID: 199869365633251996}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9922,7 +9937,7 @@ GameObject:
   - component: {fileID: 4379394965000066}
   - component: {fileID: 198987202803310668}
   - component: {fileID: 199574509586546038}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Wind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
