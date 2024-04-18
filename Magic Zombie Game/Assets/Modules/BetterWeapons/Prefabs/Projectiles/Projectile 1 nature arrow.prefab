@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4617574666699530}
   - component: {fileID: 198892729897997728}
   - component: {fileID: 199138449149840834}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SubSparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4853,7 +4853,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4430283953656380}
   - component: {fileID: 198161343025679248}
-  - component: {fileID: -124965536028730539}
+  - component: {fileID: 3300570763338961664}
   - component: {fileID: 3343905564974512299}
   - component: {fileID: 135783597193828132}
   - component: {fileID: 199255407689944526}
@@ -9674,7 +9674,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &-124965536028730539
+--- !u!114 &3300570763338961664
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9683,7 +9683,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1261555563981962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26d6c3843e97c19408e97faf90797101, type: 3}
+  m_Script: {fileID: 11500000, guid: f0b245ccb5e64074a8cc5deefb3161bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
@@ -9696,7 +9696,7 @@ MonoBehaviour:
   - {fileID: 1143056303235178}
   speed: 20
   hitOffset: 0.1
-  useFirePointRotation: 1
+  useFirePointRotation: 0
   rotationOffset: {x: 0, y: 0, z: 0}
   isKinematic: 0
   useGravity: 0
@@ -9845,7 +9845,7 @@ GameObject:
   - component: {fileID: 4181983501846708}
   - component: {fileID: 198054767724686588}
   - component: {fileID: 199443242785925410}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Waves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14746,7 +14746,7 @@ GameObject:
   - component: {fileID: 4022559578858668}
   - component: {fileID: 198545261294117716}
   - component: {fileID: 199030743555694118}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

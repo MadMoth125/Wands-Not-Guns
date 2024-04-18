@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4416643958488934}
   - component: {fileID: 198138707551317364}
   - component: {fileID: 199515075448832936}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SlimeSparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4853,7 +4853,7 @@ GameObject:
   - component: {fileID: 4840705629965154}
   - component: {fileID: 198167618388903994}
   - component: {fileID: 199139856653202790}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9698,7 +9698,8 @@ GameObject:
   - component: {fileID: 199578215912376750}
   - component: {fileID: 135550499526485136}
   - component: {fileID: 54448294708211836}
-  m_Layer: 0
+  - component: {fileID: 3302056368734588685}
+  m_Layer: 12
   m_Name: Projectile 12 slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14664,3 +14665,15 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3302056368734588685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473103337094032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bb76637dc8e7841ac021b5c25600e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

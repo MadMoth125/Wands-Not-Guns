@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4285344081020720}
   - component: {fileID: 198120128188515918}
   - component: {fileID: 199279693831646888}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Shine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4920,7 +4920,7 @@ GameObject:
   - component: {fileID: 4120275987610568}
   - component: {fileID: 198958341968094954}
   - component: {fileID: 199706687516541296}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9832,7 +9832,8 @@ GameObject:
   - component: {fileID: 135543802754298092}
   - component: {fileID: 199470418353522432}
   - component: {fileID: 54447856582251616}
-  m_Layer: 0
+  - component: {fileID: 7521378667019347573}
+  m_Layer: 12
   m_Name: Projectile 19 circle bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14806,6 +14807,18 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7521378667019347573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603989468733260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bb76637dc8e7841ac021b5c25600e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1835535820164480
 GameObject:
   m_ObjectHideFlags: 0
@@ -14819,7 +14832,7 @@ GameObject:
   - component: {fileID: 199965051223748704}
   - component: {fileID: 108144015466640738}
   - component: {fileID: 3170028307107450545}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

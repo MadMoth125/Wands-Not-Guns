@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4869391961339478}
   - component: {fileID: 198433115122331948}
   - component: {fileID: 199659563733507752}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SubTriangles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4858,7 +4858,8 @@ GameObject:
   - component: {fileID: 54081376527705164}
   - component: {fileID: 108390838054146474}
   - component: {fileID: 2463153621486041043}
-  m_Layer: 0
+  - component: {fileID: 1772838302271821229}
+  m_Layer: 12
   m_Name: Projectile 23 cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9916,3 +9917,15 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &1772838302271821229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343504842343394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bb76637dc8e7841ac021b5c25600e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

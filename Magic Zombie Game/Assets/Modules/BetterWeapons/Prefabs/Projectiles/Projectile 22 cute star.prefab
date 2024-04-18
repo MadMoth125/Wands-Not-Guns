@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4920862555473792}
   - component: {fileID: 198253395183028752}
   - component: {fileID: 199121495299923210}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SubStars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4859,7 +4859,8 @@ GameObject:
   - component: {fileID: 54015688971125552}
   - component: {fileID: 108340316821141184}
   - component: {fileID: -3421118025478781674}
-  m_Layer: 0
+  - component: {fileID: 5131010259134820865}
+  m_Layer: 12
   m_Name: Projectile 22 cute star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9918,6 +9919,18 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &5131010259134820865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094010528761658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bb76637dc8e7841ac021b5c25600e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1228953972368122
 GameObject:
   m_ObjectHideFlags: 0
@@ -9929,7 +9942,7 @@ GameObject:
   - component: {fileID: 4943425964895198}
   - component: {fileID: 198672018410886540}
   - component: {fileID: 199276916704681358}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SubStars2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

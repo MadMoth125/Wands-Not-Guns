@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4979078473652990}
   - component: {fileID: 198343067639323108}
   - component: {fileID: 199632313697423724}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4867,7 +4867,8 @@ GameObject:
   - component: {fileID: 54320897707685700}
   - component: {fileID: 108086391996899420}
   - component: {fileID: -866232498955421750}
-  m_Layer: 0
+  - component: {fileID: 6208539543254204570}
+  m_Layer: 12
   m_Name: Projectile 9 water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9918,6 +9919,18 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &6208539543254204570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300573103503756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bb76637dc8e7841ac021b5c25600e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1570842655542680
 GameObject:
   m_ObjectHideFlags: 0
@@ -9929,7 +9942,7 @@ GameObject:
   - component: {fileID: 4158040155400464}
   - component: {fileID: 198789236737275484}
   - component: {fileID: 199918811470479684}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}

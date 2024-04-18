@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 135535602245615578}
   - component: {fileID: 199135089733451208}
   - component: {fileID: 54218369727422460}
-  m_Layer: 0
+  - component: {fileID: 1298772289975446139}
+  m_Layer: 12
   m_Name: Projectile 17 nova violet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4989,6 +4990,18 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1298772289975446139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381080491605798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bb76637dc8e7841ac021b5c25600e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1523578673615170
 GameObject:
   m_ObjectHideFlags: 0
@@ -5002,7 +5015,7 @@ GameObject:
   - component: {fileID: 199599457033925654}
   - component: {fileID: 108560659361369872}
   - component: {fileID: 3458931681913174676}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9996,7 +10009,7 @@ GameObject:
   - component: {fileID: 4748734700917404}
   - component: {fileID: 198760565863653164}
   - component: {fileID: 199054958900069702}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14905,7 +14918,7 @@ GameObject:
   - component: {fileID: 4019018889288010}
   - component: {fileID: 198749281551158958}
   - component: {fileID: 199999995336655884}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Wind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19814,7 +19827,7 @@ GameObject:
   - component: {fileID: 4964022661953272}
   - component: {fileID: 198376874017825004}
   - component: {fileID: 199525629912382970}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Darkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}

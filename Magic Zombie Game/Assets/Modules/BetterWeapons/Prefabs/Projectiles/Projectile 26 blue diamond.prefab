@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 54026867493614958}
   - component: {fileID: 108320471180231846}
   - component: {fileID: -8068347901268953308}
-  m_Layer: 0
+  - component: {fileID: 3600059727011657163}
+  m_Layer: 12
   m_Name: Projectile 26 blue diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5066,6 +5067,18 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &3600059727011657163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018882707796302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bb76637dc8e7841ac021b5c25600e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1570992282298406
 GameObject:
   m_ObjectHideFlags: 0
@@ -5077,7 +5090,7 @@ GameObject:
   - component: {fileID: 4915149813840288}
   - component: {fileID: 198359807666768676}
   - component: {fileID: 199869365633251996}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9928,7 +9941,7 @@ GameObject:
   - component: {fileID: 4379394965000066}
   - component: {fileID: 198987202803310668}
   - component: {fileID: 199574509586546038}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Wind
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4587943912328828}
   - component: {fileID: 198840703474818392}
   - component: {fileID: 199652021892514146}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4855,7 +4855,7 @@ GameObject:
   - component: {fileID: 4928152590134744}
   - component: {fileID: 198598355560077112}
   - component: {fileID: 199934617267810200}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hearts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9711,7 +9711,8 @@ GameObject:
   - component: {fileID: 54933371835274920}
   - component: {fileID: 108353070863986816}
   - component: {fileID: 6503073547386139799}
-  m_Layer: 0
+  - component: {fileID: 1310277972905829914}
+  m_Layer: 12
   m_Name: Projectile 27 heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14762,6 +14763,18 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &1310277972905829914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487245307642514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bb76637dc8e7841ac021b5c25600e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1760865931655842
 GameObject:
   m_ObjectHideFlags: 0
@@ -14773,7 +14786,7 @@ GameObject:
   - component: {fileID: 4847197780967490}
   - component: {fileID: 198104141697905822}
   - component: {fileID: 199915741868203060}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19674,7 +19687,7 @@ GameObject:
   - component: {fileID: 4356259679726644}
   - component: {fileID: 198082910738639804}
   - component: {fileID: 199327357237797786}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Flares
   m_TagString: Untagged
   m_Icon: {fileID: 0}

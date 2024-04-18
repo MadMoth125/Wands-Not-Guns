@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 54656780710307248}
   - component: {fileID: 108183858505715088}
   - component: {fileID: -5499581777682491507}
-  m_Layer: 0
+  - component: {fileID: 1303073981896254195}
+  m_Layer: 12
   m_Name: Projectile 14 blue rapid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5093,6 +5094,18 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &1303073981896254195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580133494715678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bb76637dc8e7841ac021b5c25600e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1608430684871792
 GameObject:
   m_ObjectHideFlags: 0
@@ -5104,7 +5117,7 @@ GameObject:
   - component: {fileID: 4651312433719434}
   - component: {fileID: 198535202477826224}
   - component: {fileID: 199507863963710848}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SubRombs
   m_TagString: Untagged
   m_Icon: {fileID: 0}

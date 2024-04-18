@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 54934405680233552}
   - component: {fileID: 108636099739108412}
   - component: {fileID: -8005614761180753978}
-  m_Layer: 0
+  - component: {fileID: 3119227356675311167}
+  m_Layer: 12
   m_Name: Projectile 21 red arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5064,6 +5065,18 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &3119227356675311167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249710063744722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bb76637dc8e7841ac021b5c25600e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1655099193879956
 GameObject:
   m_ObjectHideFlags: 0
@@ -5075,7 +5088,7 @@ GameObject:
   - component: {fileID: 4898191602666726}
   - component: {fileID: 198069135479939308}
   - component: {fileID: 199180784667957070}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SubEnergy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
