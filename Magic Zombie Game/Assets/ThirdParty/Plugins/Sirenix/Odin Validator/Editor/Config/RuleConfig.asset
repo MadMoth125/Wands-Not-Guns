@@ -15,5 +15,20 @@ MonoBehaviour:
   projectRules:
   - Enabled: 1
     EnabledOverridden: 1
+    Type: Sirenix.OdinValidator.Editor.Validators.UICanvasChildElementValidator,
+      Sirenix.OdinValidator.Editor
+    Override: 
+  - Enabled: 1
+    EnabledOverridden: 1
+    Type: Sirenix.OdinValidator.Editor.Validators.SceneNotInBuildSettingsValidator,
+      Sirenix.OdinValidator.Editor
+    Override: 
+  - Enabled: 1
+    EnabledOverridden: 1
+    Type: Sirenix.OdinValidator.Editor.Validators.ReferenceRequiredByDefaultValidator,
+      Sirenix.OdinValidator.Editor
+    Override: 
+  - Enabled: 0
+    EnabledOverridden: 1
     Type: Sirenix.OdinValidator.Editor.Validators.ListNullElementValidator, Sirenix.OdinValidator.Editor
     Override: 
