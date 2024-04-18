@@ -4853,7 +4853,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4430283953656380}
   - component: {fileID: 198161343025679248}
-  - component: {fileID: 3300570763338961664}
+  - component: {fileID: 2043959209694737553}
   - component: {fileID: 3343905564974512299}
   - component: {fileID: 135783597193828132}
   - component: {fileID: 199255407689944526}
@@ -9674,7 +9674,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &3300570763338961664
+--- !u!114 &2043959209694737553
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9683,7 +9683,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1261555563981962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0b245ccb5e64074a8cc5deefb3161bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 26d6c3843e97c19408e97faf90797101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
