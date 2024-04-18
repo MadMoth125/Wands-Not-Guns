@@ -479,7 +479,7 @@ PrefabInstance:
     - target: {fileID: 8662566722262695757, guid: 6f04cc33b18bd7c46aee866fae4dfd1c,
         type: 3}
       propertyPath: rotationComponent.lookDirectionType
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1268,8 +1268,7 @@ GameObject:
   - component: {fileID: 2031689895}
   - component: {fileID: 2031689894}
   - component: {fileID: 2031689901}
-  - component: {fileID: 2031689900}
-  - component: {fileID: 2031689899}
+  - component: {fileID: 2031689902}
   - component: {fileID: 2031689898}
   - component: {fileID: 2031689897}
   m_Layer: 0
@@ -1293,7 +1292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   enabled: 1
-  projectileHandler: {fileID: 2031689900}
+  projectileHandler: {fileID: 2031689902}
   shootComponent: {fileID: 2031689901}
 --- !u!114 &2031689895
 MonoBehaviour:
@@ -1308,8 +1307,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameControls: {fileID: 11400000, guid: ac6f9f39ea6abe443b0ba39de52f6c56, type: 2}
-  setInputHeld: 0
-  disableInput: 1
   gun: {fileID: 2031689894}
 --- !u!4 &2031689896
 Transform:
@@ -1364,39 +1361,6 @@ MonoBehaviour:
   lerpSharpness: 10
   positionOffsetType: 1
   positionOffset: {x: 0, y: 0, z: 0}
---- !u!114 &2031689899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031689892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 814a6351149ab544494a723914b5cd67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 2729406523003028990, guid: e654483505318b845a04a408c62c65be, type: 3}
-  defaultCapacity: 10
-  maximumCapacity: 40
-  preInstantiate: 1
-  preInstantiatePosition: {x: 0, y: -100, z: 0}
-  allowElementDestruction: 1
-  enableCollectionChecks: 1
---- !u!114 &2031689900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031689892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c089e639705a3ac4da561a8cb2526de6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 538175543}
-  objectPool: {fileID: 2031689899}
 --- !u!114 &2031689901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1409,8 +1373,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527a31e5e4ce2134583a7e8a252e2a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 1
-  isAutomatic: 0
+  fireRate: 4
+  isAutomatic: 1
+--- !u!114 &2031689902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031689892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 133790b5c82015a42a65ab31be100132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHitEvent: {fileID: 11400000, guid: 5a81938fb8886da4c93e2810b3af145f, type: 2}
+  firePoint: {fileID: 538175543}
+  projectile:
+    m_AssetGUID: 24c86df1468884d499ca1d5cb865a6f7
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!1001 &2106228582
 PrefabInstance:
   m_ObjectHideFlags: 0
