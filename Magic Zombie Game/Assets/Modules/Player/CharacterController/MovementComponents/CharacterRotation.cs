@@ -16,7 +16,6 @@ namespace Player.Controller
 		{
 			TowardsCursor = 0,
 			TowardsMovementDirection = 1,
-			[InspectorName("Towards Movement Input (Not implemented)")] 
 			TowardsMovementInput = 2,
 			TowardsTarget = 3,
 			AwayFromTarget = 4,
