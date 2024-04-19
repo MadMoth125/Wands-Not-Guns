@@ -76,7 +76,7 @@ public class EnemyHealthSetter : MonoBehaviour, IManagerComponent<EnemyManager>
 		if (enemy != null)
 		{
 			enemy.HealthComponent.SetMaxHealth(roundHealth.GetMaxHealth(), true);
-			LogWrapper($"Enemy '{enemyId}' health is '{roundHealth.GetMaxHealth()}'.", LoggerType.Info);
+			if (logHealthSet) LogWrapper($"Enemy '{enemyId}' health is '{roundHealth.GetMaxHealth()}'.", LoggerType.Info);
 		}
 	}
 	
@@ -86,6 +86,5 @@ public class EnemyHealthSetter : MonoBehaviour, IManagerComponent<EnemyManager>
 		{
 			logger.Log(message, this, type);
 		}
-		
 	}
 }
