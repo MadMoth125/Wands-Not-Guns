@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using Core.ObjectPool;
 
 namespace Weapons.Projectiles
 {
+	[Obsolete]
 	public class ProjectileObjectPool : ObjectPoolBase<ParticleHandler>
 	{
 		public override ParticleHandler GetElement(Vector3? position = null, Quaternion? rotation = null, Vector3? scale = null)

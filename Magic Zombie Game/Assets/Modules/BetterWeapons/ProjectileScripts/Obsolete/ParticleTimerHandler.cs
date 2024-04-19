@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Weapons.Projectiles
 {
+	[Obsolete]
 	[DisallowMultipleComponent]
 	public class ParticleTimerHandler : MonoBehaviour
 	{

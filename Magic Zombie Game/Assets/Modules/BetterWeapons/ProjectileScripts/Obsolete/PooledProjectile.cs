@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Weapons.Projectiles
 {
+	[Obsolete]
 	public class PooledProjectile : ProjectileHandler
 	{
 		// TODO: Add the OnProjectileHit event asset here.

@@ -18,6 +18,7 @@ namespace Weapons.Projectiles
 	/// Works only with the structure of Hovl Studio's 'AAA Projectiles' prefab/particle systems.
 	/// Examine the prefab to understand the structure of the particle systems. 
 	/// </summary>
+	[Obsolete]
 	[RequireComponent(typeof(ParticleTimerHandler))]
 	[DisallowMultipleComponent]
 	public class ParticleHandler : MonoBehaviour, IPoolableObject

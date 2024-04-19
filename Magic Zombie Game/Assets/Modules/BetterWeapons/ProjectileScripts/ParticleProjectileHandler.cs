@@ -30,7 +30,6 @@ public class ParticleProjectileHandler : ProjectileHandler
 	public void Spawn(Vector3 position, Quaternion rotation)
 	{
 		projectile.InstantiateAsync(position, rotation);
-		Debug.Log("Spawned projectile");
 	}
 
 	public override void FireProjectile(Action<HitContext> onHitComplete)
@@ -43,7 +42,7 @@ public class ParticleProjectileHandler : ProjectileHandler
 
 	private void OnEnable()
 	{
-		_hitContext = new HitContext();
+		_hitContext = new HitContext(); // reusing the same object to save on resources
 		projectileHitEvent.OnRaised += OnProjectileHit;
 	}
 
@@ -54,9 +53,12 @@ public class ParticleProjectileHandler : ProjectileHandler
 
 	#endregion
 
-	private void OnProjectileHit(ProjectileHitData obj)
+	private void OnProjectileHit(ProjectileHitData hitData)
 	{
-		_hitContext.SetData(obj.hitCollider.gameObject, obj.travelDistance);
+		_hitContext.SetData(
+			hitData.hitCollider.gameObject,
+			hitData.hitCollider.collider,
+			hitData.travelDistance);
 		_onHitComplete?.Invoke(_hitContext);
 	}
 }
