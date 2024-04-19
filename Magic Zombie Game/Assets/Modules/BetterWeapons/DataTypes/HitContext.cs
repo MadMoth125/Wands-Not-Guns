@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Weapons
 {
@@ -7,19 +8,22 @@ namespace Weapons
 	/// </summary>
 	public struct HitContext
 	{
-		public HitContext(GameObject target, float distance)
+		public HitContext(GameObject target, Collider collider, float travelDistance)
 		{
-			this.target = target;
-			this.distance = distance;
+			this.hitTarget = target;
+			this.hitCollider = collider;
+			this.travelDistance = travelDistance;
 		}
 		
-		public void SetData(GameObject target, float distance)
+		public void SetData(GameObject target, Collider collider, float travelDistance)
 		{
-			this.target = target;
-			this.distance = distance;
+			this.hitTarget = target;
+			this.hitCollider = collider;
+			this.travelDistance = travelDistance;
 		}
 		
-		public GameObject target;
-		public float distance;
+		public GameObject hitTarget;
+		public Collider hitCollider;
+		public float travelDistance;
 	}
 }
