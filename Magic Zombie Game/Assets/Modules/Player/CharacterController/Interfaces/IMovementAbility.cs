@@ -28,6 +28,6 @@ namespace Player.Controller
 		/// </summary>
 		/// <param name="controls">The controls asset.</param>
 		/// <param name="motor">The kinematic character motor.</param>
-		public void SetReferences(GameControlsAsset controls, KinematicCharacterMotor motor);
+		public void SetReferences(ScriptableObjectGameControls controls, KinematicCharacterMotor motor);
 	}
 }

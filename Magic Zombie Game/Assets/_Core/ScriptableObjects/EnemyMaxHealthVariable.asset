@@ -21,7 +21,7 @@ MonoBehaviour:
     startingHealth: 150
     flatIncreaseAmount: 100
     percentageIncreaseAmount: 0.1
-    roundValue: {fileID: 11400000, guid: afffdace64b1752419dcaa984a62bb2f, type: 2}
+    roundValue: {fileID: 0}
   _debugLogEnabled: 0
   _saved: 0
   _defaultValue:

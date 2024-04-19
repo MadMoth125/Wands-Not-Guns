@@ -102,11 +102,9 @@ namespace Core
 		/// <returns>The number of enemies to spawn.</returns>
 		public static int GetSpawnCount(int round, int players)
 		{
-			if (definedSpawnCounts.Length > round - 1)
+			if (definedSpawnCounts.Length >= round)
 			{
-				// we do a modulo operation to ensure that the spawn count
-				// is not out of range, even if the returned value is 'incorrect' for the given round.
-				return definedSpawnCounts[round - 1 % definedSpawnCounts.Length];
+				return definedSpawnCounts[round - 1];
 			}
 			
 			switch (players)

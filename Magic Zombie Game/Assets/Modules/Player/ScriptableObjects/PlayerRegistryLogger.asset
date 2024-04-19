@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerRegistryLogger
   m_EditorClassIdentifier: 
   identifier: PlayerRegistry
-  enabled: 1
+  enabled: 0

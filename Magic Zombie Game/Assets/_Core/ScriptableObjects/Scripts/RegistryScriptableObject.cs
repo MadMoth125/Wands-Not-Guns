@@ -8,12 +8,24 @@ namespace Core.Registries
 {
 	public abstract class RegistryScriptableObject<TKey, TValue> : ScriptableObject where TKey : IEquatable<TKey>
 	{
-		public int Count => registry.Count;
+		#region Events
+
+		public event Action<TKey, TValue> OnItemAdded;
+		
+		public event Action<TKey, TValue> OnItemRemoved;
+		
+		public event Action<IEnumerable<TKey>, IEnumerable<TValue>> OnRegistryCleared;
+
+		#endregion
+		
+		public int Count => registry?.Count ?? 0;
 
 		[Tooltip("Logger to use for this registry. If null, no logging will occur.")]
 		[SerializeField]
-		protected LoggerAsset logger;
+		protected LoggerScriptableObject logger;
 		
+		protected TKey[] cachedKeys;
+		protected TValue[] cachedValues;
 		protected readonly Dictionary<TKey, TValue> registry = new();
 
 		/// <summary>
@@ -36,11 +48,13 @@ namespace Core.Registries
 
 			if (registry.TryAdd(key, value))
 			{
-				LogWrapper($"Value \"{value}\" with key of \"{key}\" has been added to the registry.", LoggerAsset.LogType.Info);
+				RefreshCache();
+				InvokeItemAdded(key, value);
+				LogWrapper($"Value \"{value}\" with key of \"{key}\" has been added to the registry.", LoggerType.Info);
 				return true;
 			}
 			
-			LogWrapper($"Key \"{key}\" already exists in the registry.", LoggerAsset.LogType.Warning);
+			LogWrapper($"Key \"{key}\" already exists in the registry.", LoggerType.Warning);
 			return false;
 		}
 		
@@ -63,30 +77,128 @@ namespace Core.Registries
 
 			if (registry.Remove(key, out TValue value))
 			{
-				LogWrapper($"Value \"{value}\" with key \"{key}\" has been removed from the registry.", LoggerAsset.LogType.Info);
+				RefreshCache();
+				InvokeItemRemoved(key, value);
+				LogWrapper($"Value \"{value}\" with key \"{key}\" has been removed from the registry.", LoggerType.Info);
 				return true;
 			}
 			
-			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerAsset.LogType.Warning);
+			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerType.Warning);
 			return false;
 		}
 		
 		/// <summary>
-		/// Returns all keys in the registry.
+		/// Returns a value from the registry if the provided key exists.
 		/// </summary>
-		public virtual IEnumerable<TKey> GetKeys()
+		public TValue GetValue(TKey key)
 		{
-			LogWrapper($"Outputting {registry?.Keys.Count} keys in the registry.", LoggerAsset.LogType.Info);
-			return registry?.Keys;
+			if (registry == null)
+			{
+				LogRegistryInvalid();
+				return default;
+			}
+
+			if (key == null)
+			{
+				LogKeyInvalid();
+				return default;
+			}
+
+			if (registry.TryGetValue(key, out TValue value))
+			{
+				LogWrapper($"Value \"{value}\" with key \"{key}\" has been retrieved from the registry.", LoggerType.Info);
+				return value;
+			}
+			
+			LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerType.Warning);
+			return default;
+		}
+		
+		/// <summary>
+		/// Sets a value in the registry if the provided key exists.
+		/// </summary>
+		public void SetValue(TKey key, TValue value)
+		{
+			if (registry == null)
+			{
+				LogRegistryInvalid();
+				return;
+			}
+
+			if (key == null)
+			{
+				LogKeyInvalid();
+				return;
+			}
+
+			if (registry.ContainsKey(key))
+			{
+				registry[key] = value;
+				RefreshCache();
+				LogWrapper($"Value \"{value}\" with key \"{key}\" has been set in the registry.", LoggerType.Info);
+			}
+			else
+			{
+				LogWrapper($"Key \"{key}\" does not exist in the registry.", LoggerType.Warning);
+			}
+		}
+		
+		/// <summary>
+		/// Returns all keys in the registry in an <see cref="IEnumerable{T}"/> format.
+		/// Keys are pulled from the cached array rather than directly from the dictionary.
+		/// </summary>
+		public virtual IEnumerable<TKey> GetKeysEnumerable()
+		{
+			LogWrapper($"Got {cachedKeys.Length} registry keys.", LoggerType.Info);
+			return cachedKeys;
+		}
+		
+		/// <summary>
+		/// Returns all keys in the registry in an array format.
+		/// Keys are pulled from the cached array rather than directly from the dictionary.
+		/// </summary>
+		public virtual TKey[] GetKeysArray()
+		{
+			LogWrapper($"Got {cachedKeys.Length} registry keys.", LoggerType.Info);
+			return cachedKeys;
 		}
 
 		/// <summary>
-		/// Returns all values in the registry.
+		/// Returns all values in the registry in an <see cref="IEnumerable{T}"/> format.
+		/// Values are pulled from the cached array rather than directly from the dictionary.
 		/// </summary>
-		public virtual IEnumerable<TValue> GetValues()
+		public virtual IEnumerable<TValue> GetValuesEnumerable()
 		{
-			LogWrapper($"Outputting {registry?.Values.Count} values in the registry.", LoggerAsset.LogType.Info);
-			return registry?.Values;
+			LogWrapper($"Got {cachedValues.Length} registry values.", LoggerType.Info);
+			return cachedValues;
+		}
+		
+		/// <summary>
+		/// Returns all values in the registry in an array format.
+		/// Values are pulled from the cached array rather than directly from the dictionary.
+		/// </summary>
+		public virtual TValue[] GetValuesArray()
+		{
+			LogWrapper($"Got {cachedValues.Length} registry values.", LoggerType.Info);
+			return cachedValues;
+		}
+		
+		/// <summary>
+		/// Gets a random key from the registry.
+		/// </summary>
+		/// <returns></returns>
+		public virtual TKey GetRandomKey()
+		{
+			if (Count == 0)
+			{
+				LogWrapper("Registry is empty, unable to get random key.", LoggerType.Warning);
+				return default;
+			}
+
+			int randomIndex = UnityEngine.Random.Range(0, Count);
+			var randomKey = GetKeysArray()[randomIndex];
+			LogWrapper($"Random key \"{randomKey}\" has been retrieved from the registry.", LoggerType.Info);
+			return randomKey;
 		}
 		
 		/// <summary>
@@ -96,13 +208,13 @@ namespace Core.Registries
 		{
 			if (Count == 0)
 			{
-				LogWrapper("Registry is empty, unable to get random value.", LoggerAsset.LogType.Warning);
+				LogWrapper("Registry is empty, unable to get random value.", LoggerType.Warning);
 				return default;
 			}
 
 			int randomIndex = UnityEngine.Random.Range(0, Count);
-			var randomValue = GetValues().ElementAt(randomIndex);
-			LogWrapper($"Random value \"{randomValue}\" has been retrieved from the registry.", LoggerAsset.LogType.Info);
+			var randomValue = GetValuesArray()[randomIndex];
+			LogWrapper($"Random value \"{randomValue}\" has been retrieved from the registry.", LoggerType.Info);
 			return randomValue;
 		}
 		
@@ -111,24 +223,70 @@ namespace Core.Registries
 		/// </summary>
 		public virtual void Clear()
 		{
-			LogWrapper("Registry has been cleared.", LoggerAsset.LogType.Info);
+			InvokeRegistryCleared(registry.Keys, registry.Values);
+			
 			registry?.Clear();
+			RefreshCache();
+			
+			LogWrapper("Registry has been cleared.", LoggerType.Info);
 		}
+
+		/// <summary>
+		/// Refreshes the cached keys and values arrays.
+		/// Not necessary to call this method manually, as it is called automatically when adding or removing items.
+		/// </summary>
+		public void RefreshCache()
+		{
+			cachedKeys = registry.Keys.ToArray();
+			cachedValues = registry.Values.ToArray();
+		}
+		
+		#region Event Invokers
+
+		/// <summary>
+		/// Simple event wrapper for when an item is added to the registry.
+		/// </summary>
+		protected void InvokeItemAdded(TKey key, TValue value)
+		{
+			OnItemAdded?.Invoke(key, value);
+		}
+		
+		/// <summary>
+		/// Simple event wrapper for when an item is removed from the registry.
+		/// </summary>
+		protected void InvokeItemRemoved(TKey key, TValue value)
+		{
+			OnItemRemoved?.Invoke(key, value);
+		}
+		
+		/// <summary>
+		/// Simple event wrapper for when the registry is cleared.
+		/// </summary>
+		protected void InvokeRegistryCleared(IEnumerable<TKey> keys, IEnumerable<TValue> values)
+		{
+			OnRegistryCleared?.Invoke(keys, values);
+		}
+
+		#endregion
+
+		#region Logging
 
 		protected void LogRegistryInvalid()
 		{
-			LogWrapper("Internal registry reference is null, unable to perform operation.", LoggerAsset.LogType.Error);
+			LogWrapper("Internal registry reference is null, unable to perform operation.", LoggerType.Error);
 		}
 
 		protected void LogKeyInvalid()
 		{
-			LogWrapper("Key is null, unable to perform operation.", LoggerAsset.LogType.Warning);
+			LogWrapper("Key is null, unable to perform operation.", LoggerType.Warning);
 		}
 		
-		protected void LogWrapper(string message, LoggerAsset.LogType logType)
+		protected void LogWrapper(string message, LoggerType logType)
 		{
 			if (logger == null) return;
 			logger.Log(message, this, logType);
 		}
+
+		#endregion
 	}
 }

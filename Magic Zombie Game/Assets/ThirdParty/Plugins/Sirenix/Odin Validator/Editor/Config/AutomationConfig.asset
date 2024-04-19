@@ -22,9 +22,9 @@ MonoBehaviour:
     ProfileAsset: {fileID: 0}
   OnBuild: 1
   OnBuildIfWarnings: 1
-  OnBuildIfErrors: 3
+  OnBuildIfErrors: 5
   OnBuildAlwaysCompleteValidationFully: 0
-  OnBuildFlashScreen: 0
+  OnBuildFlashScreen: 1
   OnBuildSetup:
     Profile: 0
     ProfileAsset: {fileID: 0}

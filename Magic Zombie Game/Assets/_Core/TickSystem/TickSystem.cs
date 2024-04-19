@@ -148,14 +148,32 @@ namespace Core.CustomTickSystem
 				dataAsset.GetUpdateTickGroup().eventContainer.Tick();
 			}
 
-			foreach (var layer in dataAsset.GetTickGroups())
+			for (int i = 0; i < dataAsset.GetCustomTickGroups().Count; i++)
 			{
-				if (!layer.parameters.enabled) continue;
-				if (layer.timer.ShouldTick(layer.parameters.TickInterval(), Time.deltaTime))
+				if (!dataAsset.GetCustomTickGroups()[i].parameters.enabled) continue;
+				if (dataAsset.GetCustomTickGroups()[i].timer.ShouldTick(dataAsset.GetCustomTickGroups()[i].parameters.TickInterval(), Time.deltaTime))
 				{
-					layer.eventContainer.Tick();
+					dataAsset.GetCustomTickGroups()[i].eventContainer.Tick();
 				}
 			}
+			
+			// var tickGroups = dataAsset.GetTickGroups().ToList();
+			// for (int i = 0; i < tickGroups.Count; i++)
+			// {
+			// 	if (!tickGroups[i].parameters.enabled) continue;
+			// 	if (tickGroups[i].timer.ShouldTick(tickGroups[i].parameters.TickInterval(), Time.deltaTime))
+			// 	{
+			// 		tickGroups[i].eventContainer.Tick();
+			// 	}
+			// }
+			// foreach (var layer in dataAsset.GetTickGroups())
+			// {
+			// 	if (!layer.parameters.enabled) continue;
+			// 	if (layer.timer.ShouldTick(layer.parameters.TickInterval(), Time.deltaTime))
+			// 	{
+			// 		layer.eventContainer.Tick();
+			// 	}
+			// }
 		}
 
 		private void FixedUpdate()

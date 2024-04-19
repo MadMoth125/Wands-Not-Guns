@@ -19,7 +19,7 @@ namespace ScriptExtensions
 		/// <param name="b">The second value.</param>
 		/// <param name="tolerance">The tolerance for the comparison.</param>
 		/// <returns>If the value is almost equal to another value.</returns>
-		public static bool Equals(this float a, float b, float tolerance = 0.0001f)
+		public static bool ApproxEquals(this float a, float b, float tolerance = 0.0001f)
 		{
 			return Mathf.Abs(a - b) < tolerance;
 		}

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 32
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ccee2e582c24a48af2e5acd94ff1d8, type: 3}
+  m_Name: scriptable_variable_DamageCollection
+  m_EditorClassIdentifier: 
+  CategoryIndex: 0
+  Description: 
+  _guid: 9d91ce9e19f566447b5491922a76d74c
+  _saveGuid: 0
+  _value:
+    damage: 40
+    nearFarDamage: {x: 40, y: 20}
+    nearFarDistance: {x: 20, y: 40}
+    damageVariation: 1
+  _debugLogEnabled: 0
+  _saved: 0
+  _defaultValue:
+    damage: 40
+    nearFarDamage: {x: 40, y: 20}
+    nearFarDistance: {x: 20, y: 40}
+    damageVariation: 1
+  _resetOn: 0
+  useDamageFalloff: 1
+  randomVariation: 1
