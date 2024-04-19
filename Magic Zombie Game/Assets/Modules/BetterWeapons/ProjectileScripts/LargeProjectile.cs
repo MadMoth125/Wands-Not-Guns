@@ -47,8 +47,8 @@ namespace Weapons.Projectiles
 				{
 					_onHitComplete?.Invoke(new HitContext
 					{
-						target = c.gameObject,
-						distance = Vector3.Distance(r.position, c.transform.position)
+						hitTarget = c.gameObject,
+						travelDistance = Vector3.Distance(r.position, c.transform.position)
 					});
 				}
 			

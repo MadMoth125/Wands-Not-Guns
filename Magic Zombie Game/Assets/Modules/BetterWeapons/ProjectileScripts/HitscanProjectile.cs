@@ -22,8 +22,8 @@ namespace Weapons.Projectiles
 				// if (hitInfo.collider.GetComponent<IDamageable>() == null) return;
 				onHitComplete?.Invoke(new HitContext
 				{
-					distance = hitInfo.distance,
-					target = hitInfo.collider.gameObject
+					travelDistance = hitInfo.distance,
+					hitTarget = hitInfo.collider.gameObject
 				});
 			}
 		}
