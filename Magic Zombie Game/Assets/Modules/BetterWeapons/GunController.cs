@@ -6,18 +6,30 @@ using UnityEngine.InputSystem;
 namespace Weapons
 {
 	[DisallowMultipleComponent]
-	[RequireComponent(typeof(Gun))]
+	[RequireComponent(typeof(GunComponent))]
 	public class GunController : MonoBehaviour
 	{
+		public bool enableControls = true;
+
 		[Required]
 		[SerializeField]
 		private ScriptableObjectGameControls gameControls;
-		
-		[Required]
-		[SerializeField]
-		private Gun gun;
 
+		private GunComponent _gunComponent;
+		private bool _hasPressed = false;
+
+		public GunComponent GetGunComponent()
+		{
+			return _gunComponent;
+		}
+		
 		#region Unity Methods
+
+		private void Awake()
+		{
+			_gunComponent = GetComponent<GunComponent>();
+			_gunComponent.SetOwnerController(this);
+		}
 
 		private void OnEnable()
 		{
@@ -35,13 +47,17 @@ namespace Weapons
 
 		private void OnGunFired(InputAction.CallbackContext ctx)
 		{
+			if (!enableControls) return;
+			
 			if (ctx.performed)
 			{
-				gun.FireGun();
+				_hasPressed = true;
+				_gunComponent.FireGun();
 			}
 			else if (ctx.canceled)
 			{
-				gun.StopFiring();
+				if (_hasPressed) _gunComponent.StopFiring();
+				_hasPressed = false;
 			}
 		}
 		
