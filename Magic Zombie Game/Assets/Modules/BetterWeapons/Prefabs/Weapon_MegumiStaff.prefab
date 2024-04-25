@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6919457154153684905}
   - component: {fileID: 7273756567774114288}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Box Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4017705169998302848}
   - component: {fileID: 2836448544025090031}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Box Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4941987223783744538}
   - component: {fileID: 4474711110537904426}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Weapon_MegumiStaff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ Transform:
   m_GameObject: {fileID: 6785731190366151817}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.2980285, y: -0.0000019073486, z: 4.4333797}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -179,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5925435829499545792}
   - component: {fileID: 5329560896922535609}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Capsule Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,6 +301,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MegStaff
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3ad97d4afe89bb544be51b6316f52b2a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Enemy;
 using Enemy.Registry;
 using Sirenix.OdinInspector;
 using TMPro;

@@ -2,23 +2,38 @@ using Player.Registry;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class PlayerRegistryHandler : MonoBehaviour
+namespace Player
 {
-	[Required]
-	[SerializeField]
-	private PlayerRegistry playerRegistry;
+	public class PlayerRegistryHandler : MonoBehaviour
+	{
+		[RegistryCategory]
+		[Required]
+		[SerializeField]
+		private PlayerRegistry playerRegistry;
+		
+		[Required]
+		[SerializeField]
+		private PlayerComponent playerComponent;
 	
-	#region Unity Methods
+		#region Unity Methods
 
-	private void OnEnable()
-	{
-		playerRegistry.Register(gameObject.GetInstanceID(), transform);
+		private void OnEnable()
+		{
+			playerRegistry.Register(playerComponent.PlayerId, transform);
+			playerComponent.HealthComponent.OnDie += HandleDie;
+		}
+
+		private void OnDisable()
+		{
+			playerRegistry.Unregister(playerComponent.PlayerId);
+			playerComponent.HealthComponent.OnDie -= HandleDie;
+		}
+
+		#endregion
+
+		private void HandleDie()
+		{
+			playerRegistry.Unregister(playerComponent.PlayerId);
+		}
 	}
-
-	private void OnDisable()
-	{
-		playerRegistry.Unregister(gameObject.GetInstanceID());
-	}
-
-	#endregion
 }

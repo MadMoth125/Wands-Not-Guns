@@ -1,7 +1,6 @@
-using System;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Core.HealthSystem
 {
@@ -15,19 +14,19 @@ namespace Core.HealthSystem
 		#region Events
 		
 		[UnityEventsCategory]
-		public UnityEvent<HealthChangedArgs> OnHealthChanged = new();
+		public UnityEvent<HealthChangedArgs> onHealthChanged = new();
 
 		[UnityEventsCategory]
-		public UnityEvent<HealthChangedArgs> OnMaxHealthChanged = new();
+		public UnityEvent<HealthChangedArgs> onMaxHealthChanged = new();
 
 		[UnityEventsCategory]
-		public UnityEvent<HealthChangedArgs> OnDamaged = new();
+		public UnityEvent<HealthChangedArgs, Object> onDamaged = new();
 
 		[UnityEventsCategory]
-		public UnityEvent<HealthChangedArgs> OnHealed = new();
+		public UnityEvent<HealthChangedArgs, Object> onHealed = new();
 
 		[UnityEventsCategory]
-		public UnityEvent OnDie = new();
+		public UnityEvent onDie = new();
 		
 		#endregion
 		
@@ -55,22 +54,22 @@ namespace Core.HealthSystem
 		{
 			if (!CanValidateHealthComponent()) return;
 			
-			_healthComponent.OnHealthChanged += OnHealthChanged.Invoke;
-			_healthComponent.OnMaxHealthChanged += OnMaxHealthChanged.Invoke;
-			_healthComponent.OnDamaged += OnDamaged.Invoke;
-			_healthComponent.OnHealed += OnHealed.Invoke;
-			_healthComponent.OnDie += OnDie.Invoke;
+			_healthComponent.OnHealthChanged += onHealthChanged.Invoke;
+			_healthComponent.OnMaxHealthChanged += onMaxHealthChanged.Invoke;
+			_healthComponent.OnDamaged += onDamaged.Invoke;
+			_healthComponent.OnHealed += onHealed.Invoke;
+			_healthComponent.OnDie += onDie.Invoke;
 		}
 
 		private void OnDisable()
 		{
 			if (!CanValidateHealthComponent()) return;
 			
-			_healthComponent.OnHealthChanged -= OnHealthChanged.Invoke;
-			_healthComponent.OnMaxHealthChanged -= OnMaxHealthChanged.Invoke;
-			_healthComponent.OnDamaged -= OnDamaged.Invoke;
-			_healthComponent.OnHealed -= OnHealed.Invoke;
-			_healthComponent.OnDie -= OnDie.Invoke;
+			_healthComponent.OnHealthChanged -= onHealthChanged.Invoke;
+			_healthComponent.OnMaxHealthChanged -= onMaxHealthChanged.Invoke;
+			_healthComponent.OnDamaged -= onDamaged.Invoke;
+			_healthComponent.OnHealed -= onHealed.Invoke;
+			_healthComponent.OnDie -= onDie.Invoke;
 		}
 
 		#endregion

@@ -25,14 +25,14 @@ namespace Core.Utils
 		[Tooltip("Instantly jump to the target position on Awake")]
 		public bool jumpToTarget = true;
 		
-		[Title("References")]
+		[TitleGroup("References")]
 		public Transform target;
 		
-		[Title("Tick")]
+		[TitleGroup("Tick")]
 		[EnumToggleButtons]
 		public TickType updateGroup = TickType.Update;
 		
-		[Title("Method")]
+		[TitleGroup("Method")]
 		[EnumToggleButtons]
 		public CopyType copyMethod = CopyType.Exact;
 		

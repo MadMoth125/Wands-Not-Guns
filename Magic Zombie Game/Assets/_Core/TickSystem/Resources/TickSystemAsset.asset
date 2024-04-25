@@ -22,10 +22,18 @@ MonoBehaviour:
       tickRate: 30
   tickGroups:
   - parameters:
+      name: EnemyTarget
+      enabled: 1
+      tickRate: 5
+  - parameters:
+      name: Animator
+      enabled: 1
+      tickRate: 10
+  - parameters:
       name: UI
       enabled: 1
       tickRate: 10
   - parameters:
-      name: EnemyTarget
+      name: ProxCheck
       enabled: 1
-      tickRate: 5
+      tickRate: 4

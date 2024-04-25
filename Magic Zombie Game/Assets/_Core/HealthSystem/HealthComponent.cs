@@ -1,5 +1,6 @@
 using System;
 using CodeMonkey.HealthSystemCM;
+using Core.Owning;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -9,33 +10,19 @@ namespace Core.HealthSystem
 	/// A custom health component that wraps the <see cref="HealthSystem"/> class into a MonoBehaviour.
 	/// Adds additional data and events to the underlying health system for more robust functionality.
 	/// </summary>
-	public class HealthComponent : MonoBehaviour, IHealthProperties
+	public class HealthComponent : MonoBehaviour, IHealthProperties, IOwnable<GameObject>
 	{
 		#region Events
 
 		public event Action<HealthChangedArgs> OnHealthChanged;
-		
 		public event Action<HealthChangedArgs> OnMaxHealthChanged;
-		
-		public event Action<HealthChangedArgs> OnDamaged;
-		
-		public event Action<HealthChangedArgs> OnHealed;
-		
+		public event Action<HealthChangedArgs, Object> OnDamaged;
+		public event Action<HealthChangedArgs, Object> OnHealed;
 		public event Action OnDie;
 
 		#endregion
 
 		#region Properties
-
-		/// <summary>
-		/// The GameObject that owns this <see cref="HealthComponent"/>.
-		/// Get/Set works the same as calling <see cref="GetOwningGameObject"/> and <see cref="SetOwner"/> respectively.
-		/// </summary>
-		public Object Owner
-		{
-			get => GetOwner();
-			set => SetOwner(value);
-		}
 
 		/// <summary>
 		/// The current health of the <see cref="HealthComponent"/>.
@@ -80,9 +67,12 @@ namespace Core.HealthSystem
 		private float startingHealthAmount = 0f;
 	
 		private CodeMonkey.HealthSystemCM.HealthSystem _internalHealthSystem;
-		private Object _owner;
+		private GameObject _owner;
 		private float _previousHealth;
 		private float _previousMaxHealth;
+		private Object _lastDamageSource;
+		private Object _lastHealSource;
+		private HealthChangedArgs _cachedHealthChangedArgs;
 
 		#region Static Methods
 
@@ -113,12 +103,22 @@ namespace Core.HealthSystem
 		}
 
 		#endregion
+
+		#region Owning Methods
+
+		public GameObject GetOwner()
+		{
+			return _owner;
+		}
+
+		public void SetOwner(GameObject owner)
+		{
+			_owner = owner;
+		}
+
+		#endregion
 		
 		#region Getters and Setters
-		
-		public Object GetOwner() => _owner;
-
-		public void SetOwner(Object owner) => _owner = owner;
 
 		public virtual float GetHealth() => _internalHealthSystem.GetHealth();
 
@@ -128,47 +128,82 @@ namespace Core.HealthSystem
 		{
 			_previousHealth = _internalHealthSystem.GetHealth();
 			_internalHealthSystem.SetHealth(health);
+			OnHealthChangedInvoke(_internalHealthSystem.GetHealth(), _previousHealth);
+			
+			if (_internalHealthSystem.IsDead())
+			{
+				OnDieInvoke();
+			}
 		}
 
 		public virtual void SetMaxHealth(float healthMax, bool fullHealth)
 		{
 			_previousMaxHealth = _internalHealthSystem.GetHealthMax();
 			_internalHealthSystem.SetHealthMax(healthMax, fullHealth);
+			OnMaxHealthChangedInvoke(_internalHealthSystem.GetHealthMax(), _previousMaxHealth);
 		}
 
 		public virtual float GetHealthNormalized() => _internalHealthSystem.GetHealthNormalized();
 
 		public virtual bool IsDead() => _internalHealthSystem.IsDead();
 
+		public Object GetLastDamageSource() => _lastDamageSource;
+		
+		public Object GetLastHealSource() => _lastHealSource;
+		
 		#endregion
 
 		#region Public Methods
 		
-		public virtual void Damage(float damageAmount)
+		public virtual void Damage(float damageAmount, Object source)
 		{
+			if (_internalHealthSystem.IsDead()) return;
+			
 			_previousHealth = _internalHealthSystem.GetHealth();
 			_internalHealthSystem.Damage(damageAmount);
+			OnDamagedInvoke(_internalHealthSystem.GetHealth(), _previousHealth, source);
+			OnHealthChangedInvoke(_internalHealthSystem.GetHealth(), _previousHealth);
+			
+			if (_internalHealthSystem.IsDead())
+			{
+				OnDieInvoke();
+			}
 		}
 
-		public void Kill()
+		public void Kill(Object source)
 		{
+			if (_internalHealthSystem.IsDead()) return;
+			
 			_previousHealth = _internalHealthSystem.GetHealth();
-			_internalHealthSystem.SetHealth(0f);
+			_internalHealthSystem.Damage(_internalHealthSystem.GetHealth());
+			OnDamagedInvoke(_internalHealthSystem.GetHealth(), _previousHealth, source);
+			OnHealthChangedInvoke(_internalHealthSystem.GetHealth(), _previousHealth);
+			
+			if (_internalHealthSystem.IsDead())
+			{
+				OnDieInvoke();
+			}
 		}
 
-		public virtual void Heal(float healAmount)
+		public virtual void Heal(float healAmount, Object source)
 		{
 			_previousHealth = _internalHealthSystem.GetHealth();
 			_internalHealthSystem.Heal(healAmount);
+			OnHealedInvoke(_internalHealthSystem.GetHealth(), _previousHealth, source);
 		}
 
-		public virtual void HealComplete()
+		public virtual void HealComplete(Object source)
 		{
 			_previousHealth = _internalHealthSystem.GetHealth();
 			_internalHealthSystem.HealComplete();
+			OnHealedInvoke(_internalHealthSystem.GetHealth(), _previousHealth, source);
 		}
 
-		public virtual void Die() => _internalHealthSystem.Die();
+		public virtual void Die()
+		{
+			_internalHealthSystem.Die();
+			OnDieInvoke();
+		}
 
 		#endregion
 		
@@ -182,9 +217,7 @@ namespace Core.HealthSystem
 			{
 				_internalHealthSystem.SetHealth(startingHealthAmount);
 			}
-			
-			// SetOwner(gameObject);
-			
+
 			AfterAwake();
 		}
 
@@ -195,69 +228,16 @@ namespace Core.HealthSystem
 		{
 			
 		}
-
-		private void OnEnable()
-		{
-			_internalHealthSystem.OnHealthChanged += HealthChanged;
-			OnHealthChanged += HealthChangedInternal;
-			
-			_internalHealthSystem.OnHealthMaxChanged += MaxHealthChanged;
-			OnMaxHealthChanged += MaxHealthChangedInternal;
-			
-			_internalHealthSystem.OnHealed += Healed;
-			OnHealed += HealedInternal;
-			
-			_internalHealthSystem.OnDamaged += Damaged;
-			OnDamaged += DamagedInternal;
-			
-			_internalHealthSystem.OnDead += Died;
-			OnDie += DiedInternal;
-			
-			AfterEnable();
-		}
-
-		/// <summary>
-		/// Called after the <see cref="OnEnable"/> method.
-		/// </summary>
-		protected virtual void AfterEnable()
-		{
-			
-		}
-
-		private void OnDisable()
-		{
-			_internalHealthSystem.OnHealthChanged -= HealthChanged;
-			OnHealthChanged -= HealthChangedInternal;
-			
-			_internalHealthSystem.OnHealthMaxChanged -= MaxHealthChanged;
-			OnMaxHealthChanged -= MaxHealthChangedInternal;
-			
-			_internalHealthSystem.OnHealed -= Healed;
-			OnHealed -= HealedInternal;
-			
-			_internalHealthSystem.OnDamaged -= Damaged;
-			OnDamaged -= DamagedInternal;
-			
-			_internalHealthSystem.OnDead -= Died;
-			OnDie -= DiedInternal;
-			
-			AfterDisable();
-		}
-
-		/// <summary>
-		/// Called after the <see cref="OnDisable"/> method.
-		/// </summary>
-		protected virtual void AfterDisable()
-		{
-			
-		}
+		
 		#endregion
+
+		#region Callbacks
 
 		/// <summary>
 		/// Method is called when <see cref="OnHealthChanged"/> is invoked.
 		/// </summary>
 		/// <param name="args">The <see cref="HealthChangedArgs"/> args.</param>
-		protected virtual void HealthChangedInternal(HealthChangedArgs args)
+		protected virtual void OnHealthChangedCallback(HealthChangedArgs args)
 		{
 			
 		}
@@ -266,7 +246,7 @@ namespace Core.HealthSystem
 		/// Method is called when <see cref="OnMaxHealthChanged"/> is invoked.
 		/// </summary>
 		/// <param name="args">The <see cref="HealthChangedArgs"/> args.</param>
-		protected virtual void MaxHealthChangedInternal(HealthChangedArgs args)
+		protected virtual void OnMaxHealthChangedCallback(HealthChangedArgs args)
 		{
 			
 		}
@@ -275,7 +255,8 @@ namespace Core.HealthSystem
 		/// Method is called when <see cref="OnHealed"/> is invoked.
 		/// </summary>
 		/// <param name="args">The <see cref="HealthChangedArgs"/> args.</param>
-		protected virtual void HealedInternal(HealthChangedArgs args)
+		/// <param name="source">The source of the healing.</param>
+		protected virtual void OnHealedCallback(HealthChangedArgs args, Object source)
 		{
 			
 		}
@@ -284,7 +265,8 @@ namespace Core.HealthSystem
 		/// Method is called when <see cref="OnDamaged"/> is invoked.
 		/// </summary>
 		/// <param name="args">The <see cref="HealthChangedArgs"/> args.</param>
-		protected virtual void DamagedInternal(HealthChangedArgs args)
+		/// <param name="source">The source of the damage.</param>
+		protected virtual void OnDamagedCallback(HealthChangedArgs args, Object source)
 		{
 			
 		}
@@ -292,34 +274,46 @@ namespace Core.HealthSystem
 		/// <summary>
 		/// Method is called when <see cref="OnDie"/> is invoked.
 		/// </summary>
-		protected virtual void DiedInternal()
+		protected virtual void OnDieCallback()
 		{
 			
 		}
+
+		#endregion
 		
-		#region Event Handlers
+		#region Event Invokers
 
-		private void HealthChanged(object sender, EventArgs e) =>
-			OnHealthChanged?.Invoke(new HealthChangedArgs(
-					_internalHealthSystem.GetHealth(),
-					_previousHealth));
+		private void OnHealthChangedInvoke(float current, float previous)
+		{
+			OnHealthChangedCallback(HealthChangedArgs.Make(current, previous, ref _cachedHealthChangedArgs));
+			OnHealthChanged?.Invoke(HealthChangedArgs.Make(current, previous, ref _cachedHealthChangedArgs));
+		}
 
-		private void MaxHealthChanged(object sender, EventArgs e) =>
-			OnMaxHealthChanged?.Invoke(new HealthChangedArgs(
-					_internalHealthSystem.GetHealthMax(),
-					_previousMaxHealth));
+		private void OnMaxHealthChangedInvoke(float current, float previous)
+		{
+			OnMaxHealthChangedCallback(HealthChangedArgs.Make(current, previous, ref _cachedHealthChangedArgs));
+			OnMaxHealthChanged?.Invoke(HealthChangedArgs.Make(current, previous, ref _cachedHealthChangedArgs));
+		}
 
-		private void Healed(object sender, EventArgs e) =>
-			OnHealed?.Invoke(new HealthChangedArgs(
-					_internalHealthSystem.GetHealthMax(),
-					_previousMaxHealth));
+		private void OnHealedInvoke(float current, float previous, Object source)
+		{
+			_lastHealSource = source;
+			OnHealedCallback(HealthChangedArgs.Make(current, previous, ref _cachedHealthChangedArgs), source);
+			OnHealed?.Invoke(HealthChangedArgs.Make(current, previous, ref _cachedHealthChangedArgs), source);
+		}
 
-		private void Damaged(object sender, EventArgs e) =>
-			OnDamaged?.Invoke(new HealthChangedArgs(
-					_internalHealthSystem.GetHealth(),
-					_previousHealth));
+		private void OnDamagedInvoke(float current, float previous, Object source)
+		{
+			_lastDamageSource = source;
+			OnDamagedCallback(HealthChangedArgs.Make(current, previous, ref _cachedHealthChangedArgs), source);
+			OnDamaged?.Invoke(HealthChangedArgs.Make(current, previous, ref _cachedHealthChangedArgs), source);
+		}
 
-		private void Died(object sender, EventArgs e) => OnDie?.Invoke();
+		private void OnDieInvoke()
+		{
+			OnDieCallback();
+			OnDie?.Invoke();
+		}
 
 		#endregion
 	}

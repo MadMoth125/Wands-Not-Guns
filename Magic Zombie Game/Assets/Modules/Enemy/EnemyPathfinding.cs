@@ -1,56 +1,76 @@
-using System.Collections;
-using System.Collections.Generic;
+using Core.Owning;
 using Pathfinding;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class EnemyPathfinding : MonoBehaviour
+namespace Enemy
 {
-	#region Properties
-
-	public Vector3 Destination => Pathfinder.destination;
-	
-	public bool HasTarget => _hasTarget;
-	
-	public AIPath Pathfinder => pathfinderComponent;
-
-	#endregion
-
-	[Required]
-	[SerializeField]
-	private AIPath pathfinderComponent;
-
-	private Vector3 _targetPosition;
-	private bool _hasTarget;
-	
-	public void SetTarget(Transform target)
+	public class EnemyPathfinding : MonoBehaviour, IOwnable<EnemyComponent>
 	{
-		if (Pathfinder == null) return;
-		SetTargetPosition(target.position);
-	}
+		#region Properties
 
-	public void SetTargetPosition(Vector3 position)
-	{
-		if (Pathfinder == null) return;
-		
-		_targetPosition = position;
-		_hasTarget = true;
-	}
-
-	public void ClearTarget()
-	{
-		if (Pathfinder == null) return;
-		
-		Pathfinder.destination = transform.position;
-		_hasTarget = false;
-	}
+		public Vector3 Destination => Pathfinder.destination;
 	
-	private void FixedUpdate()
-	{
-		if (Pathfinder != null && _hasTarget)
+		public bool HasTarget => _hasTarget;
+	
+		public AIPath Pathfinder => pathfinderComponent;
+
+		#endregion
+
+		[Required]
+		[SerializeField]
+		private AIPath pathfinderComponent;
+
+		private EnemyComponent _owner;
+		private Vector3 _targetPosition;
+		private bool _hasTarget;
+	
+		#region Owning Methods
+
+		public EnemyComponent GetOwner()
 		{
-			Pathfinder.destination = _targetPosition;
+			return _owner;
 		}
+
+		public void SetOwner(EnemyComponent owner)
+		{
+			_owner = owner;
+		}
+
+		#endregion
+		
+		public void SetTarget(Transform target)
+		{
+			if (Pathfinder == null) return;
+			SetTargetPosition(target.position);
+		}
+
+		public void SetTargetPosition(Vector3 position)
+		{
+			if (Pathfinder == null) return;
+		
+			_targetPosition = position;
+			_hasTarget = true;
+		}
+
+		public void ClearTarget()
+		{
+			if (Pathfinder == null) return;
+		
+			Pathfinder.destination = transform.position;
+			_hasTarget = false;
+		}
+
+		#region Unity Methods
+
+		private void FixedUpdate()
+		{
+			if (Pathfinder != null && _hasTarget)
+			{
+				Pathfinder.destination = _targetPosition;
+			}
+		}
+
+		#endregion
 	}
 }

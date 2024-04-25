@@ -235,7 +235,7 @@ namespace Weapons.Projectiles
 			Vector3 position = _cachedTransform.OrNull() ? _cachedTransform.position : transform.position;
 			Quaternion rotation = _cachedTransform.OrNull() ? _cachedTransform.rotation : transform.rotation;
 
-			if (otherParticleEffects.IsValid())
+			if (otherParticleEffects.Valid())
 			{
 				for (int i = 0; i < otherParticleEffects.Count; i++)
 				{
@@ -297,7 +297,7 @@ namespace Weapons.Projectiles
 				SudoDestroy(_hitEffectParticleSystem.gameObject, _hitEffectParticleSystem.main.duration);
 			}
 
-			if (otherParticleEffects.IsValid())
+			if (otherParticleEffects.Valid())
 			{
 				for (int i = 0; i < otherParticleEffects.Count; i++)
 				{
@@ -330,7 +330,7 @@ namespace Weapons.Projectiles
 				_hitEffectParticleSystem.transform.SetParent(transform, true);
 			}
 		
-			if (otherParticleEffects.IsValid())
+			if (otherParticleEffects.Valid())
 			{
 				_otherParticleEffectData.RetrieveGameObjectState(otherParticleEffects);
 			}

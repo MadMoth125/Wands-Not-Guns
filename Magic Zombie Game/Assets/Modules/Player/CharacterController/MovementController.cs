@@ -38,7 +38,6 @@ namespace Player.Controller
 		private CharacterRotation rotationComponent = new();
 		
 		[Title("Movement")]
-		
 		[Tooltip("Enable or disable the ability to apply impulse forces to the character motor.")]
 		[SerializeField]
 		private bool enableImpulse = true;
@@ -62,7 +61,26 @@ namespace Player.Controller
 		private KinematicCharacterMotor _motor;
 		private Vector3 _impact;
 		
-
+		public void EnableMovement()
+		{
+			movementComponent.enabled = true;
+		}
+		
+		public void DisableMovement()
+		{
+			movementComponent.enabled = false;
+		}
+		
+		public void EnableRotation()
+		{
+			rotationComponent.enabled = true;
+		}
+		
+		public void DisableRotation()
+		{
+			rotationComponent.enabled = false;
+		}
+		
 		/// <summary>
 		/// Applies an impulse force to the character motor.
 		/// </summary>
@@ -131,7 +149,7 @@ namespace Player.Controller
 				currentVelocity += _impact * deltaTime;
 				_impact = Vector3.Lerp(_impact, Vector3.zero, deltaTime * 10f);
 			}
-			
+
 			foreach (var ability in _abilityCollection)
 			{
 				ability.UpdateVelocity(ref currentVelocity, deltaTime);

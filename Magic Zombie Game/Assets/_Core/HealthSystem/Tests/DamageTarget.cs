@@ -12,12 +12,12 @@ namespace Core.HealthSystem
 		{
 			if (Input.GetKeyDown(KeyCode.Q))
 			{
-				target.GetComponent<IDamageable>().Damage(10f);
+				target.GetComponent<IDamageable>().Damage(10f, this);
 			}
 			
 			if (Input.GetKeyDown(KeyCode.E))
 			{
-				target.GetComponent<IHealable>().HealComplete();
+				target.GetComponent<IHealable>().HealComplete(this);
 			}
 		}
 

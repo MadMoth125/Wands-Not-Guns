@@ -1,5 +1,6 @@
 using System;
 using Core.CustomDebugger;
+using Enemy;
 using Enemy.Registry;
 using Obvious.Soap;
 using Sirenix.OdinInspector;

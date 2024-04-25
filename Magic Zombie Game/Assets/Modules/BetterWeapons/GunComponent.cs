@@ -1,5 +1,6 @@
 using Core.HealthSystem;
 using Core.Owning;
+using Core.Utils;
 using ScriptExtensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,10 +10,19 @@ namespace Weapons
 	[DisallowMultipleComponent]
 	public class GunComponent : MonoBehaviour, IOwnable<GameObject>
 	{
+		#region Properties
+
+		public Rigidbody Rigidbody => rb;
+		public ProjectileHandler ProjectileHandler => projectileHandler;
+		public GunFireComponent GunFireComponent => gunFireComponent;
+		public GunDamageComponent GunDamageComponent => gunDamageComponent;
+
+		#endregion
+
+		#region Fields
+
 		public bool enableGun = true;
-		
-		public int damage = 10;
-		
+
 		[ExternalComponentCategory]
 		[Required]
 		[SerializeField]
@@ -21,8 +31,35 @@ namespace Weapons
 		[ExternalComponentCategory]
 		[Required]
 		[SerializeField]
-		private ShootComponent shootComponent;
+		private GunFireComponent gunFireComponent;
+		
+		[ExternalComponentCategory]
+		[Required]
+		[SerializeField]
+		private GunDamageComponent gunDamageComponent;
+		
+		[ExternalComponentCategory]
+		[Required]
+		[SerializeField]
+		private CopyPosition copyPosition;
+		
+		[ExternalComponentCategory]
+		[Required]
+		[SerializeField]
+		private CopyRotation copyRotation;
 
+		[ExternalComponentCategory]
+		[Required]
+		[SerializeField]
+		private CopyTransformByName weaponCopyTransform;
+		
+		[ExternalComponentCategory]
+		[Required]
+		[SerializeField]
+		private Rigidbody rb;
+
+		#endregion
+		
 		private GameObject _owner;
 		private GunController _ownerController;
 
@@ -30,23 +67,30 @@ namespace Weapons
 		{
 			if (!enableGun) return;
 			
-			shootComponent.OrNull()?.StartShoot();
+			gunFireComponent.OrNull()?.StartShoot();
 		}
 
 		public void StopFiring()
 		{
 			if (!enableGun) return;
 			
-			shootComponent.OrNull()?.StopShoot();
+			gunFireComponent.OrNull()?.StopShoot();
 		}
 
 		#region Owner Methods
 
+		/// <summary>
+		/// Gets the owner of this gun.
+		/// </summary>
 		public GameObject GetOwner()
 		{
 			return _owner;
 		}
 
+		/// <summary>
+		/// Sets the new owner of this gun.
+		/// </summary>
+		/// <param name="owner"></param>
 		public void SetOwner(GameObject owner)
 		{
 			_owner = owner;
@@ -72,6 +116,39 @@ namespace Weapons
 
 		#endregion
 
+		/// <summary>
+		/// Sets the weapon's base transform to copy the position and rotation of the target.
+		/// </summary>
+		/// <param name="target">The target transform to copy the position and rotation of.</param>
+		public void SetWeaponRootCopyTarget(Transform target)
+		{
+			copyPosition.target = target;
+			copyRotation.target = target;
+		}
+		
+		/// <summary>
+		/// Sets the weapon's visual to copy the position and rotation of the target.
+		/// Meant to be used to attach to the body part that will hold the weapon. (e.g. Hand_R, Hand_L, etc.)
+		/// </summary>
+		/// <param name="rootTarget">The target transform to search the children of.</param>
+		/// <param name="targetName">The name of the child transform to copy the position and rotation of.</param>
+		public void SetWeaponVisualsCopyTarget(Transform rootTarget, string targetName)
+		{
+			weaponCopyTransform.target = rootTarget;
+			weaponCopyTransform.SetTargetName(targetName);
+		}
+		
+		/// <summary>
+		/// Sets the weapon's visual to copy the position and rotation of the target.
+		/// Uses the weapon's already defined target name to find and attach to the body part that will hold the weapon. (e.g. Hand_R, Hand_L, etc.)
+		/// </summary>
+		/// <param name="rootTarget">The target transform to search the children of.</param>
+		public void SetWeaponVisualsCopyTarget(Transform rootTarget)
+		{
+			weaponCopyTransform.target = rootTarget;
+			weaponCopyTransform.SetTargetName(weaponCopyTransform.GetTargetName());
+		}
+		
 		protected virtual void OnGunFired()
 		{
 			projectileHandler.OrNull()?.FireProjectile(TargetHitCallback);
@@ -81,12 +158,18 @@ namespace Weapons
 
 		private void Awake()
 		{
-			if (shootComponent == null)
+			if (gunFireComponent == null)
 			{
-				shootComponent = this.GetOrAddComponent<ShootComponent>();
-				shootComponent.SetOwner(this);
+				gunFireComponent = this.GetOrAddComponent<GunFireComponent>();
+				gunFireComponent.SetOwner(this);
 			}
 
+			if (gunDamageComponent == null)
+			{
+				gunDamageComponent = this.GetOrAddComponent<GunDamageComponent>();
+				gunDamageComponent.SetOwner(this);
+			}
+			
 			if (projectileHandler != null)
 			{
 				projectileHandler.SetOwner(this);
@@ -95,12 +178,12 @@ namespace Weapons
 
 		private void OnEnable()
 		{
-			shootComponent.OnShoot += OnGunFired;
+			gunFireComponent.OnShoot += OnGunFired;
 		}
 
 		private void OnDisable()
 		{
-			shootComponent.OnShoot -= OnGunFired;
+			gunFireComponent.OnShoot -= OnGunFired;
 		}
 
 		#endregion
@@ -110,7 +193,7 @@ namespace Weapons
 			if (hitContext.hitTarget == null) return;
 			if (hitContext.hitTarget.TryGetComponent(out IDamageable damageable))
 			{
-				damageable.Damage(damage);
+				damageable.Damage(gunDamageComponent.GetDamage(), _owner);
 			}
 		}
 	}

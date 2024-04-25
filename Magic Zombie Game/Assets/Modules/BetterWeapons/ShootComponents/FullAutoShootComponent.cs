@@ -11,6 +11,8 @@ public class FullAutoShootComponent : IDisposable
 {
 	public event Action OnShouldShoot;
 	
+
+	public bool IsFiring { get; private set; }
 	public LoopUntilTimer FireIntervalTimer => _fireIntervalTimer;
 	public float Interval => _interval;
 
@@ -66,7 +68,6 @@ public class FullAutoShootComponent : IDisposable
 	public void ForceStopTimer()
 	{
 		_fireIntervalTimer?.Cancel();
-		// _fireIntervalTimer = null;
 	}
 	
 	/// <summary>
@@ -79,6 +80,7 @@ public class FullAutoShootComponent : IDisposable
 		if (_inputState) return;
 		
 		_inputState = true;
+		IsFiring = true;
 		if (_fireIntervalTimer == null)
 		{
 			_fireIntervalTimer = Timer.LoopUntilAction(_interval,
@@ -104,7 +106,12 @@ public class FullAutoShootComponent : IDisposable
 	
 	private void HandleFire()
 	{
-		if (!_inputState) return;
+		if (!_inputState)
+		{
+			IsFiring = false;
+			return;
+		}
+		
 		_fireAction?.Invoke();
 		OnShouldShoot?.Invoke();
 	}

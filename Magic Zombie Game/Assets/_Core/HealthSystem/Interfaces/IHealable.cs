@@ -8,11 +8,12 @@ namespace Core.HealthSystem
 		/// Heals the target by the specified amount.
 		/// </summary>
 		/// <param name="amount">The health to regain.</param>
-		public void Heal(float amount);
+		/// <param name="source">The source of the healing.</param>
+		public void Heal(float amount, Object source);
 	
 		/// <summary>
 		/// Fully heals the target to its maximum health.
 		/// </summary>
-		public void HealComplete();
+		public void HealComplete(Object source);
 	}
 }

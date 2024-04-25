@@ -70,7 +70,7 @@ public class SimpleGun : MonoBehaviour
 				    Color.green,
 				    Color.red))
 			{
-				hit.collider.gameObject.GetComponent<IDamageable>()?.Kill();
+				hit.collider.gameObject.GetComponent<IDamageable>()?.Kill(this);
 			}
 		}
 	}

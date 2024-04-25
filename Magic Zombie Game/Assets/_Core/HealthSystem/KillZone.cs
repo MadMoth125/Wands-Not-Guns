@@ -50,7 +50,7 @@ namespace Core.HealthSystem
 				return;
 			}
 			
-			health.Kill();
+			health.Kill(this);
 			Debug.Log($"Killed {other.gameObject.name}");
 		}
 		

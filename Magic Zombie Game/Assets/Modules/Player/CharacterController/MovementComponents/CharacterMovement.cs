@@ -5,6 +5,7 @@ using Obvious.Soap;
 using ScriptExtensions;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Player.Controller
 {
@@ -21,6 +22,9 @@ namespace Player.Controller
 		public FloatVariable moveSharpness;
 		public FloatVariable airMoveSpeed;
 		public FloatVariable airAccelerationSpeed;
+
+		[HideInInspector]
+		public bool enabled = true;
 		
 		private Vector3 _moveDirection = Vector3.zero;
 
@@ -65,8 +69,9 @@ namespace Player.Controller
 			currentVelocity = Motor.GetDirectionTangentToSurface(currentVelocity, effectiveGroundNormal) * currentVelocityMagnitude;
 
 			// Calculate target velocity
-			Vector3 inputRight = Vector3.Cross(_moveDirection, Motor.CharacterUp);
-			Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized * _moveDirection.magnitude;
+			Vector3 dir = enabled ? _moveDirection : Vector3.zero;
+			Vector3 inputRight = Vector3.Cross(dir, Motor.CharacterUp);
+			Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized * dir.magnitude;
 			Vector3 targetMovementVelocity = reorientedInput * moveSpeed;
 
 			// Smooth movement Velocity

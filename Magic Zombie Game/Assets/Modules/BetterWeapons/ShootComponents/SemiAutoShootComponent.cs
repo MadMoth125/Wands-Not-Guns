@@ -8,6 +8,7 @@ public class SemiAutoShootComponent : IDisposable
 {
 	public event Action OnShouldShoot;
 	
+	public bool IsFiring { get; private set; }
 	public DelayTimer FireIntervalTimer => _fireDelayTimer;
 	public float Interval => _interval;
 
@@ -70,14 +71,19 @@ public class SemiAutoShootComponent : IDisposable
 	{
 		if (!_canFire) return;
 		
-		HandleFire();
+		IsFiring = true;
 		_canFire = false;
+		HandleFire();
 		
 		// (the delay timer acts as a cooldown
 		// before being able to shoot again.)
 		if (_fireDelayTimer == null)
 		{
-			_fireDelayTimer = Timer.DelayAction(_interval, () => _canFire = true);
+			_fireDelayTimer = Timer.DelayAction(_interval, () =>
+			{
+				IsFiring = false;
+				_canFire = true;
+			});
 		}
 		else if (_fireDelayTimer.isDone)
 		{

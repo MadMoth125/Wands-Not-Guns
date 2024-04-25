@@ -10,9 +10,9 @@ namespace Core.Utils
 			PreviousValue = previousValue;
 		}
 
-		public float CurrentValue { get; }
+		public float CurrentValue { get; protected set; }
 
-		public float PreviousValue { get; }
+		public float PreviousValue { get; protected set; }
 
 		public float Difference => Math.Abs(CurrentValue - PreviousValue);
 

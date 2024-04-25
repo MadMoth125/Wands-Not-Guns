@@ -37,6 +37,9 @@ namespace Player.Controller
 		
 		public FloatVariable rotationSharpnessVariable;
 		
+		[HideInInspector]
+		public bool enabled = true;
+		
 		private Device _currentDevice = Device.KeyboardMouse;
 		
 		private Vector2 _cursorScreenPosition = Vector2.zero;
@@ -68,31 +71,34 @@ namespace Player.Controller
 			float rotationSharpness = rotationSharpnessVariable.OrNull() ?? 0f;
 			float lookAngle = lookAngleVariable.OrNull() ?? 0f;
 			Vector3 targetPosition = lookTarget.OrNull() ? lookTarget.position : Vector3.zero;
-			
-			switch (lookDirectionType)
+
+			if (enabled)
 			{
-				default:
-				case LookDirection.Custom:
-					_lookDirection = Quaternion.AngleAxis(lookAngle, Motor.CharacterUp) * Vector3.forward;
-					break;
-				case LookDirection.TowardsCursor:
-					if (!mouseUtility.OrNull()) break;
-					_cursorWorldPosition = mouseUtility.GetMouseWorldPosition(_cursorScreenPosition);
-					_lookDirection = _cursorWorldPosition.Set(y: Motor.TransientPosition.y) - Motor.TransientPosition;
-					break;
-				case LookDirection.TowardsTarget:
-					if (!lookTarget.OrNull()) break;
-					_lookDirection = targetPosition.Set(y: Motor.TransientPosition.y) - Motor.TransientPosition;
-					break;
-				case LookDirection.AwayFromTarget:
-					if (!lookTarget.OrNull()) break;
-					_lookDirection = Motor.TransientPosition - targetPosition.Set(y: Motor.TransientPosition.y);
-					break;
-				case LookDirection.TowardsMovementDirection:
-					_lookDirection = Motor.BaseVelocity;
-					break;
-				case LookDirection.TowardsMovementInput:
-					break;
+				switch (lookDirectionType)
+				{
+					default:
+					case LookDirection.Custom:
+						_lookDirection = Quaternion.AngleAxis(lookAngle, Motor.CharacterUp) * Vector3.forward;
+						break;
+					case LookDirection.TowardsCursor:
+						if (!mouseUtility.OrNull()) break;
+						_cursorWorldPosition = mouseUtility.GetMouseWorldPosition(_cursorScreenPosition);
+						_lookDirection = _cursorWorldPosition.Set(y: Motor.TransientPosition.y) - Motor.TransientPosition;
+						break;
+					case LookDirection.TowardsTarget:
+						if (!lookTarget.OrNull()) break;
+						_lookDirection = targetPosition.Set(y: Motor.TransientPosition.y) - Motor.TransientPosition;
+						break;
+					case LookDirection.AwayFromTarget:
+						if (!lookTarget.OrNull()) break;
+						_lookDirection = Motor.TransientPosition - targetPosition.Set(y: Motor.TransientPosition.y);
+						break;
+					case LookDirection.TowardsMovementDirection:
+						_lookDirection = Motor.BaseVelocity;
+						break;
+					case LookDirection.TowardsMovementInput:
+						break;
+				}
 			}
 			
 			if (_lookDirection.sqrMagnitude > 0f && rotationSharpness > 0f)
@@ -107,6 +113,11 @@ namespace Player.Controller
 			}
 		}
 
+		public void SetLookDirection(Vector3 lookDirection)
+		{
+			_lookDirection = lookDirection;
+		}
+		
 		private void OnMoveCursorListener(InputAction.CallbackContext ctx)
 		{
 			switch (_currentDevice)

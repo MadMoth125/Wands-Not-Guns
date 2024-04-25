@@ -1,48 +1,65 @@
 using System;
 using Core.HealthSystem;
+using Core.Owning;
 using Obvious.Soap;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class EnemyComponent : MonoBehaviour
+namespace Enemy
 {
-	#region Properties
+	[SelectionBase]
+	public class EnemyComponent : MonoBehaviour
+	{
+		#region Properties
 
-	public EnemyPathfinding PathfindingComponent => pathfindingComponent;
-	public HealthComponent HealthComponent => healthComponent;
-	public int EnemyId => gameObject.GetInstanceID();
+		public EnemyPathfinding PathfindingComponent => pathfindingComponent;
+		public EnemyDamageTargetDetector DamageComponent => damageComponent;
+		public HealthComponent HealthComponent => healthComponent;
+		public int EnemyId => gameObject.GetInstanceID();
 
-	#endregion
+		#endregion
 
-	[ScriptableEventCategory]
-	[Required]
-	[SerializeField]
-	private ScriptableEventInt onDieEventAsset;
+		[ScriptableEventCategory]
+		[Required]
+		[SerializeField]
+		private ScriptableEventInt onDieEventAsset;
 
-	[ExternalComponentCategory]
-	[SerializeField]
-	private EnemyPathfinding pathfindingComponent;
+		[ExternalComponentCategory]
+		[SerializeField]
+		private EnemyPathfinding pathfindingComponent;
+		
+		[ExternalComponentCategory]
+		[SerializeField]
+		private EnemyDamageTargetDetector damageComponent;
 	
-	[ExternalComponentCategory]
-	[SerializeField]
-	private HealthComponent healthComponent;
+		[ExternalComponentCategory]
+		[SerializeField]
+		private HealthComponent healthComponent;
 
-	#region Unity Methods
+		#region Unity Methods
 
-	private void OnEnable()
-	{
-		healthComponent.OnDie += HandleDie;
-	}
+		private void Awake()
+		{
+			pathfindingComponent.SetOwner(this);
+			damageComponent.SetOwner(this);
+			healthComponent.SetOwner(gameObject);
+		}
 
-	private void OnDisable()
-	{
-		healthComponent.OnDie -= HandleDie;
-	}
+		private void OnEnable()
+		{
+			healthComponent.OnDie += HandleDie;
+		}
 
-	#endregion
+		private void OnDisable()
+		{
+			healthComponent.OnDie -= HandleDie;
+		}
 
-	private void HandleDie()
-	{
-		onDieEventAsset.Raise(EnemyId);
+		#endregion
+
+		private void HandleDie()
+		{
+			onDieEventAsset.Raise(EnemyId);
+		}
 	}
 }

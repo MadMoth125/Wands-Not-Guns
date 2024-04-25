@@ -5,18 +5,6 @@ namespace Core.HealthSystem
 	public interface IHealthProperties : IDamageable, IHealable
 	{
 		/// <summary>
-		/// The Object that owns this <see cref="IHealthProperties"/>.
-		/// </summary>
-		/// <returns>The Object owner.</returns>
-		public Object GetOwner();
-		
-		/// <summary>
-		/// Sets the Object that owns this <see cref="IHealthProperties"/>.
-		/// </summary>
-		/// <param name="owner">The Object owner.</param>
-		public void SetOwner(Object owner);
-	
-		/// <summary>
 		/// The current health of the target.
 		/// </summary>
 		public float GetHealth();
