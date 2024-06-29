@@ -1,4 +1,4 @@
-# Wands Not Guns (FT Capstone)
+# Wands Not Guns
 
 A top-down shooter where you fight off waves of enemies in a round-based format.
 
